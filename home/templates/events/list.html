@@ -1,0 +1,9 @@
+<!-- events/list.html -->
+{% extends 'base.html' %}
+{% block title %}Events{% endblock %}
+{% block content %}
+<h1>Upcoming Events</h1>
+{% for e in events %}
+<div><a href="/events/{{ e.pk }}/">{{ e.title }}</a> — {{ e.date }}</div>
+{% endfor %}
+{% endblock %}

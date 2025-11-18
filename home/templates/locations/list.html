@@ -1,0 +1,12 @@
+<!-- locations/list.html -->
+{% extends 'base.html' %}
+{% block title %}Locations{% endblock %}
+{% block content %}
+<h1>Our Locations</h1>
+{% for loc in locations %}
+<div>
+<h3>{{ loc.name }}</h3>
+<p>{{ loc.address }}, {{ loc.city }}, {{ loc.state }}, {{ loc.country }}</p>
+</div>
+{% endfor %}
+{% endblock %}

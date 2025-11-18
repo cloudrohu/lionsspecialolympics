@@ -1,0 +1,61 @@
+{% load static %}
+<!-- _footer.html -->
+<footer>
+  <div class="container footer-wrap">
+    <div class="col about">
+      <a href="{% url 'home:index' %}"><img src="{% static 'img/logo-light.png' %}" alt="Site Logo" class="logo-small"/></a>
+      <p>{{ site_description|default:"We work to improve lives through community-driven projects." }}</p>
+
+      <div class="social">
+        {% for s in social_links %}
+          {% if s.is_visible %}
+            <a href="{{ s.url }}" target="_blank" aria-label="{{ s.platform }}">
+              {% if s.icon %}
+                <img src="{{ s.icon.url }}" alt="{{ s.platform }}" style="height:20px;" />
+              {% else %}
+                {{ s.platform|title }}
+              {% endif %}
+            </a>
+          {% endif %}
+        {% empty %}
+          {# no social links #}
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="col links">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="{% url 'home:about' %}">About Us</a></li>
+        <li><a href="{% url 'home:project_list' %}">Projects</a></li>
+        <li><a href="{% url 'home:campaign_list' %}">Campaigns</a></li>
+        <li><a href="{% url 'home:volunteer' %}">Volunteer</a></li>
+        <li><a href="{% url 'home:contact' %}">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="col contact">
+      <h4>Contact</h4>
+
+      {% for loc in locations %}
+        <div class="loc">
+          <strong>{{ loc.name }}</strong>
+          <address>
+            {{ loc.address }}{% if loc.address %}<br>{% endif %}{{ loc.city }}, {{ loc.state }} {{ loc.country }}
+          </address>
+          {% if loc.phone %}<div>Phone: {{ loc.phone }}</div>{% endif %}
+          {% if loc.email %}<div>Email: <a href="mailto:{{ loc.email }}">{{ loc.email }}</a></div>{% endif %}
+        </div>
+      {% empty %}
+        <div>Contact details not available.</div>
+      {% endfor %}
+    </div>
+  </div> <!-- /.footer-wrap -->
+
+  <div class="container copyright">
+    <div class="left">© {{ now|date:'Y' }} {{ site_name|default:'NGO' }}. All rights reserved.</div>
+    <div class="right">
+      <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a>
+    </div>
+  </div>
+</footer>

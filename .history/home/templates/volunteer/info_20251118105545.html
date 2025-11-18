@@ -1,0 +1,8 @@
+<!-- volunteer/info.html -->
+{% extends 'base.html' %}
+{% block title %}Volunteer{% endblock %}
+{% block content %}
+<h1>Volunteer with us</h1>
+<p>Read about volunteering, roles, and how to apply.</p>
+<a href="{% url 'home:volunteer_apply' %}">Apply now</a>
+{% endblock %}

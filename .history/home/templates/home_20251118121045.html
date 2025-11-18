@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home | {{ site_name }}{% endblock %}
+
+{% block content %}
+
+{# put this near top of home.html inside block content #}
+{% if slides %}
+<section class="carousel" aria-label="Homepage slides">
+  <div class="carousel-track" id="carousel-track">
+    {% for s in slides %}
+      <div class="carousel-slide" data-index="{{ forloop.counter0 }}">
+        {% if s.link %}
+          <a href="{{ s.link }}">
+            <img src="{{ s.image.url }}" alt="{{ s.title|default:'Slide' }}">
+          </a>
+        {% else %}
+          <img src="{{ s.image.url }}" alt="{{ s.title|default:'Slide' }}">
+        {% endif %}
+        <div class="carousel-caption">
+          {% if s.title %}<h2>{{ s.title }}</h2>{% endif %}
+          {% if s.subtitle %}<p>{{ s.subtitle }}</p>{% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <button class="carousel-btn prev" id="carousel-prev" aria-label="Previous slide">‹</button>
+  <button class="carousel-btn next" id="carousel-next" aria-label="Next slide">›</button>
+
+  <div class="carousel-dots" id="carousel-dots">
+    {% for s in slides %}
+      <button class="dot{% if forloop.first %} active{% endif %}" data-index="{{ forloop.counter0 }}" aria-label="Go to slide {{ forloop.counter }}"></button>
+    {% endfor %}
+  </div>
+</section>
+{% else %}
+  {# existing hero content if no slides #}
+  <section class="hero"> ... your old hero ... </section>
+{% endif %}
+
+
+<!-- IMPACT SECTION -->
+<section class="impact">
+  <h2>Our Impact</h2>
+  <div class="impact-grid">
+    {% for m in impact_metrics %}
+      <div class="impact-box">
+        <div class="value">{{ m.value }}</div>
+        <div class="title">{{ m.title }}</div>
+        <p>{{ m.description }}</p>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- FEATURED PROJECTS -->
+<section class="projects">
+  <h2>Featured Projects</h2>
+  <div class="proj-grid">
+    {% for p in featured_projects %}
+      <div class="proj-card">
+        {% if p.featured_image %}
+          <img src="{{ p.featured_image.url }}" class="proj-img" />
+        {% endif %}
+        <h3>{{ p.title }}</h3>
+        <p>{{ p.summary|truncatewords:20 }}</p>
+        <a href="{% url 'home:project_detail' slug=p.slug %}" class="btn btn-small">View Details</a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ACTIVE CAMPAIGNS -->
+<section class="campaigns">
+  <h2>Active Campaigns</h2>
+  <div class="camp-grid">
+    {% for c in campaigns %}
+      <div class="camp-card">
+        <h3>{{ c.title }}</h3>
+        <p>Goal: {{ c.goal_amount }}</p>
+        <a href="{% url 'home:campaign_detail' slug=c.slug %}" class="btn btn-small">Support</a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- LATEST NEWS -->
+<section class="news">
+  <h2>Latest News</h2>
+  <div class="news-grid">
+    {% for n in latest_news %}
+      <div class="news-card">
+        <h3>{{ n.title }}</h3>
+        <p>{{ n.content|truncatewords:25 }}</p>
+        <a href="{% url 'home:news_detail' slug=n.slug %}" class="btn btn-small">Read More</a>
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- GALLERY PREVIEW -->
+<section class="gallery-preview">
+  <h2>Gallery</h2>
+  <div class="gallery-grid">
+    {% for g in gallery %}
+      <img src="{{ g.image.url }}" class="gallery-thumb" />
+    {% endfor %}
+  </div>
+  <a href="{% url 'home:gallery' %}" class="btn btn-small">View Full Gallery</a>
+</section>
+
+<!-- PARTNERS -->
+<section class="partners">
+  <h2>Our Partners</h2>
+  <div class="partner-grid">
+    {% for p in partners %}
+      <img src="{{ p.logo.url }}" alt="{{ p.name }}" class="partner-logo" />
+    {% endfor %}
+  </div>
+</section>
+
+{% endblock %}
+
+
+<!-- HOME PAGE CSS (add to static/css/style.css) -->
+<style>
+.hero { position:relative; padding:80px 20px; background:#f0f4f8; text-align:center; }
+.hero .hero-content { max-width:700px; margin:auto; }
+.hero h1 { font-size:42px; margin-bottom:12px; }
+.btn { background:#0b6; color:#fff; padding:10px 18px; border-radius:6px; text-decoration:none; }
+.btn-small { background:#444; color:#fff; padding:6px 12px; border-radius:5px; }
+
+.impact-grid, .proj-grid, .camp-grid, .news-grid, .gallery-grid, .partner-grid {
+  display:grid; gap:20px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  margin-top:20px;
+}
+.proj-card, .camp-card, .news-card {
+  border:1px solid #ddd; padding:16px; border-radius:8px; background:#fff;
+}
+.proj-img { width:100%; border-radius:6px; margin-bottom:10px; }
+.gallery-thumb { width:100%; border-radius:8px; height:180px; object-fit:cover; }
+.partner-logo { height:50px; object-fit:contain; filter:grayscale(100%); opacity:0.8; }
+</style>

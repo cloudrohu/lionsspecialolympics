@@ -1,0 +1,9 @@
+<!-- campaigns/detail.html -->
+{% extends 'base.html' %}
+{% block title %}{{ campaign.title }}{% endblock %}
+{% block content %}
+<h1>{{ campaign.title }}</h1>
+<p>{{ campaign.description }}</p>
+<p>Goal: {{ campaign.goal_amount }} | Deadline: {{ campaign.deadline }}</p>
+<a href="{% url 'main:campaign_donate' slug=campaign.slug %}">Donate to this campaign</a>
+{% endblock %}

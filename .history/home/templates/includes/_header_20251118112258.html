@@ -1,0 +1,44 @@
+<!-- _header.html -->
+<header>
+  <div class="container nav-wrap">
+    <div class="brand">
+      <a href="{% url 'main:home' %}">
+        <img src="{% static 'img/logo.png' %}" alt="Site Logo" class="logo" />
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <ul>
+        <li><a href="{% url 'main:home' %}">Home</a></li>
+        <li><a href="{% url 'main:about' %}">About</a></li>
+        <li class="has-sub">
+          <a href="#">Work</a>
+          <ul class="sub">
+            <li><a href="{% url 'main:project_list' %}">Projects</a></li>
+            <li><a href="{% url 'main:campaign_list' %}">Campaigns</a></li>
+            <li><a href="{% url 'main:partners' %}">Partners</a></li>
+          </ul>
+        </li>
+        <li><a href="{% url 'main:event_list' %}">Events</a></li>
+        <li><a href="{% url 'main:news_list' %}">News</a></li>
+        <li><a href="{% url 'main:gallery' %}">Gallery</a></li>
+        <li><a href="{% url 'main:contact' %}">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="nav-ctas">
+      <a class="btn btn-donate" href="{% url 'main:donate' %}">Donate</a>
+      {% if user.is_authenticated %}
+        <a class="btn btn-dashboard" href="/accounts/profile/">My Account</a>
+        <a class="btn btn-logout" href="{% url 'logout' %}">Logout</a>
+      {% else %}
+        <a class="btn btn-login" href="{% url 'login' %}">Login</a>
+        <a class="btn btn-signup" href="{% url 'signup' %}">Sign up</a>
+      {% endif %}
+
+      <!-- mobile menu toggle -->
+      <button id="menu-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+  </div>
+</header>
+

@@ -1,0 +1,12 @@
+<!-- testimonials/list.html -->
+{% extends 'base.html' %}
+{% block title %}Testimonials{% endblock %}
+{% block content %}
+<h1>Testimonials</h1>
+{% for t in testimonials %}
+<blockquote>
+<p>{{ t.content }}</p>
+<footer>{{ t.author_name }} — {{ t.author_title }}</footer>
+</blockquote>
+{% endfor %}
+{% endblock %}

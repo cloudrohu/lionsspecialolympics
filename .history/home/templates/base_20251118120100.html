@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}{{ site_name|default:"NGO" }}{% endblock %}</title>
+
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  <style>
+    /* small helper for flash messages */
+    .messages { max-width:1000px; margin:12px auto; padding:0 16px; }
+    .messages .msg { padding:10px; border-radius:6px; margin-bottom:8px; }
+    .msg.info { background:#e6f0ff; border:1px solid #cfe0ff; }
+    .msg.success { background:#e6ffef; border:1px solid #cfeedf; }
+    .msg.warning { background:#fff5e6; border:1px solid #ffe6b3; }
+    .msg.error { background:#ffe6e6; border:1px solid #ffcfcf; }
+  </style>
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+  {# include header partial - keep it in templates/includes/_header.html #}
+  {% include "includes/_header.html" %}
+
+  <main role="main" class="site-main">
+    <div class="messages">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="msg {{ message.tags }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <div class="container">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+
+  {# include footer partial - keep it in templates/includes/_footer.html #}
+  {% include "includes/_footer.html" %}
+
+  <script src="{% static 'js/site.js' %}"></script>
+  <script>
+    // small inline fallback for menu toggle
+    (function(){
+      var btn = document.getElementById('menu-toggle');
+      var nav = document.querySelector('.main-nav');
+      if(btn && nav){
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          nav.classList.toggle('open');
+        });
+      }
+    })();
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+  <script src="{% static 'js/carousel.js' %}"></script>
+
+</body>
+</html>

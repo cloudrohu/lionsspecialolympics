@@ -1,0 +1,36 @@
+<!-- dashboard/index.html -->
+{% extends 'base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Staff Dashboard</h1>
+<p>Total donations: {{ total_donations }}</p>
+<h2>Recent Donations</h2>
+<ul>
+{% for d in recent_donations %}
+<li>{{ d }} — {{ d.date }}</li>
+{% endfor %}
+</ul>
+
+
+<h2>Upcoming Events</h2>
+<ul>
+{% for e in upcoming_events %}
+<li>{{ e.title }} — {{ e.date }}</li>
+{% endfor %}
+</ul>
+
+
+<h2>Pending Volunteers</h2>
+<ul>
+{% for v in pending_volunteers %}
+<li>{{ v.profile }} — {{ v.applied_on }}</li>
+{% endfor %}
+</ul>
+
+
+# Static CSS starter (static/css/style.css)
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+header { background: #0b6; padding: 12px; }
+header nav a { margin-right: 12px; color: #fff; text-decoration: none; }
+main { padding: 20px; }
+footer { background: #eee; padding: 12px; text-align: center; }

@@ -1,0 +1,102 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}NGO Website{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/about/">About</a>
+      <a href="/projects/">Projects</a>
+      <a href="/campaigns/">Campaigns</a>
+      <a href="/events/">Events</a>
+      <a href="/news/">News</a>
+      <a href="/gallery/">Gallery</a>
+      <a href="/contact/">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer>
+    <p>© {{ now|date:"Y" }} NGO Website. All rights reserved.</p>
+  </footer>
+</body>
+</html>
+
+
+<!-- home.html -->
+{% extends 'base.html' %}
+{% block title %}Home | NGO{% endblock %}
+{% block content %}
+<h1>Welcome to Our NGO</h1>
+<section>
+  <h2>Featured Projects</h2>
+  {% for p in featured_projects %}
+    <div>{{ p.title }}</div>
+  {% endfor %}
+</section>
+
+<section>
+  <h2>Latest News</h2>
+  {% for n in latest_news %}
+    <div>{{ n.title }}</div>
+  {% endfor %}
+</section>
+
+<section>
+  <h2>Active Campaigns</h2>
+  {% for c in campaigns %}
+    <div>{{ c.title }}</div>
+  {% endfor %}
+</section>
+{% endblock %}
+
+
+<!-- projects/list.html -->
+{% extends 'base.html' %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+<h1>Projects</h1>
+{% for p in projects %}
+  <div><a href="/projects/{{ p.slug }}/">{{ p.title }}</a></div>
+{% endfor %}
+{% endblock %}
+
+<!-- projects/detail.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ project.title }}</h1>
+<p>{{ project.description }}</p>
+{% endblock %}
+
+
+<!-- contact.html -->
+{% extends 'base.html' %}
+{% block title %}Contact{% endblock %}
+{% block content %}
+<h1>Contact Us</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Send</button>
+</form>
+{% endblock %}
+
+
+<!-- donate.html -->
+{% extends 'base.html' %}
+{% block title %}Donate{% endblock %}
+{% block content %}
+<h1>Donate</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Donate</button>
+</form>
+{% endblock %}

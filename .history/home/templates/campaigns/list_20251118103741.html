@@ -1,0 +1,9 @@
+<!-- campaigns/list.html -->
+{% extends 'base.html' %}
+{% block title %}Campaigns{% endblock %}
+{% block content %}
+<h1>Campaigns</h1>
+{% for c in campaigns %}
+<div><a href="/campaigns/{{ c.slug }}/">{{ c.title }}</a> — Goal: {{ c.goal_amount }}</div>
+{% endfor %}
+{% endblock %}

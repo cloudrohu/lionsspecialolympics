@@ -1,0 +1,13 @@
+<!-- partners/list.html -->
+{% extends 'base.html' %}
+{% block title %}Partners{% endblock %}
+{% block content %}
+<h1>Our Partners</h1>
+{% for p in partners %}
+<div>
+{% if p.logo %}<img src="{{ p.logo.url }}" alt="{{ p.name }}" style="height:40px;" />{% endif %}
+<strong>{{ p.name }}</strong>
+<p>{{ p.description }}</p>
+</div>
+{% endfor %}
+{% endblock %}
