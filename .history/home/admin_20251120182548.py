@@ -221,31 +221,4 @@ class AboutPageContentAdmin(admin.ModelAdmin):
     # If you prefer single instance workflow, you can remove add permission later or enforce via code.
 
 
-
-@admin.register(SiteSetting)
-class SiteSettingAdmin(admin.ModelAdmin):
-    list_display = ('site_name', 'updated_on', 'maintenance_mode')
-    readonly_fields = ('updated_on',)
-
-    fieldsets = (
-        ("Branding", {
-            "fields": ("site_name", "logo", "favicon", "tagline")
-        }),
-        ("Contact Information", {
-            "fields": ("phone", "email", "address")
-        }),
-        ("Global Defaults", {
-            "fields": ("default_hero", "default_cta_text", "default_cta_link")
-        }),
-        ("SEO Settings", {
-            "fields": ("seo_title", "seo_description")
-        }),
-        ("Footer", {
-            "fields": ("footer_text",)
-        }),
-        ("System", {
-            "fields": ("maintenance_mode", "updated_on")
-        }),
-    )
-
 # End of admin.py

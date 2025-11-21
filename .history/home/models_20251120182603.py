@@ -431,34 +431,3 @@ class AboutPageContent(models.Model):
 
     def __str__(self):
         return "About Page Content"
-
-
-class SiteSetting(models.Model):
-    site_name = models.CharField(max_length=200, default="NGO")
-    logo = models.ImageField(upload_to="settings/", blank=True, null=True)
-    favicon = models.ImageField(upload_to="settings/", blank=True, null=True)
-
-    tagline = models.CharField(max_length=300, blank=True)
-    about_short = models.TextField(blank=True)
-
-    phone = models.CharField(max_length=50, blank=True)
-    email = models.EmailField(blank=True)
-    address = models.TextField(blank=True)
-
-    default_hero = models.ImageField(upload_to="settings/", blank=True, null=True)
-    default_cta_text = models.CharField(max_length=200, blank=True)
-    default_cta_link = models.CharField(max_length=300, blank=True)
-
-    seo_title = models.CharField(max_length=255, blank=True)
-    seo_description = models.TextField(blank=True)
-
-    maintenance_mode = models.BooleanField(default=False)
-
-    updated_on = models.DateTimeField(auto_now=True)
-
-    class Meta:
-        verbose_name = "Site Setting"
-        verbose_name_plural = "Site Settings"
-
-    def __str__(self):
-        return "Global Site Settings"

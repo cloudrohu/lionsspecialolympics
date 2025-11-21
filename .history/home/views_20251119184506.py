@@ -14,47 +14,9 @@ from .models import (
 )
 from .forms import ContactForm, DonationForm, VolunteerForm, EventRegistrationForm
 
-
-
 class AboutView(TemplateView):
     template_name = 'about.html'
 
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-
-        # adapt these queries to your actual models and fields
-        ctx['hero_image_url'] = '/static/images/about-hero.jpg'
-        ctx['hero_heading'] = "About Cloud Rohu"
-        ctx['hero_sub'] = "Empowering communities through compassion, innovation and action."
-
-        ctx['mission_text'] = "To support underserved communities through welfare campaigns, education and health initiatives."
-        ctx['vision_text'] = "A world where every person has access to opportunities and dignity."
-
-        ctx['impact_metrics'] = ImpactMetric.objects.all().order_by('order')[:6]
-        # Build team_members list from Profile model - adapt attribute names
-        team = Profile.objects.filter(role__in=['admin','staff']).order_by('user__id')[:6]
-        ctx['team_members'] = [
-            {
-                'photo_url': (p.photo.url if p.photo else '/static/images/avatar-placeholder.png'),
-                'name': p.full_name or getattr(p, 'user').get_full_name() or str(getattr(p,'user')),
-                'role': p.get_role_display() if hasattr(p,'get_role_display') else p.role,
-                'bio': p.bio or '',
-                'social_links': p.social_links.all() if hasattr(p,'social_links') else []
-            } for p in team
-        ]
-        ctx['partners'] = [{'logo_url': (p.logo.url if p.logo else ''), 'name': p.name} for p in Partner.objects.all()[:12]]
-        ctx['timeline_events'] = [
-            {'year': '2009', 'title': 'Founded', 'desc':'Started with small local projects.'},
-            {'year': '2016', 'title': 'Scaled up', 'desc':'Expanded to multiple cities.'},
-        ]  # replace with your Timeline model if you have one
-
-        ctx['gallery'] = [{'image_url': g.image.url, 'caption': g.caption} for g in GalleryImage.objects.order_by('-uploaded_on')[:9]]
-        ctx['social_links'] = SocialLink.objects.filter(is_visible=True)
-
-        ctx['cta_text'] = "Join Our Movement"
-        ctx['cta_link'] = '/volunteer/'
-
-        return ctx
 
 class HomeView(View):
     template_name = 'home.html'

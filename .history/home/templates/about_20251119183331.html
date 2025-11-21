@@ -1,0 +1,321 @@
+<!-- ABOUT PAGE: templates/about.html -->
+{% extends 'base.html' %}
+{% block title %}About | {{ site_name }}{% endblock %}
+{% block content %}
+<section class="about-page">
+  <h1>About Us</h1>
+  <p>{{ site_description|default:"We are a community-focused NGO." }}</p>
+  <h2>Our Mission</h2>
+  <p><!-- write mission content in admin or template --></p>
+  <h2>Our Team</h2>
+  <div class="team-grid">
+
+    {% if team_members %}
+        {% for member in team_members %}
+            <div class="team-card">
+            {% if member.photo %}<img src="{{ member.photo.url }}" alt="{{ member.full_name }}">{% endif %}
+            <h3>{{ member.full_name }}</h3>
+            <p>{{ member.role }}</p>
+            <p>{{ member.bio }}</p>
+            </div>
+        {% endfor %}
+    {% else %}
+    <p>Team details will appear here.</p>
+    {% endif %}
+
+  </div>
+</section>
+{% endblock %}
+
+
+<!-- PROJECTS LIST: templates/projects/list.html -->
+{% extends 'base.html' %}
+{% block title %}Projects | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Projects</h1>
+<div class="proj-grid">
+{% for p in projects %}
+  <article class="proj-card">
+    {% if p.featured_image %}<img src="{{ p.featured_image.url }}" alt="{{ p.title }}">{% endif %}
+    <h3><a href="{% url 'home:project_detail' slug=p.slug %}">{{ p.title }}</a></h3>
+    <p>{{ p.summary }}</p>
+  </article>
+{% empty %}
+  <p>No projects found.</p>
+{% endfor %}
+</div>
+{% endblock %}
+
+
+<!-- PROJECT DETAIL: templates/projects/detail.html -->
+{% extends 'base.html' %}
+{% block title %}{{ project.title }} | {{ site_name }}{% endblock %}
+{% block content %}
+<article class="project-detail">
+  <h1>{{ project.title }}</h1>
+  {% if project.featured_image %}<img src="{{ project.featured_image.url }}" alt="{{ project.title }}">{% endif %}
+  <p>{{ project.description }}</p>
+  <dl>
+    <dt>Start</dt><dd>{{ project.start_date }}</dd>
+    <dt>End</dt><dd>{{ project.end_date }}</dd>
+    <dt>Budget</dt><dd>{{ project.budget }}</dd>
+  </dl>
+</article>
+{% endblock %}
+
+
+<!-- CAMPAIGNS LIST: templates/campaigns/list.html -->
+{% extends 'base.html' %}
+{% block title %}Campaigns | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Campaigns</h1>
+<div class="camp-grid">
+{% for c in campaigns %}
+  <div class="camp-card">
+    <h3><a href="{% url 'home:campaign_detail' slug=c.slug %}">{{ c.title }}</a></h3>
+    <p>{{ c.description|truncatewords:30 }}</p>
+    <p>Goal: {{ c.goal_amount }} | Raised: {{ c.donations.aggregate_total|default:'0' }}</p>
+    <a class="btn" href="{% url 'home:campaign_donate' slug=c.slug %}">Donate</a>
+  </div>
+{% empty %}
+  <p>No active campaigns.</p>
+{% endfor %}
+</div>
+{% endblock %}
+
+
+<!-- CAMPAIGN DETAIL: templates/campaigns/detail.html -->
+{% extends 'base.html' %}
+{% block title %}{{ campaign.title }} | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>{{ campaign.title }}</h1>
+<p>{{ campaign.description }}</p>
+<p>Goal: {{ campaign.goal_amount }} | Deadline: {{ campaign.deadline }}</p>
+<a class="btn" href="{% url 'home:campaign_donate' slug=campaign.slug %}">Donate to this campaign</a>
+{% endblock %}
+
+
+<!-- CAMPAIGN DONATE: templates/campaigns/donate.html -->
+{% extends 'base.html' %}
+{% block title %}Donate — {{ campaign.title }}{% endblock %}
+{% block content %}
+<h1>Donate to {{ campaign.title }}</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-donate">Donate</button>
+</form>
+{% endblock %}
+
+
+<!-- EVENTS LIST: templates/events/list.html -->
+{% extends 'base.html' %}
+{% block title %}Events | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Events</h1>
+<ul>
+{% for e in events %}
+  <li><a href="{% url 'home:event_detail' pk=e.pk %}">{{ e.title }}</a> — {{ e.date }}</li>
+{% empty %}
+  <li>No upcoming events.</li>
+{% endfor %}
+</ul>
+{% endblock %}
+
+
+<!-- EVENT DETAIL: templates/events/detail.html -->
+{% extends 'base.html' %}
+{% block title %}{{ event.title }} | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>{{ event.title }}</h1>
+<p>{{ event.description }}</p>
+<p>Date: {{ event.date }} | Location: {{ event.location }}</p>
+{% if event.registration_required %}
+  <a href="{% url 'home:event_register' pk=event.pk %}" class="btn">Register</a>
+{% endif %}
+{% endblock %}
+
+
+<!-- EVENT REGISTER: templates/events/register.html -->
+{% extends 'base.html' %}
+{% block title %}Register for {{ event.title }}{% endblock %}
+{% block content %}
+<h1>Register: {{ event.title }}</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn">Register</button>
+</form>
+{% endblock %}
+
+
+<!-- DONATE PAGE: templates/donate.html -->
+{% extends 'base.html' %}
+{% block title %}Donate | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Donate</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-donate">Donate</button>
+</form>
+{% endblock %}
+
+
+<!-- VOLUNTEER INFO: templates/volunteer/info.html -->
+{% extends 'base.html' %}
+{% block title %}Volunteer | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Volunteer with us</h1>
+<p>Read about volunteering and roles here.</p>
+<a href="{% url 'home:volunteer_apply' %}" class="btn">Apply to Volunteer</a>
+{% endblock %}
+
+
+<!-- VOLUNTEER APPLY: templates/volunteer/apply.html -->
+{% extends 'base.html' %}
+{% block title %}Volunteer Application{% endblock %}
+{% block content %}
+<h1>Volunteer Application</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn">Submit Application</button>
+</form>
+{% endblock %}
+
+
+<!-- NEWS LIST: templates/news/list.html -->
+{% extends 'base.html' %}
+{% block title %}News | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>News</h1>
+{% for post in posts %}
+  <article>
+    <h2><a href="{% url 'home:news_detail' slug=post.slug %}">{{ post.title }}</a></h2>
+    <p>{{ post.content|truncatewords:30 }}</p>
+  </article>
+{% empty %}
+  <p>No news yet.</p>
+{% endfor %}
+{% endblock %}
+
+
+<!-- NEWS DETAIL: templates/news/detail.html -->
+{% extends 'base.html' %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block content %}
+<article>
+  <h1>{{ post.title }}</h1>
+  <p>By {{ post.author }} | {{ post.published_on }}</p>
+  <div>{{ post.content }}</div>
+</article>
+{% endblock %}
+
+
+<!-- GALLERY: templates/gallery/list.html -->
+{% extends 'base.html' %}
+{% block title %}Gallery | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Gallery</h1>
+<div class="gallery-grid">
+  {% for img in images %}
+    <figure class="gallery-item">
+      <img src="{{ img.image.url }}" alt="{{ img.caption }}">
+      <figcaption>{{ img.caption }}</figcaption>
+    </figure>
+  {% empty %}
+    <p>No images yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+<!-- CONTACT: templates/contact.html -->
+{% extends 'base.html' %}
+{% block title %}Contact | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Contact Us</h1>
+<form method="post">{% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn">Send Message</button>
+</form>
+{% endblock %}
+
+
+<!-- FAQ: templates/faq/list.html -->
+{% extends 'base.html' %}
+{% block title %}FAQ | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Frequently Asked Questions</h1>
+{% for f in faqs %}
+  <h3>{{ f.question }}</h3>
+  <p>{{ f.answer }}</p>
+{% empty %}
+  <p>No FAQs yet.</p>
+{% endfor %}
+{% endblock %}
+
+
+<!-- TESTIMONIALS: templates/testimonials/list.html -->
+{% extends 'base.html' %}
+{% block title %}Testimonials | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Testimonials</h1>
+{% for t in testimonials %}
+  <blockquote>
+    <p>{{ t.content }}</p>
+    <footer>{{ t.author_name }} — {{ t.author_title }}</footer>
+  </blockquote>
+{% empty %}
+  <p>No testimonials yet.</p>
+{% endfor %}
+{% endblock %}
+
+
+<!-- PARTNERS: templates/partners/list.html -->
+{% extends 'base.html' %}
+{% block title %}Partners | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Our Partners</h1>
+<div class="partner-grid">
+  {% for partner in partners %}
+    <div class="partner-item">
+      {% if partner.logo %}<img src="{{ partner.logo.url }}" alt="{{ partner.name }}">{% endif %}
+      <h3>{{ partner.name }}</h3>
+      <p>{{ partner.description }}</p>
+    </div>
+  {% empty %}
+    <p>No partners yet.</p>
+  {% endfor %}
+</div>
+{% endblock %}
+
+
+<!-- LOCATIONS: templates/locations/list.html -->
+{% extends 'base.html' %}
+{% block title %}Locations | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Our Locations</h1>
+<ul>
+  {% for loc in locations %}
+    <li>
+      <strong>{{ loc.name }}</strong>
+      <div>{{ loc.address }}, {{ loc.city }}, {{ loc.state }} {{ loc.country }}</div>
+    </li>
+  {% empty %}
+    <li>No locations yet.</li>
+  {% endfor %}
+</ul>
+{% endblock %}
+
+
+<!-- DASHBOARD: templates/dashboard/index.html -->
+{% extends 'base.html' %}
+{% block title %}Dashboard | {{ site_name }}{% endblock %}
+{% block content %}
+<h1>Staff Dashboard</h1>
+<p>Welcome, {{ user.get_full_name|default:user.username }}</p>
+<div class="dashboard-grid">
+  <div>Total donations: {{ total_donations }}</div>
+  <div>Recent donations: {{ recent_donations.count }}</div>
+  <div>Upcoming events: {{ upcoming_events.count }}</div>
+  <div>Pending volunteers: {{ pending_volunteers.count }}</div>
+</div>
+{% endblock %}

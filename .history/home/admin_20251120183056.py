@@ -221,6 +221,8 @@ class AboutPageContentAdmin(admin.ModelAdmin):
     # If you prefer single instance workflow, you can remove add permission later or enforce via code.
 
 
+from django.contrib import admin
+from .models import SiteSetting
 
 @admin.register(SiteSetting)
 class SiteSettingAdmin(admin.ModelAdmin):

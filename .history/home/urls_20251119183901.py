@@ -1,4 +1,3 @@
-# home/urls.py
 from django.urls import path
 from .views import (
     HomeView, AboutView,
@@ -12,10 +11,12 @@ from .views import (
     DashboardView
 )
 
-app_name = 'home'
+app_name = 'home'   # <-- changed from 'main' to 'home'
 
 urlpatterns = [
+    # homepage named 'index' to match templates
     path('', HomeView.as_view(), name='index'),
+
     path('about/', AboutView.as_view(), name='about'),
 
     # Projects
