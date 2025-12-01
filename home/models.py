@@ -367,6 +367,18 @@ class CarouselSlide(models.Model):
     def __str__(self):
         return self.title or f"Slide {self.pk}"
 
+class Highlight(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    icon = models.CharField(max_length=50)  # fa-solid fa-heart
+    order = models.PositiveIntegerField(default=0)
+    is_active = models.BooleanField(default=True)
+
+    class Meta:
+        ordering = ['order']
+
+    def __str__(self):
+        return self.title
 
 # --- About & Page related models (add these at the end of home/models.py) ---
 

@@ -220,6 +220,10 @@ class AboutPageContentAdmin(admin.ModelAdmin):
     readonly_fields = ('created_on', 'updated_on')
     # If you prefer single instance workflow, you can remove add permission later or enforce via code.
 
+@admin.register(Highlight)
+class HighlightAdmin(admin.ModelAdmin):
+    list_display = ('title', 'order', 'is_active')
+    list_editable = ('order', 'is_active')
 
 
 @admin.register(SiteSetting)
@@ -240,12 +244,11 @@ class SiteSettingAdmin(admin.ModelAdmin):
         ("SEO Settings", {
             "fields": ("seo_title", "seo_description")
         }),
-        ("Footer", {
-            "fields": ("footer_text",)
-        }),
         ("System", {
             "fields": ("maintenance_mode", "updated_on")
         }),
     )
+
+
 
 # End of admin.py

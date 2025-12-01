@@ -10,7 +10,8 @@ from django.utils import timezone
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import (
     Project, NewsPost, Campaign, Event, ContactMessage, Donation,
-    Volunteer, GalleryImage, FAQ, Testimonial, Partner, ImpactMetric, Location, SocialLink,CarouselSlide ,Profile
+    Volunteer, GalleryImage, FAQ, Testimonial, Partner, ImpactMetric, Location, SocialLink,CarouselSlide ,Profile,
+    SiteSetting,Highlight,
 )
 from .forms import ContactForm, DonationForm, VolunteerForm, EventRegistrationForm
 
@@ -60,16 +61,21 @@ class HomeView(View):
     template_name = 'home.html'
 
     def get(self, request):
+        site_setting = SiteSetting.objects.order_by('-id').first()
         featured_projects = Project.objects.filter(status='ongoing')[:6]
         latest_news = NewsPost.objects.filter(is_published=True).order_by('-published_on')[:3]
         campaigns = Campaign.objects.filter(is_active=True)[:3]
         impact_metrics = ImpactMetric.objects.all().order_by('order')[:6]
         partners = Partner.objects.all()[:8]
         gallery = GalleryImage.objects.order_by('-uploaded_on')[:6]
+        highlights = Highlight.objects.filter(is_active=True).order_by('order')
         social_links = SocialLink.objects.filter(is_visible=True)
         slides = CarouselSlide.objects.filter(is_active=True).order_by('order')[:10]  # NEW
 
         context = {
+
+            'highlights': highlights,
+            'site_setting': site_setting,
             'featured_projects': featured_projects,
             'latest_news': latest_news,
             'campaigns': campaigns,
