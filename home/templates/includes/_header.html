@@ -1,5 +1,4 @@
 {% load static %}
-  
 <!-- HEADER START HERE -->
 <head-desk-mob>
     <div id="overlay"></div>
@@ -10,21 +9,21 @@
             <!-- LOGO (Bigger) -->
             <div class="flex items-center gap-3">
                 <img src="{{ site_setting.logo.url }}"
-                    class="w-16 h-16 rounded-lg border-2 border-red-600 shadow-sm">
+                    class="w-16 h-16 rounded-full border-2 border-red-600 shadow-sm">
             </div>
 
         <!-- Desktop Menu -->
             <nav class="hidden lg:flex items-center gap-10 font-medium">
 
                 <a class="nav-desktop" href="/">Home</a>
-                <a class="nav-desktop" href="about.html">About</a>
-                <a class="nav-desktop" href="programs.html">Programs</a>
-                <a class="nav-desktop" href="events.html">Events</a>
-                <a class="nav-desktop" href="volunteer.html">Volunteer</a>
-                <a class="nav-desktop" href="gallery.html">Gallery</a>
-                <a class="nav-desktop" href="contact.html">Contact</a>
+                <a class="nav-desktop" href="{% url 'home:about' %}">About</a>
+                <a class="nav-desktop" href="{% url 'home:partners' %}">Partners</a>
+                <a class="nav-desktop" href="{% url 'home:event_list' %}">Events</a>
+                <a class="nav-desktop" href="{% url 'home:campaign_list' %}">Campaign</a>
+                <a class="nav-desktop" href="{% url 'home:gallery' %}">Gallery</a>
+                <a class="nav-desktop" href="{% url 'home:contact' %}">Contact</a>
 
-                    <a href="donate.html"
+                    <a href="{% url 'home:donate' %}"
                     class="donate-btn">
                         Donate
                     </a>
@@ -44,7 +43,7 @@
             <!-- LOGO + Close Button -->
             <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-300">
                 <div class="flex items-center gap-3">
-                    <img src="assets/images/logo/1.jpg"
+                    <img src="{{ site_setting.logo.url }}"
                         class="w-12 h-12 rounded-full border-2 border-red-600 shadow">
                     <h1 class="text-xl font-bold text-red-700">Lions Special Olympics</h1>
                 </div>
@@ -56,52 +55,53 @@
 
             <!-- MENU TITLE -->
             <h2 class="text-2xl font-bold text-red-700 mb-4">Menu</h2>
+        <!-- MENU LINKS (with icons + bottom line) -->
+        <div class="flex flex-col mt-2">
 
-            <!-- MENU LINKS (with icons + bottom line) -->
-            <div class="flex flex-col mt-2">
+            <a href="{% url 'home:index' %}"
+            class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                <i class="fa-solid fa-house text-red-600"></i> Home
+            </a>
 
-                <a href="/"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-house text-red-600"></i> Home
-                </a>
+            <a href="{% url 'home:about' %}"
+            class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                <i class="fa-solid fa-circle-info text-red-600"></i> About
+            </a>
 
-                <a href="about.html"
-                class="flex items-center gap-3 text-lg font-medium text-white0 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-circle-info text-red-600"></i> About
-                </a>
+            <a href="{% url 'home:partners' %}"
+            class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                <i class="fa-solid fa-heart text-red-600"></i> Partners
+            </a>
 
-                <a href="programs.html"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-heart text-red-600"></i> Programs
-                </a>
+            <a href="{% url 'home:event_list' %}"
+            class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                <i class="fa-solid fa-calendar-days text-red-600"></i> Events
+            </a>
 
-                <a href="events.html"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-calendar-days text-red-600"></i> Events
-                </a>
+            <!-- REPLACED VOLUNTEER WITH CAMPAIGNS -->
+            <a href="{% url 'home:campaign_list' %}"
+            class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                <i class="fa-solid fa-bullhorn text-red-600"></i> Campaigns
+            </a>
 
-                <a href="volunteer.html"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-people-group text-red-600"></i> Volunteer
-                </a>
+            <a href="{% url 'home:gallery' %}"
+            class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                <i class="fa-solid fa-image text-red-600"></i> Gallery
+            </a>
 
-                <a href="gallery.html"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-image text-red-600"></i> Gallery
-                </a>
+            <a href="{% url 'home:contact' %}"
+            class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                <i class="fa-solid fa-phone text-red-600"></i> Contact
+            </a>
 
-                <a href="contact.html"
-                class="flex items-center gap-3 text-lg font-medium text-whiteay-800 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-phone text-red-600"></i> Contact
-                </a>
+            <!-- DONATE BUTTON -->
+            <a href="{% url 'home:donate' %}"
+            class="mt-6 text-center bg-red-600 text-white text-lg font-semibold px-5 py-3 rounded-full shadow hover:bg-red-700">
+                Donate
+            </a>
 
-                <!-- DONATE BUTTON -->
-                <a href="donate.html"
-                    class="mt-6 text-center bg-red-600 text-white text-lg font-semibold px-5 py-3 rounded-full shadow hover:bg-red-700">
-                    Donate
-                </a>
+        </div>
 
-            </div>
 
         </div>
 

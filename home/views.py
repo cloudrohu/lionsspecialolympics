@@ -62,7 +62,7 @@ class HomeView(View):
 
     def get(self, request):
         site_setting = SiteSetting.objects.order_by('-id').first()
-        featured_projects = Project.objects.filter(status='ongoing')[:6]
+        featured_projects = Project.objects.filter
         latest_news = NewsPost.objects.filter(is_published=True).order_by('-published_on')[:3]
         campaigns = Campaign.objects.filter(is_active=True)[:3]
         impact_metrics = ImpactMetric.objects.all().order_by('order')[:6]

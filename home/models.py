@@ -83,6 +83,7 @@ class Project(models.Model):
         ('archived', 'Archived'),
     ]
 
+    image = models.ImageField(upload_to='projects', blank=True, null=True)
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
     summary = models.CharField(max_length=500, blank=True)
