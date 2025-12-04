@@ -233,7 +233,7 @@ class SiteSettingAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Branding", {
-            "fields": ("site_name", "logo", "favicon", "tagline","copyright")
+            "fields": ("site_name", "logo", "favicon", "tagline","copyright","nav_color","text_color")
         }),
         ("Contact Information", {
             "fields": ("phone", "email", "address")

@@ -454,6 +454,12 @@ class SiteSetting(models.Model):
     tagline = models.CharField(max_length=300, blank=True)
     about_short = models.TextField(blank=True)
     copyright = models.CharField(max_length=300, blank=True)
+    nav_color = models.CharField(max_length=300, blank=True)
+    text_color = models.CharField(max_length=300, blank=True)
+
+
+
+
 
     
 
