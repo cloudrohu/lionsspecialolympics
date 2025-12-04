@@ -244,7 +244,7 @@ class GalleryView(ListView):
         context['campaigns'] = Campaign.objects.filter(is_active=True)[:3]
         context['impact_metrics'] = ImpactMetric.objects.order_by('order')[:6]
         context['partners'] = Partner.objects.all()[:8]
-        context['gallery'] = GalleryImage.objects.order_by('-uploaded_on')[:6]
+        context['gallery'] = GalleryImage.objects.order_by('-uploaded_on')
         context['highlights'] = Highlight.objects.filter(is_active=True).order_by('order')
         context['social_links'] = SocialLink.objects.filter(is_visible=True)
         context['slides'] = CarouselSlide.objects.filter(is_active=True).order_by('order')[:10]
