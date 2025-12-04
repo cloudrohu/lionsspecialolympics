@@ -233,7 +233,7 @@ class SiteSettingAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Branding", {
-            "fields": ("site_name", "logo", "favicon", "tagline")
+            "fields": ("site_name", "logo", "favicon", "tagline","copyright")
         }),
         ("Contact Information", {
             "fields": ("phone", "email", "address")
@@ -246,6 +246,9 @@ class SiteSettingAdmin(admin.ModelAdmin):
         }),
         ("System", {
             "fields": ("maintenance_mode", "updated_on")
+        }),
+        ("Follow On", {
+            "fields": ("facebook", "instagram","linkdin","youtube")
         }),
     )
 

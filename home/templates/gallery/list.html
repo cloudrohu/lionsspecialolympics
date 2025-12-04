@@ -1,12 +1,67 @@
-<!-- gallery/list.html -->
 {% extends 'base.html' %}
+{% load static %}
 {% block title %}Gallery{% endblock %}
 {% block content %}
-<h1>Gallery</h1>
-{% for img in images %}
-<div>
-<img src="{{ img.image.url }}" alt="{{ img.caption }}" style="max-width:200px;" />
-<p>{{ img.caption }}</p>
-</div>
-{% endfor %}
+
+<!-- GALLERY HERO -->
+<section class="relative h-[90vh] mt-5 bg-fixed bg-center bg-cover bg-no-repeat flex items-center justify-center" style="background-image:url('{% static '' %}assets/images/about/1.JPG');">
+
+  <!-- LAYERED OVERLAY -->
+  <div class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/40 to-black/70"></div>
+
+  <!-- CONTENT BOX -->
+  <div class="relative w-[90%] max-w-3xl bg-white/10 backdrop-blur-xl border border-white/20 rounded-3xl shadow-2xl p-10 text-center">
+
+    <h1 class="text-5xl md:text-6xl font-extrabold tracking-wider text-white drop-shadow-lg">
+      Gallery
+    </h1>
+
+    <!-- Accent Line -->
+    <div class="mx-auto mt-4 w-32 h-1.5 bg-red-600 rounded-full"></div>
+
+    <p class="mt-6 text-lg md:text-xl text-gray-200 leading-relaxed tracking-wide">
+      Capturing unforgettable moments from our special sports events, programs and celebrations.
+    </p>
+
+    <!-- CTA (optional) -->
+    <a href="#photos"
+       class="inline-block mt-8 px-8 py-3 rounded-full bg-red-600 hover:bg-red-700 text-white font-semibold shadow-lg transition">
+       Explore Album
+    </a>
+
+  </div>
+</section>
+
+<!-- GALLERY START HERE -->
+<section class="py-16 bg-gray-50" id="galleryHome">
+    <div class="max-w-7xl mx-auto px-6">
+
+        <h2 class="text-4xl font-extrabold text-red-700 text-center mb-6">
+            Gallery
+        </h2>
+
+        <p class="text-center text-gray-600 mb-10">
+            Special moments from Lions Special Olympics events & programs.
+        </p>
+
+        <!-- Masonry Grid -->
+        <div class="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
+
+            {% for rs in gallery %}
+            <img src="{{ rs.image.url }}"
+                onclick="openPopup(this.src)"
+                class="gallery-img reveal 
+                        w-full h-48          <!-- Fixed height -->
+                        object-cover         <!-- Auto crop, perfect grid -->
+                        rounded-xl shadow-lg 
+                        hover:scale-[1.03] transition duration-500 cursor-pointer">
+            {% endfor %}
+        
+        </div>
+
+
+    </div>
+</section>
+<!-- GALLERY END HERE -->
+
 {% endblock %}

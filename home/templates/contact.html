@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Contact | {{ site_setting.site_name }}{% endblock %}
+{% block content %}
+
+<!-- CONTACT HERO -->
+<section class="relative h-[70vh] bg-cover bg-center flex items-center justify-center" style="background-image:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80');">
+
+  <div class="absolute inset-0 bg-black/70"></div>
+
+  <div class="relative text-center text-white px-6">
+    <h1 class="text-5xl font-extrabold">Contact Us</h1>
+    <p class="text-lg mt-3 text-gray-200">
+      We’re here to help and answer your queries.
+    </p>
+  </div>
+
+</section>
+<!-- CONTACT HERO END-->
+
+<!-- CONTACT INFO SECTION -->
+ <section class="py-16 bg-white">
+  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-8">
+
+    <!-- PHONE -->
+    <div class="text-center bg-gray-50 p-8 rounded-xl shadow hover:shadow-xl transition">
+      <i class="fa-solid fa-phone text-red-600 text-3xl"></i>
+      <h3 class="text-xl font-bold mt-4">Phone</h3>
+      <p class="text-gray-600 mt-2">+91 {{site_setting.phone}}</p>
+    </div>
+
+    <!-- EMAIL -->
+    <div class="text-center bg-gray-50 p-8 rounded-xl shadow hover:shadow-xl transition">
+      <i class="fa-solid fa-envelope text-red-600 text-3xl"></i>
+      <h3 class="text-xl font-bold mt-4">Email</h3>
+      <p class="text-gray-600 mt-2">{{site_setting.email}}</p>
+    </div>
+
+    <!-- LOCATION -->
+    <div class="text-center bg-gray-50 p-8 rounded-xl shadow hover:shadow-xl transition">
+      <i class="fa-solid fa-location-dot text-red-600 text-3xl"></i>
+      <h3 class="text-xl font-bold mt-4">Location</h3>
+      <p class="text-gray-600 mt-2">{{site_setting.address}}</p>
+    </div>
+
+  </div>
+</section>
+<!-- CONTACT INFO SECTION END HERE -->
+
+<!-- CONTACT FORM SECTION START HERE -->
+  <section class="min-h-screen py-16">
+    <div class="max-w-6xl mx-auto px-4 lg:px-6">
+      
+      <!-- PAGE TITLE -->
+      <div class="text-center mb-12">
+        <p class="text-sm uppercase tracking-[0.25em] text-indigo-500 mb-2">
+          Get in Touch
+        </p>
+        <h1 class="text-3xl md:text-4xl font-bold text-slate-900">
+          We'd love to hear from you
+        </h1>
+        <p class="mt-3 text-slate-500 max-w-2xl mx-auto text-sm md:text-base">
+          Have a question, project idea, or just want to say hello?  
+          Fill the form below or reach us through our contact details.
+        </p>
+      </div>
+
+      <!-- MAIN GRID -->
+      <div class="grid gap-10 lg:grid-cols-2 items-start">
+        
+        <!-- LEFT: CONTACT INFO + FOLLOW ON -->
+        <div class="space-y-8">
+          <!-- Card -->
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
+            <h2 class="text-xl font-semibold text-slate-900 mb-4">
+              Contact Details
+            </h2>
+            <p class="text-sm text-slate-500 mb-6">
+              You can reach us via phone, email or visit our office during working hours.
+            </p>
+
+            <!-- CONTACT INFO LIST -->
+            <div class="space-y-4 text-sm">
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50">
+                  <!-- Phone Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 6.75c0 8.284 6.716 15 15 15h1.5a1.5 1.5 0 001.5-1.5v-2.4a1.5 1.5 0 00-1.125-1.455l-3.375-.9a1.5 1.5 0 00-1.59.54l-.975 1.3a1 1 0 01-1.2.3 11.25 11.25 0 01-5.22-5.22 1 1 0 01.3-1.2l1.3-.975a1.5 1.5 0 00.54-1.59l-.9-3.375A1.5 1.5 0 006.15 3H3.75A1.5 1.5 0 002.25 4.5v2.25z" />
+                  </svg>
+                </span>
+                <div>
+                  <p class="font-medium text-slate-900">Call / WhatsApp</p>
+                  <p class="text-slate-500">+91 {{site_setting.phone}}</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50">
+                  <!-- Mail Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.5a2.25 2.25 0 01-2.31 0l-7.5-4.5A2.25 2.25 0 012.25 6.993V6.75" />
+                  </svg>
+                </span>
+                <div>
+                  <p class="font-medium text-slate-900">Email</p>
+                  <p class="text-slate-500 break-all">{{site_setting.email}}</p>
+                </div>
+              </div>
+
+              <div class="flex items-start gap-3">
+                <span class="mt-1 inline-flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50">
+                  <!-- Location Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                  </svg>
+                </span>
+                <div>
+                  <p class="font-medium text-slate-900">Office Address</p>
+                  <p class="text-slate-500">
+                         {{site_setting.address}}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- FOLLOW ON -->
+            <div class="mt-8">
+              <p class="text-xs uppercase tracking-[0.25em] text-slate-400 mb-3">
+                Follow On
+              </p>
+              <div class="flex flex-wrap gap-3">
+                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                  <!-- Insta -->
+                   <i class="fa-brands fa-instagram text-1xl"></i>
+                  Instagram
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                  <!-- Facebook -->
+                <i class="fa-brands fa-facebook-f"></i>
+                  Facebook
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                  <!-- YouTube -->
+                  <i class="fa-brands fa-youtube"></i>
+                  YouTube
+                </a>
+                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                  <!-- LinkedIn -->
+                <i class="fa-brands fa-linkedin"></i>
+                  LinkedIn
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: CONTACT FORM -->
+        <div>
+          <div class="bg-white rounded-2xl shadow-sm border border-slate-100 p-6 md:p-8">
+            <h2 class="text-xl font-semibold text-slate-900 mb-2">
+              Send us a message
+            </h2>
+            <p class="text-sm text-slate-500 mb-6">
+              Fill out the form and we’ll get back to you as soon as possible.
+            </p>
+
+            <form action="#" method="POST" class="space-y-4">
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Name -->
+                <div>
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Full Name</label>
+                  <input type="text" required
+                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                    placeholder="Enter your name">
+                </div>
+                <!-- Phone -->
+                <div>
+                  <label class="block text-xs font-medium text-slate-600 mb-1">Phone Number</label>
+                  <input type="tel"
+                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                    placeholder="+91 98765 43210">
+                </div>
+              </div>
+
+              <!-- Email -->
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-1">Email Address</label>
+                <input type="email" required
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                  placeholder="you@example.com">
+              </div>
+
+              <!-- Subject -->
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-1">Subject</label>
+                <input type="text"
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                  placeholder="How can we help you?">
+              </div>
+
+              <!-- Message -->
+              <div>
+                <label class="block text-xs font-medium text-slate-600 mb-1">Message</label>
+                <textarea rows="4" required
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100 resize-none"
+                  placeholder="Write your message here..."></textarea>
+              </div>
+
+              <!-- CONSENT + BUTTON -->
+              <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-2">
+                <label class="inline-flex items-start gap-2 text-xs text-slate-500">
+                <input type="checkbox" class="mt-0.5 h-4 w-4 border border-gray-400 rounded-sm appearance-auto">
+                  I provide my informed consent for Lions Special<br> Olympics to reach  out to me for<br> communication purposes.
+                </label>
+
+              <button type="submit"
+                class="w-full md:w-auto inline-flex items-center justify-center rounded-xl 
+                      bg-indigo-600 px-7 py-3 text-sm font-semibold text-white 
+                      shadow hover:bg-indigo-700 transition-all duration-200">
+                Send Message
+              </button>
+
+              </div>
+              
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- GOOGLE MAP SECTION -->
+      <div class="mt-12">
+        <h2 class="text-base font-semibold text-slate-900 mb-3">
+          Find us on Google Maps
+        </h2>
+        <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm h-72 md:h-80">
+          <!-- Replace src with your own Google Maps embed link -->
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.1160989491!2d72.74109994999999!3d19.0821978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aafbaa0a9%3A0x8cfa9a316bed36fb!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1709969999999!5m2!1sen!2sin" 
+            width="100%" 
+            height="100%" 
+            style="border:0;" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- CONTACT FORM SECTION END HERE -->
+ 
+{% endblock %}

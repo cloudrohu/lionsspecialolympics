@@ -1,281 +1,210 @@
 {% extends 'base.html' %}
 {% load static %}
+{% block title %}About | {{ site_setting.site_name }}{% endblock %}
 {% block content %}
 
-<!--
-  Premium About Page
-  Context variables expected:
-  hero_image_url, hero_heading, hero_sub,
-  mission_text, vision_text,
-  impact_metrics (iterable with .value .title .description),
-  team_members (iterable with .photo_url .name .role .bio .social_links),
-  partners (iterable with .logo_url .name),
-  timeline_events (iterable with .year .title .desc),
-  gallery (iterable with .image_url .caption),
-  cta_text, cta_link,
-  social_links
--->
 
-<!-- HERO (parallax, subtle overlay) -->
-<section class="relative h-[70vh] md:h-[72vh] overflow-hidden">
-  <div class="absolute inset-0 bg-fixed bg-center bg-cover"
-       style="background-image: url('{{ hero_image_url|default:static('images/about-hero.jpg') }}'); filter: saturate(0.95) brightness(0.6);"></div>
-  <div class="absolute inset-0 bg-gradient-to-b from-black/30 to-black/40"></div>
+<!-- HERO START HERE -->
+<section class="relative bg-gradient-to-br mt-9 from-purple-900 via-indigo-900 to-slate-950 text-white py-24">
+  <div class="max-w-6xl mx-auto px-6 text-center">
 
-  <div class="relative z-10 container mx-auto px-6 md:px-10 h-full flex items-center">
-    <div class="max-w-3xl text-white animate-fade-up">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight">{{ hero_heading|default:"About Us" }}</h1>
-      <p class="mt-4 text-lg md:text-xl text-white/90">{{ hero_sub|default:"Empowering communities through compassion, innovation and action." }}</p>
+    <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight mb-5">
+      About Lions Specials Olympics
+    </h1>
 
-      <div class="mt-8 flex gap-4">
-        <a href="{{ cta_link|default:request.path }}" class="inline-block bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-lg font-semibold shadow-lg hover:translate-y-[-2px] transition">
-          {{ cta_text|default:"Join Us / Volunteer" }}
-        </a>
-        <a href="#our-impact" class="inline-block text-white/90 px-4 py-3 rounded-lg border border-white/20 hover:bg-white/5 transition">Our Impact</a>
-      </div>
-    </div>
+    <p class="text-lg sm:text-xl text-slate-200 max-w-3xl mx-auto">
+      We are committed to creating a more inclusive world where everyone has
+      the right to grow, learn, and succeed with confidence and dignity.
+    </p>
+
+  </div>
+
+  <!-- Glow Effects -->
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute top-10 left-1/4 h-40 w-40 bg-purple-500/20 blur-3xl rounded-full"></div>
+    <div class="absolute bottom-10 right-1/4 h-56 w-56 bg-pink-500/20 blur-3xl rounded-full"></div>
   </div>
 </section>
+  <hr>
 
-<!-- WHO WE ARE -->
-<section class="py-16 bg-white">
-  <div class="container mx-auto px-6 md:px-10">
-    <div class="grid md:grid-cols-2 gap-10 items-center">
-      <div class="space-y-6">
-        <h2 class="text-3xl md:text-4xl font-bold">Who We Are</h2>
-        <p class="text-gray-700 leading-relaxed">
-          {{ mission_text|default:"We work to improve lives through community-driven projects, education, health camps and digital inclusion." }}
-        </p>
+<!-- HERO END HERE -->
 
-        <div class="mt-6 grid sm:grid-cols-2 gap-4">
-          <div class="p-6 border rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg">Mission</h3>
-            <p class="text-gray-600 mt-2">{{ mission_text|default:"Deliver positive social impact." }}</p>
-          </div>
-          <div class="p-6 border rounded-lg shadow-sm">
-            <h3 class="font-semibold text-lg">Vision</h3>
-            <p class="text-gray-600 mt-2">{{ vision_text|default:"Create opportunity for every community member." }}</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- optional small carousel / feature card stack -->
-      <div class="space-y-4">
-        <div class="rounded-xl overflow-hidden shadow-lg">
-          <img src="{{ hero_image_url|default:static('images/about-card.jpg') }}" class="w-full h-64 object-cover">
-        </div>
-        <div class="bg-gray-50 p-6 rounded-xl shadow-sm">
-          <h4 class="font-semibold">Our Approach</h4>
-          <p class="text-gray-600 mt-2">Sustainable, measurable and community-led programs with local partners.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- IMPACT / STATS (animated counters) -->
-{% if impact_metrics %}
-<section id="our-impact" class="py-16 bg-gray-50">
-  <div class="container mx-auto px-6 md:px-10 text-center">
-    <h2 class="text-3xl md:text-4xl font-bold mb-8">Our Impact</h2>
-
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-      {% for m in impact_metrics %}
-      <div class="bg-white p-6 rounded-xl shadow hover:shadow-lg transition transform hover:-translate-y-1">
-        <div class="text-4xl md:text-5xl font-extrabold text-indigo-600 counter" data-target="{{ m.value|default:'0' }}">{{ m.value }}</div>
-        <div class="mt-2 font-semibold">{{ m.title }}</div>
-        {% if m.description %}<div class="mt-1 text-sm text-gray-500">{{ m.description }}</div>{% endif %}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<!-- TEAM -->
-{% if team_members %}
+<!-- ABOUT SECTION -->
 <section class="py-20 bg-white">
-  <div class="container mx-auto px-6 md:px-10">
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">Meet the Team</h2>
+  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-      {% for t in team_members %}
-      <div class="p-6 bg-gray-50 rounded-2xl shadow-sm hover:shadow-md transition">
-        <div class="flex items-center gap-4">
-          <div class="w-20 h-20 rounded-full overflow-hidden bg-white flex-shrink-0">
-            <img src="{{ t.photo_url|default:static('images/avatar-placeholder.png') }}" alt="{{ t.name }}" class="w-full h-full object-cover">
-          </div>
-          <div>
-            <h4 class="font-semibold">{{ t.name }}</h4>
-            <div class="text-sm text-gray-500">{{ t.role }}</div>
-          </div>
-        </div>
-        <p class="mt-4 text-gray-600 text-sm">{{ t.bio|truncatewords:28 }}</p>
-
-        {% if t.social_links %}
-        <div class="mt-4 flex gap-3">
-          {% for s in t.social_links %}
-            <a href="{{ s.url }}" target="_blank" class="text-indigo-600 text-sm font-medium">{{ s.platform|title }}</a>
-          {% endfor %}
-        </div>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<!-- PARTNERS GRID -->
-{% if partners %}
-<section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-6 md:px-10">
-    <h3 class="text-2xl font-semibold text-center mb-8">Our Partners</h3>
-
-    <div class="grid grid-cols-2 md:grid-cols-6 gap-6 items-center">
-      {% for p in partners %}
-      <div class="flex items-center justify-center p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition">
-        {% if p.logo_url %}
-          <img src="{{ p.logo_url }}" alt="{{ p.name }}" class="max-h-12 object-contain">
-        {% else %}
-          <div class="text-sm text-gray-600">{{ p.name }}</div>
-        {% endif %}
-      </div>
-      {% endfor %}
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<!-- TIMELINE (vertical) -->
-{% if timeline_events %}
-<section class="py-16 bg-white">
-  <div class="container mx-auto px-6 md:px-10">
-    <h3 class="text-2xl font-bold mb-8 text-center">Our Journey</h3>
-
-    <div class="relative">
-      <div class="border-l-2 border-gray-200 absolute h-full left-6 top-0"></div>
-      <div class="space-y-8">
-        {% for e in timeline_events %}
-        <div class="pl-12 relative">
-          <div class="absolute -left-3 top-1 w-6 h-6 bg-indigo-600 rounded-full border-4 border-white shadow"></div>
-          <div class="bg-gray-50 p-6 rounded-lg shadow-sm">
-            <div class="flex items-center justify-between">
-              <div>
-                <h4 class="font-semibold text-lg">{{ e.title }}</h4>
-                <div class="text-sm text-gray-500">{{ e.year }}</div>
-              </div>
-            </div>
-            <p class="mt-3 text-gray-600">{{ e.desc }}</p>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<!-- GALLERY SLIDER -->
-{% if gallery %}
-<section class="py-16 bg-gray-50">
-  <div class="container mx-auto px-6 md:px-10">
-    <h3 class="text-2xl font-bold mb-6 text-center">Gallery</h3>
-
-    <div class="relative">
-      <div id="gallery-track" class="flex gap-4 overflow-hidden">
-        {% for g in gallery %}
-        <div class="min-w-[320px] md:min-w-[360px] rounded-lg overflow-hidden shadow">
-          <img src="{{ g.image_url }}" class="w-full h-56 object-cover">
-          {% if g.caption %}<div class="p-3 text-sm text-gray-600">{{ g.caption }}</div>{% endif %}
-        </div>
-        {% endfor %}
-      </div>
-
-      <button id="g-prev" class="absolute left-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full p-3 shadow">‹</button>
-      <button id="g-next" class="absolute right-2 top-1/2 -translate-y-1/2 bg-white/90 rounded-full p-3 shadow">›</button>
+    <!-- LEFT IMAGE -->
+    <div class="w-full">
+      <img src="{% static '' %}assets/images/about/1.JPG"
+           class="rounded-xl shadow-lg w-full object-cover"
+           alt="About Image">
     </div>
 
-    <div class="text-center mt-6">
-      <a href="{% url 'home:gallery' %}" class="inline-block text-indigo-600 font-medium">View full gallery</a>
-    </div>
-  </div>
-</section>
-{% endif %}
-
-<!-- CTA BANNER -->
-<section class="py-12 bg-gradient-to-r from-indigo-600 to-blue-600 text-white">
-  <div class="container mx-auto px-6 md:px-10 flex flex-col md:flex-row items-center justify-between gap-6">
+    <!-- RIGHT TEXT -->
     <div>
-      <h4 class="text-2xl font-bold">Get Involved</h4>
-      <p class="mt-2 text-white/90">Volunteer, donate or partner with us — every action creates change.</p>
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">
+        Who We Are
+      </h2>
+
+      <p class="text-gray-600 leading-relaxed mb-6">
+        We are an organization committed to making a positive difference by
+        empowering individuals and building a stronger, more responsible community.
+        Our mission is driven by values, passion, and the desire to create impact.
+      </p>
+
+      <p class="text-gray-600 leading-relaxed">
+        With a dedicated team and innovative approach, we continue to inspire,
+        serve, and lead by example. Every step forward is a promise to contribute
+        to a better tomorrow.
+      </p>
     </div>
-    <div class="flex gap-3">
-      <a href="{{ cta_link|default:'#' }}" class="bg-white text-indigo-700 px-6 py-3 rounded-lg font-semibold shadow">Join / Volunteer</a>
-      <a href="{% url 'home:donate' %}" class="px-6 py-3 border border-white/30 rounded-lg">Donate</a>
+
+  </div>
+</section>
+<!-- ABOUT SECTION END-->
+
+
+<!-- MISSION VISION SECTION START-->
+<section class="py-16 bg-gray-100 text-gray-800">
+  <div class="container mx-auto px-6">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      Our Mission & Vision
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8">
+      
+      <!-- Mission -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-4">Our Mission</h3>
+        <p class="text-gray-600 leading-relaxed">
+          To empower individuals with special abilities through education,
+          awareness, and inclusive opportunities. We focus on building a future
+          where everyone gets equal rights, respect, and a platform to grow.
+        </p>
+      </div>
+
+      <!-- Vision -->
+      <div class="bg-white p-8 rounded-2xl shadow-xl">
+        <h3 class="text-2xl font-semibold mb-4">Our Vision</h3>
+        <p class="text-gray-600 leading-relaxed">
+          To create a society where physical or mental differences are seen as 
+          strengths—not limitations. A future where every individual can live
+          with dignity, achieve their dreams, and feel truly supported.
+        </p>
+      </div>
+
     </div>
   </div>
 </section>
+<!-- MISSION VISION SECTION END-->
 
-<!-- FOOTER social quick -->
-{% if social_links %}
-<section class="py-8 bg-white">
-  <div class="container mx-auto px-6 md:px-10 text-center">
-    <div class="flex items-center justify-center gap-4">
-      {% for s in social_links %}
-      <a href="{{ s.url }}" target="_blank" class="text-gray-600 hover:text-indigo-600">{{ s.platform|title }}</a>
-      {% endfor %}
+
+<!-- CORE , VALUES -->
+<section class="py-16 bg-gray-100">
+  <div class="max-w-6xl mx-auto px-6">
+    
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">
+      Our Core Values
+    </h2>
+
+    <div class="grid md:grid-cols-3 gap-8">
+
+      <!-- Value 1 -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
+        <h3 class="text-xl font-semibold mb-3">Respect</h3>
+        <p class="text-gray-600">
+          We value every individual and treat everyone with dignity
+          and compassion.
+        </p>
+      </div>
+
+      <!-- Value 2 -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
+        <h3 class="text-xl font-semibold mb-3">Integrity</h3>
+        <p class="text-gray-600">
+          We maintain honesty, transparency, and trust in every action we take.
+        </p>
+      </div>
+
+      <!-- Value 3 -->
+      <div class="bg-white p-6 rounded-2xl shadow-lg text-center">
+        <h3 class="text-xl font-semibold mb-3">Inclusiveness</h3>
+        <p class="text-gray-600">
+          We create equal opportunities for everyone and ensure no one is left behind.
+        </p>
+      </div>
+
     </div>
+
   </div>
 </section>
-{% endif %}
+<!-- CORE , VALUES END-->
 
-<!-- INLINE STYLES & JS (counters + gallery slider + small animations) -->
-<style>
-  /* subtle animations */
-  @keyframes fadeUp { from {opacity:0; transform:translateY(12px)} to {opacity:1; transform:none} }
-  .animate-fade-up { animation: fadeUp .9s ease both; }
 
-  /* responsive container fallback */
-  .container { max-width:1100px; margin:0 auto; }
+<!-- TIMIELINE SECCTION -->
+<section class="py-20 bg-white">
+  <div class="max-w-6xl mx-auto px-6 text-center mb-16">
+    <h2 class="text-3xl sm:text-4xl font-bold mb-3">Our Journey</h2>
+    <p class="text-gray-600 max-w-2xl mx-auto">
+      A story of growth, vision, and continuous impact.
+    </p>
+  </div>
 
-  /* small scrollbar hide for gallery */
-  #gallery-track { scroll-behavior: smooth; }
-</style>
+  <div class="relative max-w-4xl mx-auto">
+    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-200"></div>
 
-<script>
-  // Counter animation
-  document.addEventListener('DOMContentLoaded', function(){
-    const counters = document.querySelectorAll('.counter');
-    counters.forEach(counter=>{
-      const targetRaw = counter.dataset.target || counter.innerText || '0';
-      // try parse integers from strings like "10,000+"
-      const targetNum = Number(String(targetRaw).replace(/[^\d.]/g,'') || 0);
-      let start = 0;
-      const dur = 1400;
-      const step = (timestamp) => {
-        start += Math.ceil(targetNum / (dur/16));
-        if (start >= targetNum) {
-          counter.innerText = targetRaw;
-        } else {
-          counter.innerText = start.toLocaleString();
-          requestAnimationFrame(step);
-        }
-      };
-      requestAnimationFrame(step);
-    });
+    <!-- STEP 1 -->
+    <div class="mb-12 grid md:grid-cols-2 items-center">
+      <div class="md:text-right pr-6">
+        <h3 class="text-lg font-bold">Founded</h3>
+        <p class="text-gray-600">We began with a mission to make a difference.</p>
+      </div>
+      <div class="relative flex items-center justify-center">
+        <div class="h-6 w-6 bg-purple-600 rounded-full border-4 border-white shadow"></div>
+      </div>
+      <div></div>
+    </div>
 
-    // Gallery slider simple
-    const track = document.getElementById('gallery-track');
-    const next = document.getElementById('g-next');
-    const prev = document.getElementById('g-prev');
-    if(track){
-      const card = track.querySelector('div');
-      const cardWidth = card ? card.getBoundingClientRect().width + 16 : 360;
-      next?.addEventListener('click', ()=> track.scrollBy({ left: cardWidth, behavior:'smooth' }));
-      prev?.addEventListener('click', ()=> track.scrollBy({ left: -cardWidth, behavior:'smooth' }));
-    }
-  });
-</script>
+    <!-- STEP 2 -->
+    <div class="mb-12 grid md:grid-cols-2 items-center">
+      <div></div>
+      <div class="relative flex items-center justify-center">
+        <div class="h-6 w-6 bg-purple-600 rounded-full border-4 border-white shadow"></div>
+      </div>
+      <div class="md:pl-6">
+        <h3 class="text-lg font-bold">Expansion</h3>
+        <p class="text-gray-600">We reached more communities and supporters.</p>
+      </div>
+    </div>
+
+    <!-- STEP 3 -->
+    <div class="mb-12 grid md:grid-cols-2 items-center">
+      <div class="md:text-right pr-6">
+        <h3 class="text-lg font-bold">Recognition</h3>
+        <p class="text-gray-600">Our efforts were recognized and appreciated.</p>
+      </div>
+      <div class="relative flex items-center justify-center">
+        <div class="h-6 w-6 bg-purple-600 rounded-full border-4 border-white shadow"></div>
+      </div>
+      <div></div>
+    </div>
+
+    <!-- STEP 4 -->
+    <div class="grid md:grid-cols-2 items-center">
+      <div></div>
+      <div class="relative flex items-center justify-center">
+        <div class="h-6 w-6 bg-purple-600 rounded-full border-4 border-white shadow"></div>
+      </div>
+      <div class="md:pl-6">
+        <h3 class="text-lg font-bold">Future Goals</h3>
+        <p class="text-gray-600">We continue to grow with bigger vision ahead.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- TIMILINE SECCTION -->
+
 
 {% endblock %}

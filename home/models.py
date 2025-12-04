@@ -453,6 +453,9 @@ class SiteSetting(models.Model):
 
     tagline = models.CharField(max_length=300, blank=True)
     about_short = models.TextField(blank=True)
+    copyright = models.CharField(max_length=300, blank=True)
+
+    
 
     phone = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
@@ -461,6 +464,13 @@ class SiteSetting(models.Model):
     default_hero = models.ImageField(upload_to="settings/", blank=True, null=True)
     default_cta_text = models.CharField(max_length=200, blank=True)
     default_cta_link = models.CharField(max_length=300, blank=True)
+
+    youtube = models.URLField(max_length=500, blank=True)
+    instagram = models.URLField(max_length=500, blank=True)
+    linkdin = models.URLField(max_length=500, blank=True)
+    facebook = models.URLField(max_length=500, blank=True)
+
+
 
     seo_title = models.CharField(max_length=255, blank=True)
     seo_description = models.TextField(blank=True)

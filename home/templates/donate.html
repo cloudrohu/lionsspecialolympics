@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Partners{% endblock %}
+{% block content %}
+
+<!-- DONATE HERO SECTION -->
+<section class="relative bg-[url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center bg-no-repeat h-[80vh] flex items-center">
+  
+  <!-- overlay -->
+  <div class="absolute inset-0 bg-black/60"></div>
+
+  <div class="relative max-w-5xl mx-auto px-6 text-center text-white">
+
+    <p class="uppercase tracking-[0.25em] text-sm mb-3 text-[#81ffa2]">
+      HAAN NGO
+    </p>
+
+    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
+      Your Donation Can Change a Life 💚
+    </h1>
+
+    <p class="max-w-2xl mx-auto mt-4 text-lg opacity-90">
+      Support education, food, and healthcare programs.  
+      Every single Rupee brings hope to those who need it.
+    </p>
+
+    <div class="flex justify-center gap-4 mt-8">
+      <a href="#donate"
+        class="px-8 py-3 text-lg rounded-xl bg-[#118c4f] hover:bg-[#0e7a45] transition font-semibold shadow-lg">
+        Donate Now
+      </a>
+
+      <a href="#about"
+        class="px-8 py-3 text-lg rounded-xl border border-white/40 hover:bg-white hover:text-[#118c4f] transition font-semibold">
+        Learn More
+      </a>
+    </div>
+
+  </div>
+</section>
+<!-- DONATE HERO SECTION END-->
+
+<!-- DONATION FORM -->
+ <section class="py-20 bg-gradient-to-b from-gray-100 to-gray-200">
+  <div class="max-w-5xl mx-auto px-6">
+    <div class="bg-white/90 backdrop-blur-xl shadow-xl border border-gray-200 rounded-3xl p-10">
+
+      <h3 class="text-3xl font-bold text-center text-[#118c4f] mb-10">
+        Make a Donation
+      </h3>
+
+      <form class="space-y-8">
+
+        <!-- 1: 2 COLUMN FIELDS -->
+        <div class="grid md:grid-cols-2 gap-6">
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">Full Name</label>
+            <input name="name" required class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">Email</label>
+            <input type="email" name="email" required class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">Phone</label>
+            <input name="phone" class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
+          </div>
+
+          <div>
+            <label class="text-sm font-medium text-gray-600">Amount (₹)</label>
+            <input required type="number" min="1" placeholder="Enter any amount"
+              class="remove-spinners w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
+          </div>
+
+        </div>
+
+        <!-- 2: PROJECT SELECT -->
+        <div>
+          <label class="text-sm font-medium text-gray-600">Donate For</label>
+          <select class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]">
+            <option>Select a project</option>
+            <option>Education Support</option>
+            <option>Hunger Relief</option>
+            <option>Medical Aid</option>
+            <option>Women Empowerment</option>
+            <option>Old-age Care</option>
+          </select>
+        </div>
+
+        <!-- 3: NOTE -->
+        <div>
+          <label class="text-sm font-medium text-gray-600">Note (optional)</label>
+          <textarea rows="4" class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]"></textarea>
+            <div class="mt-4 mb-3">
+            <label class="text-sm font-medium text-gray-700">
+                Payment Method <span class="text-red-500">*</span>
+            </label>
+
+            <select required
+                class="w-full mt-2 p-3 bg-white border border-gray-300 rounded-xl
+                    focus:ring-2 focus:ring-[#118c4f] text-gray-700">
+
+                <option value="" selected disabled>Select a Payment Method</option>
+                <option value="UPI">UPI</option>
+                <option value="Razorpay">Razorpay</option>
+                <option value="Card">Debit/Credit Card</option>
+                <option value="NetBanking">Net Banking</option>
+
+            </select>
+            </div>
+            <!-- SUBMIT -->
+            <button class="w-full bg-[#118c4f] text-white font-semibold py-4 rounded-2xl hover:bg-[#0e7a45] shadow-lg">
+            Proceed to Pay
+            </button>
+
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<style>
+.payment-option .option-box{
+  @apply bg-gray-50 border border-gray-300 p-4 rounded-xl text-center font-semibold text-gray-700 cursor-pointer transition;
+}
+.payment-option .peer:checked + .option-box{
+  @apply bg-[#118c4f] text-white border-[#118c4f] shadow-xl scale-105;
+}
+.payment-option .option-box:hover{
+  @apply bg-[#118c4f] text-white;
+}
+</style>
+
+
+<!-- DONATION FORM END-->
+
+{% endblock %}

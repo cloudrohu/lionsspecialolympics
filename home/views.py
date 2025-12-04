@@ -229,16 +229,30 @@ class NewsDetailView(DetailView):
     template_name = 'news/detail.html'
     context_object_name = 'post'
 
-
 class GalleryView(ListView):
     model = GalleryImage
     template_name = 'gallery/list.html'
     context_object_name = 'images'
     paginate_by = 24
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['site_setting'] = SiteSetting.objects.order_by('-id').first()
+        context['featured_projects'] = Project.objects.all()[:6]
+        context['latest_news'] = NewsPost.objects.filter(is_published=True).order_by('-published_on')[:3]
+        context['campaigns'] = Campaign.objects.filter(is_active=True)[:3]
+        context['impact_metrics'] = ImpactMetric.objects.order_by('order')[:6]
+        context['partners'] = Partner.objects.all()[:8]
+        context['gallery'] = GalleryImage.objects.order_by('-uploaded_on')[:6]
+        context['highlights'] = Highlight.objects.filter(is_active=True).order_by('order')
+        context['social_links'] = SocialLink.objects.filter(is_visible=True)
+        context['slides'] = CarouselSlide.objects.filter(is_active=True).order_by('order')[:10]
+
+        return context
+    
     def get_queryset(self):
         return GalleryImage.objects.order_by('-uploaded_on')
-
 
 class ContactView(FormView):
     template_name = 'contact.html'
