@@ -240,11 +240,10 @@ class GalleryImage(models.Model):
 
 
 class Partner(models.Model):
+    photo = models.ImageField(upload_to='partners/', blank=True, null=True)
     name = models.CharField(max_length=255)
-    logo = models.ImageField(upload_to='partners/%Y/%m/', blank=True, null=True)
-    website = models.URLField(blank=True)
     description = models.TextField(blank=True)
-    sponsorship_level = models.CharField(max_length=100, blank=True)
+    destination = models.CharField(max_length=100, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -420,20 +419,23 @@ class TimelineEvent(models.Model):
     def __str__(self):
         return f"{self.year} — {self.title}"
 
-
 class AboutPageContent(models.Model):
-    # single record expected; you can create multiple but use latest or first in view
     hero_image = models.ImageField(upload_to='about/%Y/%m/', blank=True, null=True)
     hero_heading = models.CharField(max_length=255, default="About Us", blank=True)
     hero_subtitle = models.CharField(max_length=500, blank=True)
+
+    content = models.CharField(max_length=700, blank=True)
 
     mission_text = models.TextField(blank=True)
     vision_text = models.TextField(blank=True)
     story_text = models.TextField(blank=True)
 
-    # optional CTA
     cta_text = models.CharField(max_length=120, blank=True)
-    cta_link = models.CharField(max_length=255, blank=True, help_text="Relative or absolute URL")
+    cta_link = models.CharField(max_length=255, blank=True)
+
+    # ✅ NEW FIELDS
+    is_active = models.BooleanField(default=True)
+    order = models.PositiveIntegerField(default=1, help_text="Display order")
 
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(auto_now=True)
@@ -441,10 +443,10 @@ class AboutPageContent(models.Model):
     class Meta:
         verbose_name = "About Page Content"
         verbose_name_plural = "About Page Content"
+        ordering = ['order']
 
     def __str__(self):
-        return "About Page Content"
-
+        return f"About Page Content ({self.order})"
 
 class SiteSetting(models.Model):
     site_name = models.CharField(max_length=200, default="NGO")
@@ -456,6 +458,8 @@ class SiteSetting(models.Model):
     copyright = models.CharField(max_length=300, blank=True)
     nav_color = models.CharField(max_length=300, blank=True)
     text_color = models.CharField(max_length=300, blank=True)
+    partners_banner = models.ImageField(upload_to="partners_banner/", blank=True, null=True)
+
 
 
 
@@ -491,3 +495,14 @@ class SiteSetting(models.Model):
 
     def __str__(self):
         return "Global Site Settings"
+
+class Disclaimer(models.Model):
+    disclaimer = models.TextField(max_length=3000)
+
+    class Meta:
+        verbose_name = "Disclaimer"
+        verbose_name_plural = "Disclaimer"
+
+    def __str__(self):
+        return self.disclaimer
+

@@ -11,83 +11,63 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import (
     Project, NewsPost, Campaign, Event, ContactMessage, Donation,
     Volunteer, GalleryImage, FAQ, Testimonial, Partner, ImpactMetric, Location, SocialLink,CarouselSlide ,Profile,
-    SiteSetting,Highlight,
+    SiteSetting,Highlight,TeamMember,Disclaimer,AboutPageContent
 )
 from .forms import ContactForm, DonationForm, VolunteerForm, EventRegistrationForm
 
 
 
+
 class AboutView(TemplateView):
-    template_name = 'about.html'
+    template_name = "about.html"
 
     def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
 
-        # adapt these queries to your actual models and fields
-        ctx['hero_image_url'] = '/static/images/about-hero.jpg'
-        ctx['hero_heading'] = "About Cloud Rohu"
-        ctx['hero_sub'] = "Empowering communities through compassion, innovation and action."
+        try:
+            context["about"] = AboutPageContent.objects.first()
+        except AboutPageContent.DoesNotExist:
+            context["about"] = None
 
-        ctx['mission_text'] = "To support underserved communities through welfare campaigns, education and health initiatives."
-        ctx['vision_text'] = "A world where every person has access to opportunities and dignity."
-
-        ctx['impact_metrics'] = ImpactMetric.objects.all().order_by('order')[:6]
-        # Build team_members list from Profile model - adapt attribute names
-        team = Profile.objects.filter(role__in=['admin','staff']).order_by('user__id')[:6]
-        ctx['team_members'] = [
-            {
-                'photo_url': (p.photo.url if p.photo else '/static/images/avatar-placeholder.png'),
-                'name': p.full_name or getattr(p, 'user').get_full_name() or str(getattr(p,'user')),
-                'role': p.get_role_display() if hasattr(p,'get_role_display') else p.role,
-                'bio': p.bio or '',
-                'social_links': p.social_links.all() if hasattr(p,'social_links') else []
-            } for p in team
-        ]
-        ctx['partners'] = [{'logo_url': (p.logo.url if p.logo else ''), 'name': p.name} for p in Partner.objects.all()[:12]]
-        ctx['timeline_events'] = [
-            {'year': '2009', 'title': 'Founded', 'desc':'Started with small local projects.'},
-            {'year': '2016', 'title': 'Scaled up', 'desc':'Expanded to multiple cities.'},
-        ]  # replace with your Timeline model if you have one
-
-        ctx['gallery'] = [{'image_url': g.image.url, 'caption': g.caption} for g in GalleryImage.objects.order_by('-uploaded_on')[:9]]
-        ctx['social_links'] = SocialLink.objects.filter(is_visible=True)
-
-        ctx['cta_text'] = "Join Our Movement"
-        ctx['cta_link'] = '/volunteer/'
-
-        return ctx
+        return context
+    
+     
 
 class HomeView(View):
     template_name = 'home.html'
 
     def get(self, request):
         site_setting = SiteSetting.objects.order_by('-id').first()
-        featured_projects = Project.objects.filter
+        featured_projects = Project.objects.all()   # FIXED
         latest_news = NewsPost.objects.filter(is_published=True).order_by('-published_on')[:3]
         campaigns = Campaign.objects.filter(is_active=True)[:3]
         impact_metrics = ImpactMetric.objects.all().order_by('order')[:6]
-        partners = Partner.objects.all()[:8]
+        partners = Partner.objects.all()
+        team_members = TeamMember.objects.all()[:8]
         gallery = GalleryImage.objects.order_by('-uploaded_on')[:6]
+        disclaimer = Disclaimer.objects.first()
         highlights = Highlight.objects.filter(is_active=True).order_by('order')
         social_links = SocialLink.objects.filter(is_visible=True)
-        slides = CarouselSlide.objects.filter(is_active=True).order_by('order')[:10]  # NEW
+        slides = CarouselSlide.objects.filter(is_active=True).order_by('order')[:10]
+        aboutpagecontent = AboutPageContent.objects.all()[:10]
+
 
         context = {
-
+            'team_members': team_members,
             'highlights': highlights,
+            'disclaimer': disclaimer,
             'site_setting': site_setting,
             'featured_projects': featured_projects,
+            'aboutpagecontent': aboutpagecontent,
             'latest_news': latest_news,
             'campaigns': campaigns,
             'impact_metrics': impact_metrics,
             'partners': partners,
             'gallery': gallery,
             'social_links': social_links,
-            'slides': slides,   # pass to template
+            'slides': slides,
         }
         return render(request, self.template_name, context)
-
-
 
 
 class ProjectListView(ListView):

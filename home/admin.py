@@ -148,9 +148,9 @@ class GalleryImageAdmin(admin.ModelAdmin):
 
 @admin.register(Partner)
 class PartnerAdmin(admin.ModelAdmin):
-    list_display = ('name', 'website', 'sponsorship_level')
-    search_fields = ('name', 'website')
-    list_filter = ('sponsorship_level',)
+    list_display = ('name', 'destination')
+    search_fields = ('name', 'destination')
+    list_filter = ('destination',)
 
 
 @admin.register(FAQ)
@@ -233,7 +233,7 @@ class SiteSettingAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Branding", {
-            "fields": ("site_name", "logo", "favicon", "tagline","copyright","nav_color","text_color")
+            "fields": ("site_name", "logo", "favicon", "tagline","copyright","nav_color","text_color","partners_banner")
         }),
         ("Contact Information", {
             "fields": ("phone", "email", "address")
@@ -252,6 +252,8 @@ class SiteSettingAdmin(admin.ModelAdmin):
         }),
     )
 
-
+@admin.register(Disclaimer)
+class Disclaimer(admin.ModelAdmin):
+    list_display = ('disclaimer',)
 
 # End of admin.py

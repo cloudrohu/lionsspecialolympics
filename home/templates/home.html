@@ -59,7 +59,7 @@
 
 </div>
 <!-- SLIDER END HERE -->
-
+<h1 class=""></h1>
 
 <!-- HIGHLIGHT START HERE -->
 <section class="py-16 bg-gray-100">
@@ -184,15 +184,15 @@
                                 <!-- Inner content box -->
                                 <div class="rounded-2xl bg-white/95 backdrop-blur-xl 
                                             p-6 space-y-6 shadow-[0_16px_40px_rgba(0,0,0,0.16)]">
-
-                                <h3 class="relative z-10 text-[20px] font-extrabold tracking-wide font-serif
-                                        bg-gradient-to-r from-amber-700 via-yellow-700 to-amber-500
-                                        bg-clip-text text-transparent uppercase">
+                                <h3 class="relative z-10 text-[20px] md:text-[22px]
+                                        font-extrabold tracking-wide font-serif
+                                        uppercase text-amber-800
+                                        border-l-4 border-amber-500 pl-3">
                                     {{ rs.title }}
                                 </h3>
 
-                                    <!-- Summary -->
-                                    <p class="text-gray-800 text-sm leading-relaxed">
+                                            <!-- Summary -->
+                                            <p class="text-gray-800 text-sm leading-relaxed">
                                         <span class="font-semibold text-amber-700">Summary:</span>
                                         {{rs.summary}}
                                     </p>
@@ -237,7 +237,7 @@
                                                     shadow-[0_0_12px_rgba(245,197,24,0.65)]
                                                     tracking-[0.12em] uppercase flex items-center gap-2">
                                             <span class="inline-block w-2 h-2 rounded-full bg-emerald-300 animate-pulse"></span>
-                                            In Progress
+                                            {{rs.status}}
                                         </span>
                                     </div>
 
@@ -397,9 +397,9 @@
                                     <a href="/"
                                         class="w-full block text-center text-xs sm:text-sm font-semibold uppercase tracking-[0.16em]
                                         bg-gradient-to-r from-cyan-400 via-sky-500 to-indigo-500
-                                        text-slate-950 py-2.5 rounded-xl
+                                        text-slate-950 py-2.5 rounded-xl text-white
                                         shadow-[0_12px_35px_rgba(56,189,248,0.55)]
-                                        hover:scale-[1.02] transition-all duration-300">
+                                        hover:scale-[1.02] transition-all duration-300 border">
                                         See Campaign Details
                                     </a>
                                 {% else %}
@@ -423,14 +423,14 @@
 
     <!-- btn -->
     <div class="flex justify-center mt-10">
-    <a href="#"
+    <a href="{% url 'home:campaign_list' %}"
        class="px-10 py-3 text-sm sm:text-base font-semibold uppercase tracking-[0.18em]
               bg-gradient-to-r from-cyan-400 via-sky-500 to-indigo-500
               text-slate-900 rounded-xl
               shadow-[0_12px_35px_rgba(56,189,248,0.50)]
               hover:shadow-[0_16px_45px_rgba(56,189,248,0.85)]
               hover:scale-[1.03]
-              transition-all duration-300">
+              transition-all duration-300 border">
         See All
     </a>
     </div>
@@ -442,12 +442,12 @@
 <!-- ABOUT US START HERE -->
 <section class="py-16 bg-white" id="aboutHome">
     <div class="max-w-7xl mx-auto px-6">
-        
+        {% for rs in aboutpagecontent %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
             
             <!-- IMAGE SIDE -->
             <div>
-                <img src="{% static '' %}assets/images/about/1.JPG" 
+                <img src="{{rs.hero_image.url}}" 
                      alt="Lions Special Olympics"
                      class="w-full h-[320px] md:h-[380px] object-cover rounded-2xl shadow-lg">
             </div>
@@ -455,18 +455,12 @@
             <!-- TEXT SIDE -->
             <div>
                 <h2 class="text-3xl md:text-4xl font-extrabold text-red-700 mb-4">
-                    About Lions Special Olympics
+                    About {{rs.hero_heading}}
                 </h2>
                 <p class="text-gray-700 leading-relaxed mb-4">
-                    Lions Special Olympics ek dedicated initiative hai jo specially-abled 
-                    athletes ko sports, training aur community support ke through empower karta hai. 
-                    Yahan har child aur athlete ko equal opportunity, respect aur encouragement diya jata hai.
+                    {{rs.hero_subtitle}}
                 </p>
-                <p class="text-gray-600 leading-relaxed mb-6">
-                    Hamare programs ka focus hai confidence build karna, life skills sikhana 
-                    aur unke liye ek safe, inclusive aur loving environment create karna – 
-                    jahan par woh apni real potential ko achieve kar saken.
-                </p>
+            
 
                 <!-- READ MORE BUTTON -->
                 <a href="{% url 'home:about' %}"
@@ -476,6 +470,7 @@
             </div>
 
         </div>
+        {% endfor %}
     </div>
 </section>
 <!-- ABOUT US END HERE -->
@@ -495,29 +490,14 @@
         <!-- Masonry Grid -->
         <div class="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
 
-            <img src="{% static '' %}assets/images/gallery/1.JPG"
-                 onclick="openPopup(this.src)"
-                 class="gallery-img reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
+            {% for rs in gallery %}
 
-            <img src="{% static '' %}assets/images/gallery/2.JPG"
+            <img src="{{ rs.image.url }}"
                  onclick="openPopup(this.src)"
-                 class="gallery-img reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
+                 class="gallery-img w-full h-48 reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
+            {% endfor %}
 
-            <img src="{% static '' %}assets/images/gallery/3.JPG"
-                 onclick="openPopup(this.src)"
-                 class="gallery-img reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
-
-            <img src="{% static '' %}assets/images/gallery/4.JPG"
-                 onclick="openPopup(this.src)"
-                 class="gallery-img reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
-
-            <img src="{% static '' %}assets/images/gallery/5.JPG"
-                 onclick="openPopup(this.src)"
-                 class="gallery-img reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
-
-            <img src="{% static '' %}assets/images/gallery/6.JPG"
-                 onclick="openPopup(this.src)"
-                 class="gallery-img reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
+           
 
         </div>
 
@@ -533,134 +513,8 @@
 <!-- GALLERY END HERE -->
 
 
-
-
-<!-- OUR PARTNERS START HERE -->
-<section class="py-14 bg-gray-200">
-  <h2 class="text-center text-3xl font-bold mb-8">Our Partners</h2>
-
-  <!-- wrapper -->
-  <div class="partners-container overflow-hidden max-w-6xl mx-auto px-4 pb-3">
-    
-    <div class="flex gap-5 animate-slide whitespace-nowrap">
-
-      <!-- REPEAT BLOCK START -->
-      <div class="flex gap-5">
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="YOUR_BASE64"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Partner One</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="YOUR_BASE64"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Partner Two</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="{% static '' %}assets/images/patners/youtube.png"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">YouTube</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="{% static '' %}assets/images/patners/sleep cycle.png"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Sleep Cycle</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P5"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 5</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P6"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 6</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P7"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 7</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P8"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 8</span>
-        </div>
-
-      </div>
-
-      <!-- SECOND REPEAT (INFINITE LOOP) -->
-      <div class="flex gap-5">
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="YOUR_BASE64"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Partner One</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="YOUR_BASE64"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Partner Two</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="{% static '' %}assets/images/patners/youtube.png"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">YouTube</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="{% static '' %}assets/images/patners/sleep cycle.png"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Sleep Cycle</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P5"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 5</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P6"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 6</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P7"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 7</span>
-        </div>
-
-        <div class="relative h-28 w-40 bg-white p-4 rounded-xl shadow-lg flex items-center justify-center flex-shrink-0 group">
-          <img onclick="openPop(this.src)" src="https://via.placeholder.com/150x70?text=P8"
-          class="h-full object-contain cursor-pointer hover:scale-105 transition">
-          <span class="partner-name">Company 8</span>
-        </div>
-
-      </div>
-
-    </div>
-  </div>
-</section>
-<!-- OUR PARTNERS END Here -->
-
-
-
-
-
 <!-- HIGHLIGHTS START HERE -->
- <section class="py-14 bg-[#EFEBEB] p-4">
+<section class="py-14 bg-[#EFEBEB] p-4">
   <h2 class="text-center text-2xl font-semibold mb-8 text-[#A68D2B] font-serif">Lions Olypics - Highlights</h2>
     <div class="flex item-center justify-center">
         <div class="h-[1px] w-16 bg-gray-400"></div>
@@ -670,63 +524,17 @@
     </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 max-w-6xl mx-auto px-4 p-4">
 
+            {% for rs in highlights %}
              <div class="flex items-start gap-2 mt-2">
                 <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-                <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-            
-             <div class="flex items-start gap-2 mt-2">
-                              <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-           <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-
-            <div class="flex items-start gap-2 mt-2">
-                              <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-           <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-            
-            <div class="flex items-start gap-2 mt-2">
-                              <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-           <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-            
-            <div class="flex items-start gap-2 mt-2">
-                              <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-           <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-            
-            <div class="flex items-start gap-2 mt-2">
-                              <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-           <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-            
-            <div class="flex items-start gap-2 mt-2">
-                              <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-           <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-
-            
-            <div class="flex items-start gap-2 mt-2">
-                              <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-           <p class="text-lg text-[#212529]">Strategic Andheri West Location</p>
-            </div>
-
-
-
-
-
-            
-
-    
+                <p class="text-lg text-[#212529]">{{rs.title}}</p>
+            </div>        
+            {% endfor %}
 
 
         </div>
 </section>
 <!-- HIGHLIGHTS END HERE -->
-
-
-
-
 
 
 <!-- TEAM START HERE -->
@@ -738,124 +546,37 @@
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-      <!-- CARD -->
+      {% for rs in team_members %}
       <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
                   hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
         <div class="overflow-hidden rounded-xl">
-          <img src="https://dummyimage.com/200x200"
+          <img src="{{rs.photo.url}}"
             class="w-full h-56 object-cover rounded-lg group-hover:scale-110 duration-300">
         </div>
         <div class="text-center mt-4">
           <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 duration-300">
-            Alper Kamu
+            {{rs.name}}
           </h3>
-          <p class="text-gray-500 text-sm mt-1">UI Developer</p>
-          <p class="text-gray-600 text-sm mt-2">
-            DIY tote bag drinking vinegar cronut.
+          <p class="text-gray-500 text-sm mt-1">{{rs.role}}</p>
+          <p class="text-gray-600 text-sm mt-2 p-1">
+            {{rs.bio | truncatechars:100 }}
           </p>
 
           <div class="flex justify-center gap-4 mt-4">
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
+            <a href="{{rs.facebook}}" class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
               <i class="fab fa-facebook"></i>
             </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
+            <a href="{{rs.twitter}}" class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
               <i class="fab fa-twitter"></i>
             </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
+            <a href="{{rs.instagram}}" class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
               <i class="fab fa-instagram"></i>
             </a>
           </div>
         </div>
       </div>
+      {% endfor %}
 
-      <!-- SAME CARD COPY PASTE BELOW ONLY CHANGE IMAGE + NAME -->
-
-      <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
-                  hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
-        <div class="overflow-hidden rounded-xl">
-          <img src="https://dummyimage.com/201x201"
-            class="w-full h-56 object-cover rounded-lg group-hover:scale-110 duration-300">
-        </div>
-        <div class="text-center mt-4">
-          <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 duration-300">
-            Holden Caulfield
-          </h3>
-          <p class="text-gray-500 text-sm mt-1">UI Developer</p>
-          <p class="text-gray-600 text-sm mt-2">
-            DIY tote bag drinking vinegar cronut.
-          </p>
-
-          <div class="flex justify-center gap-4 mt-4">
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
-                  hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
-        <div class="overflow-hidden rounded-xl">
-          <img src="https://dummyimage.com/202x202"
-            class="w-full h-56 object-cover rounded-lg group-hover:scale-110 duration-300">
-        </div>
-        <div class="text-center mt-4">
-          <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 duration-300">
-            Atticus Finch
-          </h3>
-          <p class="text-gray-500 text-sm mt-1">UI Developer</p>
-          <p class="text-gray-600 text-sm mt-2">
-            DIY tote bag drinking vinegar cronut.
-          </p>
-
-          <div class="flex justify-center gap-4 mt-4">
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
-                  hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
-        <div class="overflow-hidden rounded-xl">
-          <img src="https://dummyimage.com/203x203"
-            class="w-full h-56 object-cover rounded-lg group-hover:scale-110 duration-300">
-        </div>
-        <div class="text-center mt-4">
-          <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 duration-300">
-            Henry Letham
-          </h3>
-          <p class="text-gray-500 text-sm mt-1">UI Developer</p>
-          <p class="text-gray-600 text-sm mt-2">
-            DIY tote bag drinking vinegar cronut.
-          </p>
-
-          <div class="flex justify-center gap-4 mt-4">
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -871,25 +592,14 @@
       Disclaimer
     </h2>
 
+
     <div class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
       <p class="text-gray-600 leading-relaxed mb-3">
-        The information provided on this website is for general informational purposes only. 
-        All content, including images, data, and references, are based on sources believed 
-        to be reliable. However, we make no representation or warranty regarding the accuracy, 
-        reliability, or completeness of any information.
+        {{disclaimer.disclaimer}}
       </p>
 
-      <p class="text-gray-600 leading-relaxed mb-3">
-        Users are advised to verify all project details directly from the developer or 
-        respective official authorities. This website does not guarantee legal validity, final 
-        pricing, availability, or changes regarding any project details.
-      </p>
-
-      <p class="text-gray-600 leading-relaxed">
-        By using our website, you agree that we are not liable for any financial loss, 
-        decision-making, or legal issues arising from the use of information presented here.
-      </p>
     </div>
+
 
   </div>
 </section>

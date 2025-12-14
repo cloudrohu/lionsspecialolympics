@@ -5,13 +5,13 @@
 
 <!-- PARTNERS HERO -->
 <section class="relative h-[90vh] mt-5 bg-fixed bg-center bg-cover bg-no-repeat flex items-center justify-center"
-         style="background-image:url('{% static '' %}assets/images/about/1.JPG');">
+         style="background-image:url('{{site_setting.partners_banner.url}}');">
 
   <!-- Dark Elegant Overlay -->
   <div class="absolute inset-0 bg-gradient-to-b from-black/70 via-black/40 to-black/80"></div>
 
   <!-- Glassmorphism Content Box -->
-  <div class="relative w-[92%] max-w-4xl bg-white/10 backdrop-blur-2xl border border-white/20
+  <div class="relative w-[92%] max-w-4xl bg-white/10 backdrop-blur-md border border-white/20
               rounded-3xl shadow-[0_0_60px_rgba(0,0,0,0.5)] p-10 md:p-14 text-center">
 
     <!-- Title -->
@@ -44,79 +44,52 @@
 <section class="py-20 bg-white" id="partners-list">
   <div class="max-w-7xl mx-auto px-6 space-y-20">
 
-    <!-- ROW 1 -->
-    <div class="flex flex-col md:flex-row items-center gap-14 group">
-      <!-- IMAGE -->
+    {% for partner in partners %}
+    <div class="flex flex-col md:flex-row {% if forloop.counter|divisibleby:2 %}md:flex-row-reverse{% endif %}
+                items-center gap-14 group">
+
+      <!-- IMAGE (STATIC for now) -->
       <div class="md:w-5/12 w-full">
         <div class="overflow-hidden rounded-3xl shadow-[0_8px_35px_rgba(0,0,0,0.1)]">
-          <img src="img1.jpg" class="w-full h-72 object-cover rounded-3xl transition-all duration-500 group-hover:scale-105">
+          {% if partner.photo %}
+            <img src="{{ partner.photo.url }}"
+                class="w-full h-72 object-cover rounded-3xl">
+          {% else %}
+            <img src="{% static 'assets/images/about/1.JPG' %}"
+                class="w-full h-72 object-cover rounded-3xl">
+          {% endif %}
+
         </div>
       </div>
 
-      <!-- CONTENT -->
+      <!-- CONTENT (DYNAMIC) -->
       <div class="md:w-7/12 w-full">
-        <h3 class="text-3xl font-bold text-gray-900 tracking-tight">Partner Name 1</h3>
-        <p class="mt-1 text-lg text-pink-600 font-semibold">Co-Founder</p>
+        <h3 class="text-3xl font-bold text-gray-900 tracking-tight">
+          {{ partner.name }}
+        </h3>
+
+        {% if partner.destination %}
+        <p class="mt-1 text-lg text-pink-600 font-semibold">
+          {{ partner.destination }}
+        </p>
+        {% endif %}
+
         <div class="h-1 w-20 bg-pink-500 rounded-full mt-3"></div>
 
+        {% if partner.description %}
         <p class="mt-3 text-gray-600 leading-relaxed text-lg">
-          A visionary leader with 15+ years of experience, driving innovation and
-          transforming ideas into successful products with expertise and dedication.
+          {{ partner.description }}
         </p>
-
-        </a>
+        {% endif %}
       </div>
+
     </div>
-
-    <!-- ROW 2 -->
-    <div class="flex flex-col md:flex-row-reverse items-center gap-14 group">
-      <!-- IMAGE -->
-      <div class="md:w-5/12 w-full">
-        <div class="overflow-hidden rounded-3xl shadow-[0_8px_35px_rgba(0,0,0,0.1)]">
-          <img src="img2.jpg" class="w-full h-72 object-cover rounded-3xl transition-all duration-500 group-hover:scale-105">
-        </div>
-      </div>
-
-      <!-- CONTENT -->
-      <div class="md:w-7/12 w-full">
-        <h3 class="text-3xl font-bold text-gray-900 tracking-tight">Partner Name 2</h3>
-        <p class="mt-1 text-lg text-pink-600 font-semibold">CEO</p>
-        <div class="h-1 w-20 bg-pink-500 rounded-full mt-3"></div>
-
-        <p class="mt-3 text-gray-600 leading-relaxed text-lg">
-          Leading the company with excellence, ensuring growth through smart decisions,
-          customer focus, and strategic business development.
-        </p>
-
- 
-      </div>
-    </div>
-
-    <!-- ROW 3 -->
-    <div class="flex flex-col md:flex-row items-center gap-14 group">
-      <!-- IMAGE -->
-      <div class="md:w-5/12 w-full">
-        <div class="overflow-hidden rounded-3xl shadow-[0_8px_35px_rgba(0,0,0,0.1)]">
-          <img src="img3.jpg" class="w-full h-72 object-cover rounded-3xl transition-all duration-500 group-hover:scale-105">
-        </div>
-      </div>
-
-      <!-- CONTENT -->
-      <div class="md:w-7/12 w-full">
-        <h3 class="text-3xl font-bold text-gray-900 tracking-tight">Partner Name 3</h3>
-        <p class="mt-1 text-lg text-pink-600 font-semibold">Director</p>
-        <div class="h-1 w-20 bg-pink-500 rounded-full mt-3"></div>
-
-        <p class="mt-3 text-gray-600 leading-relaxed text-lg">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime, temporibus aliquid error incidunt ut totam animi obcaecati nulla numquam quam ullam enim ab aperiam dolorem dicta minus unde possimus! Expedita possimus sit, nulla aperiam nostrum maxime tempore ea quisquam reiciendis voluptas suscipit labore voluptate veritatis in ad facere eaque pariatur et rerum natus eveniet sapiente itaque maiores architecto? Aliquam voluptatem asperiores velit ratione facilis! Voluptas ad veniam similique est atque?
-        </p>
-
-      </div>
-    </div>
+    {% endfor %}
 
   </div>
 </section>
 <!-- OUR PARTNERS END-->
+
 
 
 {% endblock %}

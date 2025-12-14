@@ -1,3 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 /* SLIDE ANIMATION */
 #mobileMenu {
     transform: translateX(100%);
