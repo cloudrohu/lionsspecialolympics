@@ -1,7 +1,10 @@
 
 # Expanded views.py (all pages scaffold)
 from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import ListView
 from django.views import View
+
+
 from django.views.generic import ListView, DetailView, FormView, TemplateView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -11,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import (
     Project, NewsPost, Campaign, Event, ContactMessage, Donation,
     Volunteer, GalleryImage, FAQ, Testimonial, Partner, ImpactMetric, Location, SocialLink,CarouselSlide ,Profile,
-    SiteSetting,Highlight,TeamMember,Disclaimer,AboutPageContent
+    SiteSetting,Highlight,TeamMember,Disclaimer,AboutPageContent,Event
 )
 from .forms import ContactForm, DonationForm, VolunteerForm, EventRegistrationForm
 
@@ -24,14 +27,36 @@ class AboutView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        try:
-            context["about"] = AboutPageContent.objects.first()
-        except AboutPageContent.DoesNotExist:
-            context["about"] = None
+        context["about"] = AboutPageContent.objects.first()
+
+        context["site_setting"] = SiteSetting.objects.order_by('-id').first()
+        context["featured_projects"] = Project.objects.all()
+        context["latest_news"] = NewsPost.objects.filter(
+            is_published=True
+        ).order_by('-published_on')[:3]
+
+        context["campaigns"] = Campaign.objects.filter(is_active=True)[:3]
+        context["impact_metrics"] = ImpactMetric.objects.all().order_by('order')[:6]
+        context["partners"] = Partner.objects.all()
+        context["team_members"] = TeamMember.objects.all()[:4]
+        context["event"] = Event.objects.all()
+        context["gallery"] = GalleryImage.objects.order_by('-uploaded_on')[:6]
+        context["disclaimer"] = Disclaimer.objects.first()
+        context["highlights"] = Highlight.objects.filter(
+            is_active=True
+        ).order_by('order')
+
+        context["social_links"] = SocialLink.objects.filter(is_visible=True)
+        context["slides"] = CarouselSlide.objects.filter(
+            is_active=True
+        ).order_by('order')[:10]
+
+        # ✅ FAQ FIX (important)
+        context["faq"] = FAQ.objects.filter(
+            is_active=True
+        ).order_by('order')[:4]
 
         return context
-    
-     
 
 class HomeView(View):
     template_name = 'home.html'
@@ -43,16 +68,20 @@ class HomeView(View):
         campaigns = Campaign.objects.filter(is_active=True)[:3]
         impact_metrics = ImpactMetric.objects.all().order_by('order')[:6]
         partners = Partner.objects.all()
-        team_members = TeamMember.objects.all()[:8]
+        team_members = TeamMember.objects.all()[:4]
+        event = Event.objects.all()
         gallery = GalleryImage.objects.order_by('-uploaded_on')[:6]
         disclaimer = Disclaimer.objects.first()
         highlights = Highlight.objects.filter(is_active=True).order_by('order')
         social_links = SocialLink.objects.filter(is_visible=True)
         slides = CarouselSlide.objects.filter(is_active=True).order_by('order')[:10]
+        team_members = TeamMember.objects.all()[:4]
         aboutpagecontent = AboutPageContent.objects.all()[:10]
 
 
         context = {
+            'event': event,
+            'team_members': team_members,
             'team_members': team_members,
             'highlights': highlights,
             'disclaimer': disclaimer,
@@ -125,14 +154,42 @@ class CampaignDonateView(FormView):
         return redirect('main:campaign_detail', slug=self.campaign.slug)
 
 
+
 class EventListView(ListView):
     model = Event
     template_name = 'events/list.html'
-    context_object_name = 'events'
-    paginate_by = 12
+    context_object_name = 'event'
 
     def get_queryset(self):
         return Event.objects.order_by('date')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['site_setting'] = SiteSetting.objects.order_by('-id').first()
+        context['featured_projects'] = Project.objects.all()
+        context['latest_news'] = NewsPost.objects.filter(
+            is_published=True
+        ).order_by('-published_on')[:3]
+
+        context['campaigns'] = Campaign.objects.filter(is_active=True)[:3]
+        context['impact_metrics'] = ImpactMetric.objects.all().order_by('order')[:6]
+        context['partners'] = Partner.objects.all()
+        context['team_members'] = TeamMember.objects.all()[:4]
+        context['gallery'] = GalleryImage.objects.order_by('-uploaded_on')[:6]
+        context['disclaimer'] = Disclaimer.objects.first()
+        context['highlights'] = Highlight.objects.filter(
+            is_active=True
+        ).order_by('order')
+
+        context['social_links'] = SocialLink.objects.filter(is_visible=True)
+        context['slides'] = CarouselSlide.objects.filter(
+            is_active=True
+        ).order_by('order')[:10]
+
+        context['aboutpagecontent'] = AboutPageContent.objects.all()[:10]
+
+        return context
 
 
 class EventDetailView(DetailView):

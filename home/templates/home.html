@@ -4,6 +4,11 @@
 
 {% block content %}
 
+<br>
+<br>
+<br>
+<br>
+
 <!-- SLIDER START HERE -->
 <div id="default-carousel" class="relative w-full" data-carousel="slide">
     
@@ -59,7 +64,6 @@
 
 </div>
 <!-- SLIDER END HERE -->
-<h1 class=""></h1>
 
 <!-- HIGHLIGHT START HERE -->
 <section class="py-16 bg-gray-100">
@@ -476,41 +480,60 @@
 <!-- ABOUT US END HERE -->
 
 <!-- GALLERY START HERE -->
-<section class="py-16 bg-gray-50" id="galleryHome">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="py-10 bg-gradient-to-b from-gray-50 to-white" id="galleryHome">
+  <div class="max-w-7xl mx-auto px-3">
 
-        <h2 class="text-4xl font-extrabold text-red-700 text-center mb-6">
-            Gallery
-        </h2>
-
-        <p class="text-center text-gray-600 mb-10">
-            Special moments from Lions Special Olympics events & programs.
-        </p>
+    <!-- Heading -->
+    <div class="text-center mb-1">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-red-700">
+        Gallery
+      </h2>
+      <p class="text-gray-600 mt-2 max-w-2xl mx-auto">
+        Special moments from Lions Special Olympics events & programs.
+      </p>
+    </div>
 
         <!-- Masonry Grid -->
-        <div class="columns-1 sm:columns-2 md:columns-3 gap-4 space-y-4">
+        <div class="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
 
-            {% for rs in gallery %}
+        {% for rs in gallery %}
+        <div class="break-inside-avoid">
 
-            <img src="{{ rs.image.url }}"
-                 onclick="openPopup(this.src)"
-                 class="gallery-img w-full h-48 reveal rounded-xl shadow-lg hover:scale-[1.03] transition duration-500 cursor-pointer">
-            {% endfor %}
+            <!-- Image Wrapper (FIXED HEIGHT) -->
+            <div class="relative group h-56 sm:h-64 lg:h-72  
+                        overflow-hidden rounded-2xl bg-gray-100 shadow-md"  id="imagePopup">
 
-           
+                    <img src="{{ rs.image.url }}"
+            class="gallery-img w-full h-full object-cover object-center
+                    transition-transform duration-500
+                    group-hover:scale-105 cursor-pointer"
+            loading="lazy"
+            onclick="openPopup(this.src)"
+            alt="Gallery Image">
+
+
+            </div>
+
+        </div>
+        {% endfor %}
 
         </div>
 
-        <div class="text-center mt-10">
-            <a href="{% url 'home:gallery' %}"
-               class="bg-red-600 text-white px-8 py-3 rounded-lg shadow hover:bg-red-700 text-lg">
-                View Full Gallery
-            </a>
-        </div>
 
+    <!-- Button -->
+    <div class="text-center mt-2">
+      <a href="{% url 'home:gallery' %}"
+         class="inline-block bg-red-600 text-white px-8 py-3
+                rounded-xl shadow-lg hover:bg-red-700
+                transition text-lg">
+        View Full Gallery
+      </a>
     </div>
+
+  </div>
 </section>
 <!-- GALLERY END HERE -->
+
 
 
 <!-- HIGHLIGHTS START HERE -->
@@ -549,9 +572,10 @@
       {% for rs in team_members %}
       <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
                   hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
-        <div class="overflow-hidden rounded-xl">
-          <img src="{{rs.photo.url}}"
-            class="w-full h-56 object-cover rounded-lg group-hover:scale-110 duration-300">
+            <div class="overflow-hidden rounded-xl h-80">
+                <img src="{{rs.photo.url}}"
+                    class="w-full h-full object-cover object-top rounded-lg
+                        transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
         </div>
         <div class="text-center mt-4">
           <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 duration-300">
@@ -559,10 +583,9 @@
           </h3>
           <p class="text-gray-500 text-sm mt-1">{{rs.role}}</p>
           <p class="text-gray-600 text-sm mt-2 p-1">
-            {{rs.bio | truncatechars:100 }}
-          </p>
+            {{rs.bio | truncatechars:100 }}fdfcdxc xdczcfzsw lorem50
 
-          <div class="flex justify-center gap-4 mt-4">
+          <div class="flex justify-center gap-4 mt2">
             <a href="{{rs.facebook}}" class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
               <i class="fab fa-facebook"></i>
             </a>

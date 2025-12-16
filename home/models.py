@@ -151,7 +151,7 @@ class Event(models.Model):
     class Meta:
         ordering = ['-date']
 
-    def save(self, *args, **kwargs):
+    def save(self,  *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
         super().save(*args, **kwargs)
@@ -459,10 +459,8 @@ class SiteSetting(models.Model):
     nav_color = models.CharField(max_length=300, blank=True)
     text_color = models.CharField(max_length=300, blank=True)
     partners_banner = models.ImageField(upload_to="partners_banner/", blank=True, null=True)
-
-
-
-
+    about_banner = models.ImageField(upload_to="about_banner/", blank=True, null=True)
+    contect_banner = models.ImageField(upload_to="contect_banner/", blank=True, null=True)
 
 
     
@@ -470,7 +468,10 @@ class SiteSetting(models.Model):
     phone = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
     address = models.TextField(blank=True)
+    googlemap = models.TextField(blank=True, null=True)
 
+
+    payment_qr = models.ImageField(upload_to="payment/", blank=True, null=True)
     default_hero = models.ImageField(upload_to="settings/", blank=True, null=True)
     default_cta_text = models.CharField(max_length=200, blank=True)
     default_cta_link = models.CharField(max_length=300, blank=True)
@@ -479,7 +480,6 @@ class SiteSetting(models.Model):
     instagram = models.URLField(max_length=500, blank=True)
     linkdin = models.URLField(max_length=500, blank=True)
     facebook = models.URLField(max_length=500, blank=True)
-
 
 
     seo_title = models.CharField(max_length=255, blank=True)

@@ -46,7 +46,7 @@
       <h3 class="text-xl font-semibold mb-4">Support The Mission</h3>
    <div class="p-2">
     <div class="p-2 bg-white rounded-xl shadow-sm inline-block">
-      <img src="{% static '' %}assets/images/qr/1.png" class="h-30 rounded-sm">
+      <img src="{{site_setting.payment_qr.url}}" class="h-30 rounded-sm">
     </div>
   </div>
       <a href="{% url 'home:donate' %}">

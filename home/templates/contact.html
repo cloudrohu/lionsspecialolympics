@@ -4,7 +4,7 @@
 {% block content %}
 
 <!-- CONTACT HERO -->
-<section class="relative h-[70vh] bg-cover bg-center flex items-center justify-center" style="background-image:url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1400&q=80');">
+<section class="relative h-[70vh] bg-cover bg-center flex items-center justify-center" style="background-image:url('{{site_setting.contect_banner.url}}');">
 
   <div class="absolute inset-0 bg-black/70"></div>
 
@@ -130,22 +130,22 @@
                 Follow On
               </p>
               <div class="flex flex-wrap gap-3">
-                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                <a href="{{site_setting.instagram}}" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
                   <!-- Insta -->
                    <i class="fa-brands fa-instagram text-1xl"></i>
                   Instagram
                 </a>
-                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                <a href="{{site_setting.facebook}}" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
                   <!-- Facebook -->
                 <i class="fa-brands fa-facebook-f"></i>
                   Facebook
                 </a>
-                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                <a href="{{site_setting.youtube}}" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
                   <!-- YouTube -->
                   <i class="fa-brands fa-youtube"></i>
                   YouTube
                 </a>
-                <a href="#" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
+                <a href="{{site_setting.linkedin}}" class="inline-flex items-center gap-2 rounded-full border border-slate-200 px-4 py-2 text-xs font-medium text-slate-700 hover:border-indigo-500 hover:text-indigo-600 transition">
                   <!-- LinkedIn -->
                 <i class="fa-brands fa-linkedin"></i>
                   LinkedIn
@@ -234,19 +234,12 @@
         <h2 class="text-base font-semibold text-slate-900 mb-3">
           Find us on Google Maps
         </h2>
+
         <div class="overflow-hidden rounded-2xl border border-slate-200 shadow-sm h-72 md:h-80">
-          <!-- Replace src with your own Google Maps embed link -->
-          <iframe 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d241317.1160989491!2d72.74109994999999!3d19.0821978!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b63aafbaa0a9%3A0x8cfa9a316bed36fb!2sMumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1709969999999!5m2!1sen!2sin" 
-            width="100%" 
-            height="100%" 
-            style="border:0;" 
-            allowfullscreen="" 
-            loading="lazy" 
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+          {{ site_setting.googlemap|safe }}
         </div>
       </div>
+
     </div>
   </section>
 <!-- CONTACT FORM SECTION END HERE -->

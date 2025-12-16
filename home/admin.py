@@ -233,10 +233,10 @@ class SiteSettingAdmin(admin.ModelAdmin):
 
     fieldsets = (
         ("Branding", {
-            "fields": ("site_name", "logo", "favicon", "tagline","copyright","nav_color","text_color","partners_banner")
+            "fields": ("site_name", "logo", "favicon", "tagline","copyright","nav_color","text_color","partners_banner","about_banner")
         }),
         ("Contact Information", {
-            "fields": ("phone", "email", "address")
+            "fields": ("phone", "email", "address","payment_qr","contect_banner","googlemap") 
         }),
         ("Global Defaults", {
             "fields": ("default_hero", "default_cta_text", "default_cta_link")

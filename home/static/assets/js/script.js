@@ -73,71 +73,14 @@ var swiper = new Swiper(".swiper", {
         delay: 2500,
         disableOnInteraction: false,
     },
-});
-let track = document.getElementById("sliderTrack");
-let dotsContainer = document.getElementById("dots");
-let total = document.querySelectorAll(".project-card").length;
+    });
+    let track = document.getElementById("sliderTrack");
+    let dotsContainer = document.getElementById("dots");
+    let total = document.querySelectorAll(".project-card").length;
 
 let index = 0;
 
-// Create dots dynamically
-for (let i = 0; i < total; i++) {
-    let dot = document.createElement("div");
-    dot.classList.add("dot");
-    if (i === 0) dot.classList.add("active");
-    dot.dataset.idx = i;
-    dotsContainer.appendChild(dot);
 
-    dot.onclick = () => {
-        index = i;
-        updateSlider();
-    };
-}
-const newsData = {
-    1: {
-        title: "Fundraising For Digital Library",
-        slug: "fundraising-digital-library",
-        date: "24 Nov 2025 | 09:32 AM",
-        content: "Complete details of the Digital Library fundraising news…"
-    },
-    2: {
-        title: "Community Event Update",
-        slug: "community-event",
-        date: "23 Nov 2025 | 07:45 PM",
-        content: "Full details about the community event update…"
-    },
-    3: {
-        title: "Tech Seminar Highlights",
-        slug: "tech-seminar",
-        date: "22 Nov 2025 | 11:20 AM",
-        content: "Detailed seminar highlights and announcements…"
-    }
-};
-
-function openNewsPopup(id) {
-    document.getElementById("popupTitle").innerText = newsData[id].title;
-    document.getElementById("popupSlug").innerText = "Slug: " + newsData[id].slug;
-    document.getElementById("popupDate").innerText = "Published: " + newsData[id].date;
-    document.getElementById("popupContent").innerText = newsData[id].content;
-
-    document.getElementById("newsPopup").style.display = "flex";
-}
-
-function closeNewsPopup() {
-    document.getElementById("newsPopup").style.display = "none";
-}
-
-function closeNewsPopup() {
-    document.getElementById("newsPopup").classList.add("hidden");
-}
-new Swiper(".swiper", {
-    loop: true,
-    spaceBetween: 20,
-    pagination: {
-        el: ".swiper-pagination",
-        clickable: true,
-    },
-});
 
 
 
@@ -228,6 +171,22 @@ popup.addEventListener("click", (e) => {
         closePopup();
     }
 });
+
+function openPopup(src) {
+    if (!galleryImages.length) return;
+
+    currentIndex = galleryImages.indexOf(src);
+    if (currentIndex === -1) currentIndex = 0;
+
+    popup.classList.remove("hidden");
+    popupImage.src = src;
+
+    setTimeout(() => {
+        popupImage.classList.remove("scale-95", "opacity-0");
+        popupImage.classList.add("scale-100", "opacity-100");
+    }, 50);
+}
+
 
 const tsTrack = document.getElementById("tsTrack");
 const tsPrev = document.getElementById("tsPrev");

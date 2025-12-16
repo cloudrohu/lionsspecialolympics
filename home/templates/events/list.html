@@ -28,123 +28,102 @@
 
 
 <!-- EVENTS CARD START-->
-<section class="py-16 bg-gray-100">
-  <div class="max-w-7xl mx-auto px-6">
+<section class="py-14 bg-white">
+  <div class="max-w-6xl mx-auto px-6">
 
-    <h2 class="text-3xl md:text-4xl font-bold text-center mb-10">
-      Upcoming Events
-    </h2>
+    <!-- Heading -->
+    <div class="text-center mb-4">
+      <h2 class="text-4xl font-extrabold text-gray-900">
+        Upcoming Events
+      </h2>
+      <p class="mt-2 text-gray-600 max-w-xl mx-auto">
+        Stay updated with our latest events, training programs and activities
+      </p>
+    </div>
 
-    <div class="relative overflow-hidden">
+    <!-- Events Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-      <div class="flex gap-8 transition-all duration-500 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+      {% for rs in event %}
+        
+      <!-- EVENT CARD -->
+      <div class="group bg-white rounded-3xl border border-gray-200 shadow-md hover:shadow-xl transition overflow-hidden">
 
+        <!-- Top Bar -->
+        <div class="px-6 py-3 bg-gray-50 border-b">
+          <span class="text-xs font-semibold text-gray-700">
+            📅 {{rs.created_on}} &nbsp;|&nbsp; ⏰ 10:00 AM
+          </span>
+        </div>
 
-              <!-- CARD -->
-            <div class=" md:min-w-0 bg-white rounded-2xl shadow-xl border hover:shadow-2xl transition hover:-translate-y-1 overflow-hidden">
-                
-              <!-- label -->
-              <div class="bg-gradient-to-r from-red-600 to-red-800 text-white px-4 py-1 text-xs font-bold">
-                UPCOMING EVENT
-              </div>
+        <!-- Body -->
+        <div class="p-6 space-y-4">
 
-              <div class="p-6">
+          <!-- Title -->
+          <h3 class="text-2xl font-bold text-gray-900">
+            {{rs.title}}
+          </h3>
 
-                <!-- date -->
-                <span class="inline-block bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1 rounded-lg border mb-4">
-                  12 MARCH 2025 | 10:00 AM
-                </span>
+          <!-- Info -->
+          <div class="text-sm space-y-1">
+            <p>
+              <span class="font-semibold text-gray-700">Location:</span>
+              <span class="text-gray-600">{{rs.location}}</span>
+            </p>
+            <p>
+              <span class="font-semibold text-gray-700">Type:</span>
+              <span class="text-gray-600">{{rs.type}}</span>
+            </p>
+            <p>
+              <span class="font-semibold text-gray-700">Contact:</span>
+              <span class="text-gray-600">{{rs.contact}}</span>
+            </p>
+          </div>
 
-                <!-- title -->
-                <h3 class="text-xl font-bold text-gray-900 leading-snug">Sports Training Camp</h3>
+          <!-- Location -->
+          <p class="text-sm font-semibold text-gray-800">
+            📍 Mumbai
+          </p>
 
-                <!-- category -->
-                <p class="text-xs font-semibold text-blue-600 mt-1">Category: Sports</p>
-                <p class="text-xs font-semibold text-green-600">Type: Physical</p>
-                <p class="text-xs font-semibold text-purple-600 mb-2">Contact: John</p>
+          <!-- Description -->
+          <p class="text-sm text-gray-600 leading-relaxed">
+            {{rs.dscription}}
+          </p>
 
-                <!-- location -->
-                <div class="text-gray-700 mt-2 text-sm"><strong>Location:</strong> Mumbai</div>
+        </div>
 
-                <!-- description -->
-                <p class="text-gray-600 mt-4 text-sm leading-relaxed">
-                  A premium training session to grow physical & mental abilities.
-                </p>
+        <!-- Footer -->
+        <div class="flex justify-between items-center px-6 py-4 bg-gray-50 border-t">
 
-                <!-- extra stats -->
-                <div class="mt-5 grid grid-cols-2 gap-2 text-sm text-gray-800">
-                  <div class="bg-gray-50 p-2 rounded-lg border">Capacity: 150</div>
-                  <div class="bg-gray-50 p-2 rounded-lg border">Reg: Yes</div>
-                </div>
+          <span class="text-xs px-4 py-1 rounded-full border bg-white text-gray-700">
+            Capacity: {{rs.capacity}}
+          </span>
 
-                <button class="mt-6 w-full bg-red-600 hover:bg-red-700 text-white py-2.5 rounded-lg font-semibold text-sm">
-                  Register Now
-                </button>
+          <span class="text-xs px-4 py-1 rounded-full
+                       bg-green-100 text-green-700 border border-green-300">
+            Registration: {{rs.registration_required}}
+          </span>
 
-              </div>
-            </div>
+        </div>
 
-  
       </div>
+
+      {% endfor %}
+
+
+      <!-- Duplicate card for more events -->
+
     </div>
   </div>
 </section>
 <!-- EVENTS CARD END-->
 
 
-<!-- EVENTS HIGLIGHT -->
- <section class="py-20 bg-white">
-  <div class="max-w-7xl mx-auto px-6">
-
-    <div class="text-center mb-12">
-      <h2 class="text-3xl md:text-4xl font-bold text-gray-800">
-        Event Highlights
-      </h2>
-      <p class="mt-3 text-gray-600 max-w-2xl mx-auto">
-        Special moments from our recent activities, competitions and training programs.
-      </p>
-    </div>
-
-    <div class="grid md:grid-cols-3 gap-8">
-
-      <!-- highlight 1 -->
-      <div class="bg-gray-100 rounded-xl p-6 shadow hover:shadow-xl transition">
-        <h3 class="text-xl font-semibold text-red-600 mb-2">
-          🏆 Medal Winners
-        </h3>
-        <p class="text-gray-700 leading-relaxed">
-          Athletes achieved medals and recognition in various sports and national tournaments.
-        </p>
-      </div>
-
-      <!-- highlight 2 -->
-      <div class="bg-gray-100 rounded-xl p-6 shadow hover:shadow-xl transition">
-        <h3 class="text-xl font-semibold text-red-600 mb-2">
-          🎉 Participation Growth
-        </h3>
-        <p class="text-gray-700 leading-relaxed">
-          Over 2,000 athletes, volunteers and coaches joined our latest regional events.
-        </p>
-      </div>
-
-      <!-- highlight 3 -->
-      <div class="bg-gray-100 rounded-xl p-6 shadow hover:shadow-xl transition">
-        <h3 class="text-xl font-semibold text-red-600 mb-2">
-          🤝 Unified Sports Activities
-        </h3>
-        <p class="text-gray-700 leading-relaxed">
-          Inclusive matches and competitions brought together communities to support athletes.
-        </p>
-      </div>
-
-    </div>
-  </div>
-</section>
-<!-- EVENTS HIGLIGHT ENDS-->
 
 
 
-<!-- EVENT HIGHLIGHTS START -->
+
+<!-- EVENT GALLERY START -->
 <section class="py-16 bg-gray-100">
   <div class="max-w-7xl mx-auto px-6">
 
@@ -158,59 +137,27 @@
 
     <div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
+
+
+      {% for rs in gallery %}
+        
       <!-- Image -->
       <div class="relative group overflow-hidden rounded-xl shadow-lg">
-        <img src="https://source.unsplash.com/600x600/?sports" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
+        <img src="{{rs.image.url}}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
         <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-sm font-semibold">
           View Photo
         </div>
       </div>
 
-      <!-- Image -->
-      <div class="relative group overflow-hidden rounded-xl shadow-lg">
-        <img src="https://source.unsplash.com/600x600/?stadium" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-sm font-semibold">
-          View Photo
-        </div>
-      </div>
+      {% endfor %}
 
-      <!-- Image -->
-      <div class="relative group overflow-hidden rounded-xl shadow-lg">
-        <img src="https://source.unsplash.com/600x600/?athlete" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-sm font-semibold">
-          View Photo
-        </div>
-      </div>
 
-      <!-- Image -->
-      <div class="relative group overflow-hidden rounded-xl shadow-lg">
-        <img src="https://source.unsplash.com/600x600/?race" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-sm font-semibold">
-          View Photo
-        </div>
-      </div>
-
-      <!-- Image -->
-      <div class="relative group overflow-hidden rounded-xl shadow-lg">
-        <img src="https://source.unsplash.com/600x600/?games" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-sm font-semibold">
-          View Photo
-        </div>
-      </div>
-
-      <!-- Image -->
-      <div class="relative group overflow-hidden rounded-xl shadow-lg">
-        <img src="https://source.unsplash.com/600x600/?football" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-        <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-sm font-semibold">
-          View Photo
-        </div>
-      </div>
 
     </div>
 
   </div>
 </section>
-<!-- EVENT HIGHLIGHTS END -->
+<!-- EVENT GALLERY END -->
 
 <!-- VOLUNTEER CTA START -->
 <section class="relative py-20 bg-center bg-cover" style="background-image:url('https://images.unsplash.com/photo-1520975922284-5c5f8b7c117e?auto=format&fit=crop&w=900&q=60');">
