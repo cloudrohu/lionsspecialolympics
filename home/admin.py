@@ -124,20 +124,17 @@ class NewsPostAdmin(admin.ModelAdmin):
         self.message_user(request, f"{updated} post(s) unpublished.")
     unpublish_posts.short_description = "Unpublish selected posts"
 
-
 @admin.register(ContactMessage)
 class ContactMessageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'received_on', 'is_handled')
+    list_display = ('name', 'phone', 'email', 'subject', 'received_on', 'is_handled')
     search_fields = ('name', 'email', 'subject', 'message')
     list_filter = ('is_handled',)
     readonly_fields = ('received_on',)
     actions = ['mark_handled']
 
     def mark_handled(self, request, queryset):
-        updated = queryset.update(is_handled=True)
-        self.message_user(request, f"{updated} message(s) marked as handled.")
-    mark_handled.short_description = "Mark selected messages as handled"
-
+        queryset.update(is_handled=True)
+        self.message_user(request, "Selected messages marked as handled.")
 
 @admin.register(GalleryImage)
 class GalleryImageAdmin(admin.ModelAdmin):

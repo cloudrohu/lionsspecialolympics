@@ -294,18 +294,21 @@ class GalleryView(ListView):
 class ContactView(FormView):
     template_name = 'contact.html'
     form_class = ContactForm
-    success_url = reverse_lazy('main:contact')
+    success_url = reverse_lazy('home:thank_you')
 
     def form_valid(self, form):
         ContactMessage.objects.create(
             name=form.cleaned_data['name'],
+            phone=form.cleaned_data.get('phone', ''),
             email=form.cleaned_data['email'],
             subject=form.cleaned_data.get('subject', ''),
             message=form.cleaned_data['message']
         )
-        messages.success(self.request, 'Thank you — your message has been received.')
+        messages.success(self.request, "Thank you — your message has been received.")
         return super().form_valid(form)
-
+    
+class ThankYouView(TemplateView):
+    template_name = 'thank-you.html'
 
 class FAQView(ListView):
     model = FAQ

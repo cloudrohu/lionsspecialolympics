@@ -5,8 +5,10 @@ from .models import Donation, Volunteer, EventRegistration, Campaign
 User = get_user_model()
 
 
+
 class ContactForm(forms.Form):
     name = forms.CharField(max_length=255)
+    phone = forms.CharField(max_length=12, required=False)
     email = forms.EmailField()
     subject = forms.CharField(max_length=255, required=False)
     message = forms.CharField(widget=forms.Textarea)

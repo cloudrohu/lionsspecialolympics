@@ -165,67 +165,106 @@
               Fill out the form and we’ll get back to you as soon as possible.
             </p>
 
-            <form action="#" method="POST" class="space-y-4">
+            <form action="{% url 'home:contact' %}" method="POST" class="space-y-4">
+              {% csrf_token %}
+
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
                 <!-- Name -->
                 <div>
-                  <label class="block text-xs font-medium text-slate-600 mb-1">Full Name</label>
-                  <input type="text" required
-                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                  <label class="block text-xs font-medium text-slate-600 mb-1">
+                    Full Name
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    required
+                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm
+                          outline-none focus:border-indigo-500 focus:bg-white
+                          focus:ring-2 focus:ring-indigo-100"
                     placeholder="Enter your name">
                 </div>
+
                 <!-- Phone -->
                 <div>
-                  <label class="block text-xs font-medium text-slate-600 mb-1">Phone Number</label>
-                  <input type="tel"
-                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
-                    placeholder="+91 98765 43210">
+                  <label class="block text-xs font-medium text-slate-600 mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    name="phone"
+                    class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm
+                          outline-none focus:border-indigo-500 focus:bg-white
+                          focus:ring-2 focus:ring-indigo-100"
+                    placeholder="98765 43210">
                 </div>
+
               </div>
 
               <!-- Email -->
               <div>
-                <label class="block text-xs font-medium text-slate-600 mb-1">Email Address</label>
-                <input type="email" required
-                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                <label class="block text-xs font-medium text-slate-600 mb-1">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm
+                        outline-none focus:border-indigo-500 focus:bg-white
+                        focus:ring-2 focus:ring-indigo-100"
                   placeholder="you@example.com">
               </div>
 
               <!-- Subject -->
               <div>
-                <label class="block text-xs font-medium text-slate-600 mb-1">Subject</label>
-                <input type="text"
-                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100"
+                <label class="block text-xs font-medium text-slate-600 mb-1">
+                  Subject
+                </label>
+                <input
+                  type="text"
+                  name="subject"
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm
+                        outline-none focus:border-indigo-500 focus:bg-white
+                        focus:ring-2 focus:ring-indigo-100"
                   placeholder="How can we help you?">
               </div>
 
               <!-- Message -->
               <div>
-                <label class="block text-xs font-medium text-slate-600 mb-1">Message</label>
-                <textarea rows="4" required
-                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-100 resize-none"
+                <label class="block text-xs font-medium text-slate-600 mb-1">
+                  Message
+                </label>
+                <textarea
+                  name="message"
+                  rows="4"
+                  required
+                  class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm
+                        outline-none focus:border-indigo-500 focus:bg-white
+                        focus:ring-2 focus:ring-indigo-100 resize-none"
                   placeholder="Write your message here..."></textarea>
               </div>
 
-              <!-- CONSENT + BUTTON -->
+              <!-- Consent + Button -->
               <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 pt-2">
                 <label class="inline-flex items-start gap-2 text-xs text-slate-500">
-                <input type="checkbox" class="mt-0.5 h-4 w-4 border border-gray-400 rounded-sm appearance-auto">
-                  I provide my informed consent for Lions Special<br> Olympics to reach  out to me for<br> communication purposes.
+                  <input required type="checkbox"
+                        class="mt-0.5 h-4 w-4 border border-gray-400 rounded-sm appearance-auto">
+                  I provide my informed consent for Lions Special Olympics to reach out to me.
                 </label>
 
-              <button type="submit"
-                class="w-full md:w-auto inline-flex items-center justify-center rounded-xl 
-                      bg-indigo-600 px-7 py-3 text-sm font-semibold text-white 
-                      shadow hover:bg-indigo-700 transition-all duration-200">
-                Send Message
-              </button>
-
+                <button type="submit"
+                  class="w-full md:w-auto inline-flex items-center justify-center rounded-xl
+                        bg-indigo-600 px-7 py-3 text-sm font-semibold text-white
+                        shadow hover:bg-indigo-700 transition-all duration-200">
+                  Send Message
+                </button>
               </div>
-              
+
             </form>
           </div>
         </div>
+
 
       </div>
 

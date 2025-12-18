@@ -9,7 +9,7 @@ from .views import (
     NewsListView, NewsDetailView,
     GalleryView, ContactView,
     FAQView, TestimonialView, PartnerView, LocationView,
-    DashboardView
+    DashboardView,ThankYouView
 )
 
 app_name = 'home'
@@ -44,6 +44,8 @@ urlpatterns = [
     # Gallery & Contact
     path('gallery/', GalleryView.as_view(), name='gallery'),
     path('contact/', ContactView.as_view(), name='contact'),
+    path('thank-you/', ThankYouView.as_view(), name='thank_you'),
+
 
     # Misc
     path('faq/', FAQView.as_view(), name='faq'),

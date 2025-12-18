@@ -212,6 +212,7 @@ class NewsPost(models.Model):
 
 class ContactMessage(models.Model):
     name = models.CharField(max_length=255)
+    phone = models.CharField(max_length=12, blank=True)
     email = models.EmailField()
     subject = models.CharField(max_length=255, blank=True)
     message = models.TextField()
@@ -222,7 +223,7 @@ class ContactMessage(models.Model):
         ordering = ['-received_on']
 
     def __str__(self):
-        return f"Message from {self.name} - {self.subject}"
+        return f"{self.name} - {self.subject}"
 
 
 class GalleryImage(models.Model):
