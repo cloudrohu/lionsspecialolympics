@@ -23,12 +23,6 @@
 
                 <!-- TEXT CONTENT -->
                 <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center px-4">
-                    <h2 class="text-white text-4xl md:text-6xl font-bold mb-3">
-                        {{rs.title}}
-                    </h2>
-                    <p class="text-white text-lg md:text-2xl">
-                        {{rs.subtitle}}
-                    </p>
                 </div>
             </div>
         {% endfor %}
@@ -122,41 +116,20 @@
         <!-- Impact Stats -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
 
+            {% for rs in impact_metrics %}
             <!-- Box 1 -->
             <div class="bg-white p-8 rounded-2xl shadow hover:shadow-xl transition text-center">
                 <div class="text-red-600 text-5xl mb-4">
-                    <i class="fa-solid fa-people-group"></i>
+                    <i class="{{rs.icon}}"></i>
                 </div>
-                <h3 class="text-4xl font-bold text-gray-900 count" data-target="1000">0</h3>
-                <p class="mt-2 text-gray-600">Athletes Trained</p>
+                <span class="text-4xl font-bold text-gray-900 count" data-target="{{rs.value}}">0 </span><span class="ml-1 text-4xl font-bold text-gray-900">+</span>
+                <p class="mt-2 text-gray-600">{{rs.title}}</p>
             </div>
+            {% endfor %}
 
-            <!-- Box 2 -->
-            <div class="bg-white p-8 rounded-2xl shadow hover:shadow-xl transition text-center">
-                <div class="text-red-600 text-5xl mb-4">
-                    <i class="fa-solid fa-medal"></i>
-                </div>
-                <h3 class="text-4xl font-bold text-gray-900 count" data-target="120">0</h3>
-                <p class="mt-2 text-gray-600">Events Conducted</p>
-            </div>
+       
 
-            <!-- Box 3 -->
-            <div class="bg-white p-8 rounded-2xl shadow hover:shadow-xl transition text-center">
-                <div class="text-red-600 text-5xl mb-4">
-                    <i class="fa-solid fa-handshake-angle"></i>
-                </div>
-                <h3 class="text-4xl font-bold text-gray-900 count" data-target="300">0</h3>
-                <p class="mt-2 text-gray-600">Volunteers Engaged</p>
-            </div>
 
-            <!-- Box 4 -->
-            <div class="bg-white p-8 rounded-2xl shadow hover:shadow-xl transition text-center">
-                <div class="text-red-600 text-5xl mb-4">
-                    <i class="fa-solid fa-heart-circle-check"></i>
-                </div>
-                <h3 class="text-4xl font-bold text-gray-900 count" data-target="15">0</h3>
-                <p class="mt-2 text-gray-600">Years of Service</p>
-            </div>
 
         </div>
 
@@ -564,41 +537,40 @@
 <section class="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
   <div class="container mx-auto px-5">
     <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
-      Meet Our Team
+    Meet Our Leadership
     </h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
-      {% for rs in team_members %}
-      <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
-                  hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
-            <div class="overflow-hidden rounded-xl h-80">
-                <img src="{{rs.photo.url}}"
-                    class="w-full h-full object-cover object-top rounded-lg
-                        transition-transform duration-300 group-hover:scale-110" loading="lazy" decoding="async">
-        </div>
-        <div class="text-center mt-4">
-          <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 duration-300">
-            {{rs.name}}
-          </h3>
-          <p class="text-gray-500 text-sm mt-1">{{rs.role}}</p>
-          <p class="text-gray-600 text-sm mt-2 p-1">
-            {{rs.bio | truncatechars:100 }}
+        {% for rs in team_members %}
+        <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
+                    hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
 
-          <div class="flex justify-center gap-4 mt2">
-            <a href="{{rs.facebook}}" class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-facebook"></i>
-            </a>
-            <a href="{{rs.twitter}}" class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-twitter"></i>
-            </a>
-            <a href="{{rs.instagram}}" class="text-gray-600 hover:text-indigo-600 duration-300 text-xl">
-              <i class="fab fa-instagram"></i>
-            </a>
-          </div>
+            <div class="overflow-hidden rounded-xl h-80">
+                <img src="{{ rs.photo.url }}"
+                    class="w-full h-full object-cover object-top rounded-lg
+                            transition-transform duration-300 group-hover:scale-110"
+                    loading="lazy" decoding="async">
+            </div>
+
+            <div class="text-center mt-4">
+                <h3 class="text-xl font-semibold text-gray-900 group-hover:text-indigo-600 duration-300">
+                    {{ rs.name }}
+                </h3>
+
+                <p class="text-gray-500 text-sm mt-1">{{ rs.role }}</p>
+
+                <p class="text-gray-600 text-sm mt-2 px-2">
+                    {{ rs.bio}}
+                </p>
+
+                <!-- READ MORE BUTTON -->
+           
+
+            </div>
         </div>
-      </div>
-      {% endfor %}
+        {% endfor %}
+
 
 
     </div>
@@ -618,7 +590,7 @@
 
     <div class="bg-white shadow-lg rounded-2xl p-6 border border-gray-200">
       <p class="text-gray-600 leading-relaxed mb-3">
-        {{disclaimer.disclaimer}}
+        {{disclaimer.disclaimer|safe}}
       </p>
 
     </div>

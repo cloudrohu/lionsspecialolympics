@@ -1,140 +1,465 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Partners{% endblock %}
+{% block title %}{{site_setting.site_name}}Donate{% endblock %}
 {% block content %}
 
-<!-- DONATE HERO SECTION -->
-<section class="relative bg-[url('https://images.unsplash.com/photo-1526256262350-7da7584cf5eb?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center bg-no-repeat h-[80vh] flex items-center">
-  
-  <!-- overlay -->
-  <div class="absolute inset-0 bg-black/60"></div>
+<br><br><br>
+<!-- ================= PAYMENT SECTION ================= -->
+<section class="py-16 bg-white">
+  <div class="max-w-3xl mx-auto px-4">
 
-  <div class="relative max-w-5xl mx-auto px-6 text-center text-white">
+    <h2 class="text-2xl font-bold mb-6">
+      Donation Frequency & Amount
+    </h2>
 
-    <p class="uppercase tracking-[0.25em] text-sm mb-3 text-[#81ffa2]">
-      HAAN NGO
-    </p>
+    <!-- TOGGLE -->
+    <div class="flex gap-4 mb-4">
+      <button id="monthlyBtn"
+        class="flex-1 py-3 rounded-md bg-sky-600 text-white font-semibold transition">
+        MONTHLY
+      </button>
 
-    <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-      Your Donation Can Change a Life 💚
-    </h1>
-
-    <p class="max-w-2xl mx-auto mt-4 text-lg opacity-90">
-      Support education, food, and healthcare programs.  
-      Every single Rupee brings hope to those who need it.
-    </p>
-
-    <div class="flex justify-center gap-4 mt-8">
-      <a href="#donate"
-        class="px-8 py-3 text-lg rounded-xl bg-[#118c4f] hover:bg-[#0e7a45] transition font-semibold shadow-lg">
-        Donate Now
-      </a>
-
-      <a href="#about"
-        class="px-8 py-3 text-lg rounded-xl border border-white/40 hover:bg-white hover:text-[#118c4f] transition font-semibold">
-        Learn More
-      </a>
+      <button id="oneTimeBtn"
+        class="flex-1 py-3 rounded-md border border-slate-300 text-slate-600 font-semibold transition">
+        ONE TIME
+      </button>
     </div>
+
+    <!-- IMPACT TEXT -->
+    <div id="impactText" class="italic text-sm text-slate-600 mb-6">
+      Giving monthly makes the biggest impact!
+    </div>
+
+    <!-- AMOUNT GRID -->
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-3">
+
+      <div class="amount-box" data-amount="150">₹150 <span class="freq">/month</span></div>
+      <div class="amount-box" data-amount="300">₹300 <span class="freq">/month</span></div>
+      <div class="amount-box" data-amount="500">₹500 <span class="freq">/month</span></div>
+      <div class="amount-box" data-amount="750">₹750 <span class="freq">/month</span></div>
+      <div class="amount-box" data-amount="1000">₹1,000 <span class="freq">/month</span></div>
+
+      <div class="amount-box other-box" id="otherBtn">
+        Other Amount
+      </div>
+
+      <input type="number" id="customAmount" placeholder="₹ 0.00"
+        class="hidden col-span-2 sm:col-span-3 w-full rounded-lg px-4 py-4 text-sm
+               border border-slate-300 bg-slate-50
+               focus:bg-white focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+    </div>
+
+    <p id="errorMsg" class="hidden text-xs text-red-600 mb-6">
+      Invalid amount. Contribution must be at least ₹100.
+    </p>
+
+    <!-- PAY BUTTON -->
+        <button id="payWithCardBtn" disabled
+          class="w-full bg-red-300 cursor-not-allowed text-white font-semibold
+                py-3 rounded-lg shadow-md transition">
+          PAY WITH CARD →
+        </button>
 
   </div>
 </section>
-<!-- DONATE HERO SECTION END-->
 
-<!-- DONATION FORM -->
- <section class="py-20 bg-gradient-to-b from-gray-100 to-gray-200">
-  <div class="max-w-5xl mx-auto px-6">
-    <div class="bg-white/90 backdrop-blur-xl shadow-xl border border-gray-200 rounded-3xl p-10">
+<!-- ================= PERSONAL INFO MODAL ================= -->
+<div id="cardFormWrapper"
+  class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
 
-      <h3 class="text-3xl font-bold text-center text-[#118c4f] mb-10">
-        Make a Donation
-      </h3>
+  <div class="bg-white w-full max-w-2xl rounded-xl p-6 overflow-y-auto max-h-[90vh]">
 
-      <form class="space-y-8">
+    <h3 class="text-xl font-bold mb-4">Personal Information</h3>
 
-        <!-- 1: 2 COLUMN FIELDS -->
-        <div class="grid md:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+      <input class="input" placeholder="First Name">
+      <input class="input" placeholder="Last Name">
+    </div>
 
-          <div>
-            <label class="text-sm font-medium text-gray-600">Full Name</label>
-            <input name="name" required class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
-          </div>
+    <input class="input mb-4" placeholder="Email">
 
-          <div>
-            <label class="text-sm font-medium text-gray-600">Email</label>
-            <input type="email" name="email" required class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
-          </div>
+    <div class="mb-4">
+      <label class="block text-sm font-semibold mb-1">
+        Mobile Phone <span class="text-gray-500">(Optional)</span>
+      </label>
 
-          <div>
-            <label class="text-sm font-medium text-gray-600">Phone</label>
-            <input name="phone" class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
-          </div>
+      <div class="relative flex">
+        <!-- Country Button -->
+        <button type="button" id="countryBtn"
+          class="flex items-center gap-2 px-3 border border-slate-300 rounded-l-md bg-white">
+          <span id="flag">🇺🇸</span>
+          <span id="dialCode">+1</span>
+          <span class="text-xs">▾</span>
+        </button>
 
-          <div>
-            <label class="text-sm font-medium text-gray-600">Amount (₹)</label>
-            <input required type="number" min="1" placeholder="Enter any amount"
-              class="remove-spinners w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]" />
-          </div>
+        <!-- Phone Input -->
+        <input type="tel" placeholder="Phone number"
+          class="flex-1 border border-l-0 border-slate-300 rounded-r-md px-3 py-2
+                focus:outline-none focus:border-sky-600">
 
+        <!-- Dropdown -->
+        <div id="countryDropdown"
+          class="hidden absolute top-full left-0 mt-1 w-80 max-h-64 overflow-y-auto
+                bg-white border border-slate-300 rounded-md shadow-lg z-50">
+        </div>
+      </div>
+
+      <p class="text-xs text-slate-500 mt-1">
+        By submitting your cell phone number you agree to receive periodic text messages.
+      </p>
+    </div>
+
+
+    <input class="input mb-3" placeholder="Street Address">
+    <input class="input mb-3" placeholder="Address Line 2 (Optional)">
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
+      <input class="input" placeholder="City">
+      <input class="input" placeholder="State / Province">
+      <input class="input" placeholder="Postal Code">
+    </div>
+
+
+      <!-- PAYMENT INFORMATION -->  
+      <h3 class="text-xl font-bold mb-4">Payment Information</h3>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+
+        <!-- LEFT: GIFT AMOUNT -->
+        <div class="border border-slate-300 rounded-lg p-4 flex flex-col justify-center items-center">
+          <p class="text-xs uppercase text-slate-500 mb-1">Your Gift Amount</p>
+          <p id="giftAmount" class="text-3xl font-bold">₹0</p>
         </div>
 
-        <!-- 2: PROJECT SELECT -->
-        <div>
-          <label class="text-sm font-medium text-gray-600">Donate For</label>
-          <select class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]">
-            <option>Select a project</option>
-            <option>Education Support</option>
-            <option>Hunger Relief</option>
-            <option>Medical Aid</option>
-            <option>Women Empowerment</option>
-            <option>Old-age Care</option>
-          </select>
-        </div>
+        <!-- RIGHT: CARD DETAILS -->
+        <div class="md:col-span-2 border border-slate-300 rounded-lg p-4">
 
-        <!-- 3: NOTE -->
-        <div>
-          <label class="text-sm font-medium text-gray-600">Note (optional)</label>
-          <textarea rows="4" class="w-full border rounded-xl p-3 focus:ring-2 focus:ring-[#118c4f]"></textarea>
-            <div class="mt-4 mb-3">
-            <label class="text-sm font-medium text-gray-700">
-                Payment Method <span class="text-red-500">*</span>
-            </label>
+          <!-- CARD NUMBER -->
+          <div class="mb-4">
+            <label class="block text-xs font-semibold mb-1">Card Number</label>
+            <input type="text" placeholder="•••• •••• •••• ••••"
+              class="w-full border border-slate-300 rounded-md px-3 py-2
+                    focus:outline-none focus:border-sky-600">
+          </div>
 
-            <select required
-                class="w-full mt-2 p-3 bg-white border border-gray-300 rounded-xl
-                    focus:ring-2 focus:ring-[#118c4f] text-gray-700">
-
-                <option value="" selected disabled>Select a Payment Method</option>
-                <option value="UPI">UPI</option>
-                <option value="Razorpay">Razorpay</option>
-                <option value="Card">Debit/Credit Card</option>
-                <option value="NetBanking">Net Banking</option>
-
-            </select>
+          <!-- EXP + CVV -->
+          <div class="grid grid-cols-2 gap-4 mb-4">
+            <div>
+              <label class="block text-xs font-semibold mb-1">Expiration Date</label>
+              <input type="text" placeholder="MM / YY"
+                class="w-full border border-slate-300 rounded-md px-3 py-2
+                      focus:outline-none focus:border-sky-600">
             </div>
-            <!-- SUBMIT -->
-            <button class="w-full bg-[#118c4f] text-white font-semibold py-4 rounded-2xl hover:bg-[#0e7a45] shadow-lg">
-            Proceed to Pay
-            </button>
 
-      </form>
+            <div>
+              <label class="block text-xs font-semibold mb-1">Security Code</label>
+              <input type="text" placeholder="CVV"
+                class="w-full border border-slate-300 rounded-md px-3 py-2
+                      focus:outline-none focus:border-sky-600">
+            </div>
+          </div>
 
-    </div>
+          <!-- TRANSACTION FEES -->
+          <label class="flex items-center gap-2 text-sm">
+            <p id="feeNote" class="hidden text-xs text-green-600 mt-2">
+              ✔ You are helping cover transaction fees
+            </p>
+
+            I’d like to help cover transaction fees.
+          </label>
+
+        </div>
+      </div>
+
+
+    <input class="input mb-4" placeholder="Security Code">
+
+    <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold
+                   py-3 rounded-lg shadow-md transition">
+      SUBMIT YOUR DONATION →
+    </button>
+
+    <button id="closeForm"
+      class="mt-4 text-sm text-gray-500 block mx-auto">
+      Close
+    </button>
+
   </div>
-</section>
+</div>
+
+<!-- ================= STYLES ================= -->
+<style>
+  .amount-box{
+    border:1px solid #cbd5e1;
+    border-radius:8px;
+    padding:16px;
+    text-align:center;
+    cursor:pointer;
+    transition:.25s;
+  }
+  .amount-box:hover{
+    border-color:#0284c7;
+    background:#f0f9ff;
+  }
+  .amount-box.active{
+    background:#0284c7;
+    color:#fff;
+    font-weight:600;
+  }
+  .amount-box span{
+    font-size:12px;
+  }
+  .other-box{
+    background:#f8fafc;
+    font-weight:600;
+  }
+  .input{
+    width:100%;
+    border:1px solid #cbd5e1;
+    padding:12px;
+    border-radius:6px;
+  }
+  .input:focus{
+    border-color:#0284c7;
+    outline:none;
+  }
+</style>
 
 <style>
-.payment-option .option-box{
-  @apply bg-gray-50 border border-gray-300 p-4 rounded-xl text-center font-semibold text-gray-700 cursor-pointer transition;
+.country-item{
+  padding:8px 12px;
+  cursor:pointer;
+  font-size:14px;
+  display:flex;
+  gap:8px;
 }
-.payment-option .peer:checked + .option-box{
-  @apply bg-[#118c4f] text-white border-[#118c4f] shadow-xl scale-105;
-}
-.payment-option .option-box:hover{
-  @apply bg-[#118c4f] text-white;
+.country-item:hover{
+  background:#f1f5f9;
 }
 </style>
 
 
-<!-- DONATION FORM END-->
+<!-- ================= SCRIPT ================= -->
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+
+    const monthlyBtn = document.getElementById("monthlyBtn");
+    const oneTimeBtn = document.getElementById("oneTimeBtn");
+    const impactText = document.getElementById("impactText");
+    const freqTexts = document.querySelectorAll(".freq");
+
+    const boxes = document.querySelectorAll(".amount-box");
+    const otherBtn = document.getElementById("otherBtn");
+    const customAmount = document.getElementById("customAmount");
+    const errorMsg = document.getElementById("errorMsg");
+
+    const payBtn = document.getElementById("payWithCardBtn");
+    const modal = document.getElementById("cardFormWrapper");
+    const closeBtn = document.getElementById("closeForm");
+
+    monthlyBtn.onclick = () => {
+      impactText.classList.remove("hidden");
+      freqTexts.forEach(t => t.classList.remove("hidden"));
+    };
+
+    oneTimeBtn.onclick = () => {
+      impactText.classList.add("hidden");
+      freqTexts.forEach(t => t.classList.add("hidden"));
+    };
+
+    boxes.forEach(box => {
+      box.onclick = () => {
+        boxes.forEach(b => b.classList.remove("active"));
+        box.classList.add("active");
+
+        if(box === otherBtn){
+          customAmount.classList.remove("hidden");
+        } else {
+          customAmount.classList.add("hidden");
+          customAmount.value = box.dataset.amount;
+        }
+      };
+    });
+
+    customAmount.oninput = () => {
+      errorMsg.classList.toggle("hidden", customAmount.value >= 100);
+    };
+
+    payBtn.onclick = () => modal.classList.remove("hidden");
+    closeBtn.onclick = () => modal.classList.add("hidden");
+
+  });
+</script>
+
+<script>
+const countries = [
+  {name:"Afghanistan", code:"+93", flag:"🇦🇫"},
+  {name:"Albania", code:"+355", flag:"🇦🇱"},
+  {name:"Algeria", code:"+213", flag:"🇩🇿"},
+  {name:"Andorra", code:"+376", flag:"🇦🇩"},
+  {name:"Angola", code:"+244", flag:"🇦🇴"},
+  {name:"Argentina", code:"+54", flag:"🇦🇷"},
+  {name:"Armenia", code:"+374", flag:"🇦🇲"},
+  {name:"Australia", code:"+61", flag:"🇦🇺"},
+  {name:"Austria", code:"+43", flag:"🇦🇹"},
+  {name:"Azerbaijan", code:"+994", flag:"🇦🇿"},
+  {name:"Bangladesh", code:"+880", flag:"🇧🇩"},
+  {name:"Belgium", code:"+32", flag:"🇧🇪"},
+  {name:"Brazil", code:"+55", flag:"🇧🇷"},
+  {name:"Canada", code:"+1", flag:"🇨🇦"},
+  {name:"China", code:"+86", flag:"🇨🇳"},
+  {name:"Denmark", code:"+45", flag:"🇩🇰"},
+  {name:"Egypt", code:"+20", flag:"🇪🇬"},
+  {name:"France", code:"+33", flag:"🇫🇷"},
+  {name:"Germany", code:"+49", flag:"🇩🇪"},
+  {name:"India", code:"+91", flag:"🇮🇳"},
+  {name:"Indonesia", code:"+62", flag:"🇮🇩"},
+  {name:"Iran", code:"+98", flag:"🇮🇷"},
+  {name:"Iraq", code:"+964", flag:"🇮🇶"},
+  {name:"Ireland", code:"+353", flag:"🇮🇪"},
+  {name:"Israel", code:"+972", flag:"🇮🇱"},
+  {name:"Italy", code:"+39", flag:"🇮🇹"},
+  {name:"Japan", code:"+81", flag:"🇯🇵"},
+  {name:"Kenya", code:"+254", flag:"🇰🇪"},
+  {name:"Malaysia", code:"+60", flag:"🇲🇾"},
+  {name:"Mexico", code:"+52", flag:"🇲🇽"},
+  {name:"Nepal", code:"+977", flag:"🇳🇵"},
+  {name:"Netherlands", code:"+31", flag:"🇳🇱"},
+  {name:"New Zealand", code:"+64", flag:"🇳🇿"},
+  {name:"Nigeria", code:"+234", flag:"🇳🇬"},
+  {name:"Norway", code:"+47", flag:"🇳🇴"},
+  {name:"Pakistan", code:"+92", flag:"🇵🇰"},
+  {name:"Philippines", code:"+63", flag:"🇵🇭"},
+  {name:"Poland", code:"+48", flag:"🇵🇱"},
+  {name:"Portugal", code:"+351", flag:"🇵🇹"},
+  {name:"Russia", code:"+7", flag:"🇷🇺"},
+  {name:"Saudi Arabia", code:"+966", flag:"🇸🇦"},
+  {name:"South Africa", code:"+27", flag:"🇿🇦"},
+  {name:"South Korea", code:"+82", flag:"🇰🇷"},
+  {name:"Spain", code:"+34", flag:"🇪🇸"},
+  {name:"Sri Lanka", code:"+94", flag:"🇱🇰"},
+  {name:"Sweden", code:"+46", flag:"🇸🇪"},
+  {name:"Switzerland", code:"+41", flag:"🇨🇭"},
+  {name:"Thailand", code:"+66", flag:"🇹🇭"},
+  {name:"Turkey", code:"+90", flag:"🇹🇷"},
+  {name:"Ukraine", code:"+380", flag:"🇺🇦"},
+  {name:"United Arab Emirates", code:"+971", flag:"🇦🇪"},
+  {name:"United Kingdom", code:"+44", flag:"🇬🇧"},
+  {name:"United States", code:"+1", flag:"🇺🇸"},
+  {name:"Vietnam", code:"+84", flag:"🇻🇳"},
+  {name:"Zimbabwe", code:"+263", flag:"🇿🇼"}
+];
+
+// Elements
+const countryBtn = document.getElementById("countryBtn");
+const dropdown = document.getElementById("countryDropdown");
+const flagSpan = document.getElementById("flag");
+const codeSpan = document.getElementById("dialCode");
+
+// Render list
+countries.forEach(c => {
+  const div = document.createElement("div");
+  div.className = "country-item";
+  div.innerHTML = `<span>${c.flag}</span> ${c.name} (${c.code})`;
+  div.onclick = () => {
+    flagSpan.textContent = c.flag;
+    codeSpan.textContent = c.code;
+    dropdown.classList.add("hidden");
+  };
+  dropdown.appendChild(div);
+});
+
+// Toggle
+countryBtn.onclick = () => dropdown.classList.toggle("hidden");
+
+// Close on outside click
+document.addEventListener("click", e => {
+  if (!countryBtn.contains(e.target) && !dropdown.contains(e.target)) {
+    dropdown.classList.add("hidden");
+  }
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const giftAmountEl = document.getElementById("giftAmount");
+  const amountBoxes = document.querySelectorAll(".amount-box[data-amount]");
+  const otherBtn = document.getElementById("otherBtn");
+  const customAmountInput = document.getElementById("customAmount");
+
+  const feeCheckbox = document.getElementById("feeCheckbox");
+  const feeNote = document.getElementById("feeNote");
+
+  let selectedAmount = 0;
+
+  // When predefined amount clicked
+  amountBoxes.forEach(box => {
+    box.addEventListener("click", () => {
+      selectedAmount = box.dataset.amount;
+      giftAmountEl.textContent = `₹${selectedAmount}`;
+    });
+  });
+
+  // When typing custom amount
+  customAmountInput.addEventListener("input", () => {
+    if (customAmountInput.value) {
+      selectedAmount = customAmountInput.value;
+      giftAmountEl.textContent = `₹${selectedAmount}`;
+    } else {
+      giftAmountEl.textContent = "₹0";
+    }
+  });
+
+  // Transaction fee checkbox
+  feeCheckbox.addEventListener("change", () => {
+    if (feeCheckbox.checked) {
+      feeNote.classList.remove("hidden");
+    } else {
+      feeNote.classList.add("hidden");
+    }
+  });
+
+});
+</script>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+  const payBtn = document.getElementById("payWithCardBtn");
+  const amountBoxes = document.querySelectorAll(".amount-box[data-amount]");
+  const customAmountInput = document.getElementById("customAmount");
+
+  function enablePayButton(amount) {
+    if (amount && amount >= 100) {
+      payBtn.disabled = false;
+      payBtn.classList.remove("bg-red-300","cursor-not-allowed");
+      payBtn.classList.add("bg-red-600","hover:bg-red-700");
+    } else {
+      payBtn.disabled = true;
+      payBtn.classList.add("bg-red-300","cursor-not-allowed");
+      payBtn.classList.remove("bg-red-600","hover:bg-red-700");
+    }
+  }
+
+  // When clicking preset amounts
+  amountBoxes.forEach(box => {
+    box.addEventListener("click", () => {
+      const amount = parseInt(box.dataset.amount);
+      enablePayButton(amount);
+    });
+  });
+
+  // When typing custom amount
+  customAmountInput.addEventListener("input", () => {
+    const amount = parseInt(customAmountInput.value);
+    enablePayButton(amount);
+  });
+
+});
+</script>
+
+
+
 
 {% endblock %}

@@ -230,6 +230,7 @@ class GalleryImage(models.Model):
     title = models.CharField(max_length=255, blank=True)
     image = models.ImageField(upload_to='gallery/%Y/%m/')
     caption = models.CharField(max_length=500, blank=True)
+    order = models.PositiveIntegerField(default=0)
     uploaded_on = models.DateTimeField(auto_now_add=True)
     album = models.CharField(max_length=255, blank=True)
 
@@ -287,6 +288,7 @@ class ImpactMetric(models.Model):
     title = models.CharField(max_length=255)
     value = models.CharField(max_length=100, help_text='E.g. "10,000+" or "95%"')
     description = models.CharField(max_length=500, blank=True)
+    icon = models.CharField(max_length=500, blank=True)
     order = models.PositiveIntegerField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
 
@@ -404,6 +406,8 @@ class TeamMember(models.Model):
 
     def __str__(self):
         return self.name
+    
+    
 
 
 class TimelineEvent(models.Model):

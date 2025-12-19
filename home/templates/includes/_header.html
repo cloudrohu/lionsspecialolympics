@@ -23,7 +23,63 @@
                 <a class="nav-desktop" href="{% url 'home:about' %}">About</a>
                 <a class="nav-desktop" href="{% url 'home:partners' %}">Partners</a>
                 <a class="nav-desktop" href="{% url 'home:event_list' %}">Events</a>
-                <a class="nav-desktop" href="{% url 'home:campaign_list' %}">Campaign</a>
+                
+                    <div class="dropdown">
+                        <button class="dropbtn">
+                            Initiative Overview
+                        </button>
+
+                        <div class="dropdown-content">
+
+                            <a href="{% url 'home:sports_setup' %}">
+                                Sports Setup & Logistics
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:food_refreshments' %}">
+                                Food & Refreshments
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:awards_recognition' %}">
+                                Medals, Certificates & Trophies
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:participant_kits' %}">
+                                T-shirts, Caps & Participant Kits
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:assistive_devices' %}">
+                                Assistive Devices Distribution
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:medical_safety' %}">
+                                Medical Team, Ambulance & Safety
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:media_coverage' %}">
+                                Photography, Videography & Live Broadcast
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:honour_felicitation' %}">
+                                Honour & Felicitation
+                            </a>
+                            <hr>
+
+                            <a href="{% url 'home:administration' %}">
+                                Administration, Coordination & Contingency
+                            </a>
+
+                        </div>
+                    </div>
+
+
+
                 <a class="nav-desktop" href="{% url 'home:gallery' %}">Gallery</a>
                 <a class="nav-desktop" href="{% url 'home:contact' %}">Contact</a>
 
@@ -40,8 +96,9 @@
         </div>
 
         <!-- RIGHT-SLIDE MOBILE MENU -->
-        <div id="mobileMenu"
-            class="fixed top-0 right-0 bg-white text-white !bg-opacity-100 w-80 h-full shadow-xl border-l border-gray-300 z-50 p-6">
+            <div id="mobileMenu"
+            class="fixed top-0 right-0 bg-white !bg-opacity-100 w-80 h-screen overflow-y-auto shadow-xl border-l border-gray-300 z-50 p-6">
+
 
             <!-- LOGO + Close Button -->
             <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-300">
@@ -65,37 +122,79 @@
             <div class="flex flex-col mt-2">
 
                 <a href="{% url 'home:index' %}"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
                     <i class="fa-solid fa-house text-red-600"></i> Home
                 </a>
 
                 <a href="{% url 'home:about' %}"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
                     <i class="fa-solid fa-circle-info text-red-600"></i> About
                 </a>
 
                 <a href="{% url 'home:partners' %}"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
                     <i class="fa-solid fa-heart text-red-600"></i> Partners
                 </a>
 
                 <a href="{% url 'home:event_list' %}"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
                     <i class="fa-solid fa-calendar-days text-red-600"></i> Events
                 </a>
 
-                <a href="{% url 'home:campaign_list' %}"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-bullhorn text-red-600"></i> Campaigns
-                </a>
+                <div class="dropdown">
+                <button class="dropbtn" onclick="toggleDropdown(event)">
+                    <i class="fa-solid fa-lightbulb text-red-600 mr-1"></i>
+                    Initiative Overview
+                </button>
+
+                <div class="dropdown-content mb-2">
+                    <a href="{% url 'home:sports_setup' %}">
+                        Sports Setup & Logistics
+                    </a>
+
+                    <a href="{% url 'home:food_refreshments' %}">
+                        Food & Refreshments
+                    </a>
+
+                    <a href="{% url 'home:awards_recognition' %}">
+                        Medals & Trophies
+                    </a>
+
+                    <a href="{% url 'home:participant_kits' %}">
+                        Participant Kits
+                    </a>
+
+                    <a href="{% url 'home:assistive_devices' %}">
+                        Assistive Devices
+                    </a>
+
+                    <a href="{% url 'home:medical_safety' %}">
+                        Medical & Safety
+                    </a>
+
+                    <a href="{% url 'home:media_coverage' %}">
+                        Media Coverage
+                    </a>
+
+                    <a href="{% url 'home:honour_felicitation' %}">
+                        Honour & Felicitation
+                    </a>
+
+                    <a href="{% url 'home:administration' %}">
+                        Administration
+                    </a>
+                </div>
+            </div>
+
+
 
                 <a href="{% url 'home:gallery' %}"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
                     <i class="fa-solid fa-image text-red-600"></i> Gallery
                 </a>
 
                 <a href="{% url 'home:contact' %}"
-                class="flex items-center gap-3 text-lg font-medium text-white py-3 border-b border-gray-300 hover:text-red-600">
+                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
                     <i class="fa-solid fa-phone text-red-600"></i> Contact
                 </a>
 
@@ -111,3 +210,211 @@
     </header>
 </head-desk-mob>
 <!-- HEADER END HERE -->
+
+<style>
+/* ===== DROPDOWN FIX (NO HOVER BREAK) ===== */
+
+.dropdown {
+    position: relative;
+}
+
+/* Button */
+.dropbtn {
+    background: transparent;
+    
+    font-weight: 600;
+    padding: 10px 6px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Dropdown container */
+.dropdown-content {
+    position: absolute;
+    top: 100%;              /* 👈 NO GAP */
+    left: 0;
+    min-width: 240px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #fee2e2;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+    z-index: 9999;
+}
+
+/* Invisible hover bridge (MOST IMPORTANT) */
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+}
+
+/* Links */
+.dropdown-content a {
+    display: block;
+    padding: 14px 18px;
+    color: #374151;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.dropdown-content a:hover {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+/* SHOW dropdown */
+.dropdown:hover .dropdown-content,
+.dropdown-content:hover {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Arrow */
+.dropbtn::after {
+    content: "▾";
+    font-size: 12px;
+    margin-left: 4px;
+}
+/* ===== DROPDOWN BASE ===== */
+.dropdown {
+    position: relative;
+}
+
+/* Button */
+.dropbtn {
+    background: transparent;
+    font-weight: 600;
+    padding: 10px 6px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+/* Dropdown box */
+.dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 260px;
+    background: #fff;
+    border-radius: 14px;
+    border: 1px solid #fee2e2;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.25s ease;
+    z-index: 9999;
+}
+
+/* Desktop hover bridge */
+.dropdown-content::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+}
+
+/* Links */
+.dropdown-content a {
+    display: block;
+    padding: 14px 18px;
+    color: #374151;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.dropdown-content a:hover {
+    background: #fef2f2;
+    color: #b91c1c;
+}
+
+/* Desktop hover */
+@media (min-width: 768px) {
+    .dropdown:hover .dropdown-content {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+}
+
+/* Arrow */
+.dropbtn::after {
+    content: "▾";
+    font-size: 12px;
+}
+/* ===== MOBILE MENU DROPDOWN FIX ===== */
+@media (max-width: 767px) {
+
+    #mobileMenu .dropdown {
+        width: 100%;
+        margin-top: 6px;
+    }
+
+    #mobileMenu .dropbtn {
+        width: 100%;
+        text-align: left;
+        padding: 14px 0;
+        font-size: 18px;
+        color: #fff;
+        border-bottom: 1px solid #d1d5db;
+    }
+
+    #mobileMenu .dropdown-content {
+        position: static !important;   /* 🔥 MOST IMPORTANT */
+        width: 100%;
+        margin: 8px 0 12px;
+        box-shadow: none;
+        border-radius: 12px;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        display: none;                 /* hidden by default */
+    }
+
+    #mobileMenu .dropdown-content.show {
+        display: block;
+    }
+
+    #mobileMenu .dropdown-content a {
+        padding: 14px 18px;
+        border-bottom: 1px solid #f3f4f6;
+        font-size: 16px;
+    }
+}
+
+</style>
+<script>
+function toggleDropdown(e) {
+    if (window.innerWidth < 768) {
+        e.preventDefault();
+        const dropdown = e.currentTarget.closest(".dropdown");
+        const menu = dropdown.querySelector(".dropdown-content");
+
+        // close other dropdowns
+        document.querySelectorAll("#mobileMenu .dropdown-content").forEach(d => {
+            if (d !== menu) d.classList.remove("show");
+        });
+
+        menu.classList.toggle("show");
+    }
+}
+</script>

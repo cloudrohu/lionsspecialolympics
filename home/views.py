@@ -66,7 +66,7 @@ class HomeView(View):
         featured_projects = Project.objects.all()   # FIXED
         latest_news = NewsPost.objects.filter(is_published=True).order_by('-published_on')[:3]
         campaigns = Campaign.objects.filter(is_active=True)[:3]
-        impact_metrics = ImpactMetric.objects.all().order_by('order')[:6]
+        impact_metrics = ImpactMetric.objects.all().order_by('order')[:4]
         partners = Partner.objects.all()
         team_members = TeamMember.objects.all()[:4]
         event = Event.objects.all()
@@ -357,3 +357,37 @@ class DashboardView(LoginRequiredMixin, StaffRequiredMixin, TemplateView):
         ctx['pending_volunteers'] = Volunteer.objects.filter(status='pending')[:10]
         return ctx
 
+def sports_setup(request):
+    return render(request, "Initiative Overview/sports_setup.html")
+
+
+def food_refreshments(request):
+    return render(request, "Initiative Overview/food_refreshments.html")
+
+
+def awards_recognition(request):
+    return render(request, "Initiative Overview/awards.html")
+
+
+def participant_kits(request):
+    return render(request, "Initiative Overview/participant_kits.html")
+
+
+def assistive_devices(request):
+    return render(request, "Initiative Overview/assistive_devices.html")
+
+
+def medical_safety(request):
+    return render(request, "Initiative Overview/medical_safety.html")
+
+
+def media_coverage(request):
+    return render(request, "Initiative Overview/media_coverage.html")
+
+
+def honour_felicitation(request):
+    return render(request, "Initiative Overview/honour_felicitation.html")
+
+
+def administration(request):
+    return render(request, "Initiative Overview/administration.html")

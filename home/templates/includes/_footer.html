@@ -35,8 +35,8 @@
     <div>
       <h3 class="text-xl font-semibold mb-4">Contact Us</h3>
       <ul class="space-y-2 text-gray-300 text-sm">
-        <li><i class="fa-solid fa-phone"></i> +91 {{site_setting.phone}}</li>
-        <li><i class="fa-solid fa-envelope"></i> {{site_setting.email}}</li>
+        <li><i class="fa-solid fa-phone"></i> <a href="tel:{{site_setting.phone}}">+91 {{site_setting.phone}}</a></li>
+        <li><i class="fa-solid fa-envelope"></i> <a href="mailto:{{site_setting.email}}">{{site_setting.email}}</a></li>
         <li><i class="fa-solid fa-location-dot"></i> {{site_setting.address}}</li>
       </ul>
     </div>
@@ -62,13 +62,13 @@
 
     © {{ site_setting.copyright }}
 
-    <span class="block mt-2 text-gray-300">
-      Created by 
-      <span class="font-semibold" style="color:#ecccec;">
+    <span class="block mt-2 text-sm text-gray-400">
+      Designed & Developed by 
+      <span class="font-semibold text-[#ecccec]">
         Renuka Tiwari
-      </span> 
-      <span style="color:#e9c9e9;">💜</span>
+      </span>
     </span>
+
 
   </div>
 
