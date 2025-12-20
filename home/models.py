@@ -254,6 +254,24 @@ class Partner(models.Model):
     def __str__(self):
         return self.name
 
+class Leadership(models.Model):
+    name = models.CharField(max_length=100)
+    designation = models.CharField(max_length=100)
+    description = models.TextField()
+    photo = models.ImageField(upload_to='leadership/',blank=True,null=True)
+    order = models.PositiveIntegerField(default=0,help_text="Display order (lower number comes first)")
+    is_active = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['order']
+        verbose_name = "Leadership Member"
+        verbose_name_plural = "Leadership Members"
+
+    def __str__(self):
+        return self.name
+
 # Optional models: FAQ, Testimonial, ImpactMetric, Location
 class FAQ(models.Model):
     question = models.CharField(max_length=500)

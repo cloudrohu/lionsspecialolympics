@@ -1,73 +1,101 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}{{site_setting.site_name}}Donate{% endblock %}
+{% block title %}{{ site_setting.site_name }} | Donate{% endblock %}
 {% block content %}
 
+
+
+<style>
+  .input{
+    border:1px solid #cbd5e1;
+    border-radius:0.5rem;
+    padding:0.6rem 0.75rem;
+    outline:none;
+    transition:0.2s;
+  }
+  .input:focus{
+    border-color:#0284c7;
+    box-shadow:0 0 0 1px #0284c7;
+  }
+  .input.error{
+    border-color:#dc2626;
+  }
+</style>
+
+
 <br><br><br>
-<!-- ================= PAYMENT SECTION ================= -->
-<section class="py-16 bg-white">
-  <div class="max-w-3xl mx-auto px-4">
+<!-- ================= DONATION AMOUNT (REDESIGNED) ================= -->
+<section class="py-20 bg-gradient-to-b from-slate-50 to-white">
+  <div class="max-w-xl mx-auto px-4">
 
-    <h2 class="text-2xl font-bold mb-6">
-      Donation Frequency & Amount
-    </h2>
+    <!-- CARD -->
+    <div class="bg-white border border-slate-200 rounded-2xl shadow-lg p-6 sm:p-8">
 
-    <!-- TOGGLE -->
-    <div class="flex gap-4 mb-4">
-      <button id="monthlyBtn"
-        class="flex-1 py-3 rounded-md bg-sky-600 text-white font-semibold transition">
-        MONTHLY
-      </button>
-
-      <button id="oneTimeBtn"
-        class="flex-1 py-3 rounded-md border border-slate-300 text-slate-600 font-semibold transition">
-        ONE TIME
-      </button>
-    </div>
-
-    <!-- IMPACT TEXT -->
-    <div id="impactText" class="italic text-sm text-slate-600 mb-6">
-      Giving monthly makes the biggest impact!
-    </div>
-
-    <!-- AMOUNT GRID -->
-    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 mb-3">
-
-      <div class="amount-box" data-amount="150">₹150 <span class="freq">/month</span></div>
-      <div class="amount-box" data-amount="300">₹300 <span class="freq">/month</span></div>
-      <div class="amount-box" data-amount="500">₹500 <span class="freq">/month</span></div>
-      <div class="amount-box" data-amount="750">₹750 <span class="freq">/month</span></div>
-      <div class="amount-box" data-amount="1000">₹1,000 <span class="freq">/month</span></div>
-
-      <div class="amount-box other-box" id="otherBtn">
-        Other Amount
+      <!-- HEADER -->
+      <div class="mb-6 text-center">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-800">
+          Make a Donation
+        </h2>
+        <p class="text-sm text-slate-600 mt-2">
+          Your contribution helps us make a difference
+        </p>
       </div>
 
-      <input type="number" id="customAmount" placeholder="₹ 0.00"
-        class="hidden col-span-2 sm:col-span-3 w-full rounded-lg px-4 py-4 text-sm
-               border border-slate-300 bg-slate-50
-               focus:bg-white focus:border-sky-600 focus:ring-1 focus:ring-sky-600">
+      <!-- AMOUNT INPUT -->
+      <div class="mb-4">
+        <label class="block text-sm font-semibold text-slate-700 mb-2">
+          Donation Amount
+        </label>
+
+        <div class="relative">
+          <span
+            class="absolute left-4 top-1/2 -translate-y-1/2
+                   text-2xl font-bold text-slate-400">
+            ₹
+          </span>
+
+          <input
+            type="number"
+            id="donationAmount"
+            placeholder="Enter amount"
+            class="w-full pl-12 pr-4 py-4 text-xl rounded-xl
+                   border border-slate-300 bg-slate-50
+                   focus:ring-2 focus:ring-red-500
+                   focus:border-red-500 outline-none transition">
+        </div>
+      </div>
+
+      <!-- ERROR -->
+      <p id="errorMsg" class="hidden text-xs text-red-600 mb-4">
+        Please enter a valid donation amount.
+      </p>
+
+      <!-- PAY BUTTON -->
+      <button
+        id="payWithCardBtn"
+        disabled
+        class="w-full mt-4 py-4 rounded-xl font-semibold text-white
+               bg-gradient-to-r from-red-300 to-red-400
+               cursor-not-allowed transition-all duration-300">
+        PAY WITH CARD →
+      </button>
+
+      <!-- FOOT NOTE -->
+      <p class="text-[11px] text-slate-500 text-center mt-4">
+        Secure payment • 100% transparency • Trusted initiative
+      </p>
+
     </div>
-
-    <p id="errorMsg" class="hidden text-xs text-red-600 mb-6">
-      Invalid amount. Contribution must be at least ₹100.
-    </p>
-
-    <!-- PAY BUTTON -->
-        <button id="payWithCardBtn" disabled
-          class="w-full bg-red-300 cursor-not-allowed text-white font-semibold
-                py-3 rounded-lg shadow-md transition">
-          PAY WITH CARD →
-        </button>
 
   </div>
 </section>
 
-<!-- ================= PERSONAL INFO MODAL ================= -->
+
+<!-- ================= MODAL ================= -->
 <div id="cardFormWrapper"
   class="hidden fixed inset-0 bg-black/40 z-50 flex items-center justify-center">
 
-  <div class="bg-white w-full max-w-2xl rounded-xl p-6 overflow-y-auto max-h-[90vh]">
+  <div class="bg-white w-full max-w-2xl rounded-xl p-6 max-h-[90vh] overflow-y-auto">
 
     <h3 class="text-xl font-bold mb-4">Personal Information</h3>
 
@@ -78,37 +106,30 @@
 
     <input class="input mb-4" placeholder="Email">
 
-    <div class="mb-4">
+    <!-- PHONE + COUNTRY -->
+    <div class="mb-4 relative">
       <label class="block text-sm font-semibold mb-1">
-        Mobile Phone <span class="text-gray-500">(Optional)</span>
+        Mobile Phone (Optional)
       </label>
 
-      <div class="relative flex">
-        <!-- Country Button -->
+      <div class="flex">
         <button type="button" id="countryBtn"
           class="flex items-center gap-2 px-3 border border-slate-300 rounded-l-md bg-white">
-          <span id="flag">🇺🇸</span>
-          <span id="dialCode">+1</span>
+          <span id="flag">🇮🇳</span>
+          <span id="dialCode">+91</span>
           <span class="text-xs">▾</span>
         </button>
 
-        <!-- Phone Input -->
-        <input type="tel" placeholder="Phone number"
-          class="flex-1 border border-l-0 border-slate-300 rounded-r-md px-3 py-2
-                focus:outline-none focus:border-sky-600">
-
-        <!-- Dropdown -->
-        <div id="countryDropdown"
-          class="hidden absolute top-full left-0 mt-1 w-80 max-h-64 overflow-y-auto
-                bg-white border border-slate-300 rounded-md shadow-lg z-50">
-        </div>
+        <input type="tel" id="phoneInput"
+          placeholder="Phone number"
+          class="flex-1 border border-l-0 border-slate-300 rounded-r-md px-3 py-2">
       </div>
 
-      <p class="text-xs text-slate-500 mt-1">
-        By submitting your cell phone number you agree to receive periodic text messages.
-      </p>
+      <div id="countryDropdown"
+        class="hidden absolute z-50 mt-1 w-80 max-h-64 overflow-y-auto
+               bg-white border border-slate-300 rounded-md shadow-lg">
+      </div>
     </div>
-
 
     <input class="input mb-3" placeholder="Street Address">
     <input class="input mb-3" placeholder="Address Line 2 (Optional)">
@@ -116,71 +137,67 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
       <input class="input" placeholder="City">
       <input class="input" placeholder="State / Province">
-      <input class="input" placeholder="Postal Code">
+      <input class="input" placeholder="Postal Code" maxlength="6">
     </div>
 
-
-      <!-- PAYMENT INFORMATION -->  
       <h3 class="text-xl font-bold mb-4">Payment Information</h3>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
 
-        <!-- LEFT: GIFT AMOUNT -->
-        <div class="border border-slate-300 rounded-lg p-4 flex flex-col justify-center items-center">
-          <p class="text-xs uppercase text-slate-500 mb-1">Your Gift Amount</p>
-          <p id="giftAmount" class="text-3xl font-bold">₹0</p>
+        <!-- GIFT AMOUNT -->
+        <div class="border rounded-lg p-4 text-center bg-gray-50">
+          <p class="text-xs uppercase text-slate-500">Your Gift Amount</p>
+          <p id="giftAmount" class="text-3xl font-bold text-sky-600">₹0</p>
         </div>
 
-        <!-- RIGHT: CARD DETAILS -->
-        <div class="md:col-span-2 border border-slate-300 rounded-lg p-4">
+        <!-- CARD DETAILS -->
+        <div class="md:col-span-2 border rounded-lg p-4">
 
           <!-- CARD NUMBER -->
           <div class="mb-4">
-            <label class="block text-xs font-semibold mb-1">Card Number</label>
-            <input type="text" placeholder="•••• •••• •••• ••••"
-              class="w-full border border-slate-300 rounded-md px-3 py-2
-                    focus:outline-none focus:border-sky-600">
-          </div>
-
-          <!-- EXP + CVV -->
-          <div class="grid grid-cols-2 gap-4 mb-4">
-            <div>
-              <label class="block text-xs font-semibold mb-1">Expiration Date</label>
-              <input type="text" placeholder="MM / YY"
-                class="w-full border border-slate-300 rounded-md px-3 py-2
-                      focus:outline-none focus:border-sky-600">
-            </div>
-
-            <div>
-              <label class="block text-xs font-semibold mb-1">Security Code</label>
-              <input type="text" placeholder="CVV"
-                class="w-full border border-slate-300 rounded-md px-3 py-2
-                      focus:outline-none focus:border-sky-600">
-            </div>
-          </div>
-
-          <!-- TRANSACTION FEES -->
-          <label class="flex items-center gap-2 text-sm">
-            <p id="feeNote" class="hidden text-xs text-green-600 mt-2">
-              ✔ You are helping cover transaction fees
+            <label class="text-sm font-semibold mb-1 block">Card Number</label>
+            <input id="cardNumber" maxlength="19"
+              class="input w-full"
+              placeholder="1234 5678 9012 3456">
+            <p id="cardError" class="text-xs text-red-600 hidden">
+              Enter a valid 16-digit card number
             </p>
+          </div>
 
-            I’d like to help cover transaction fees.
-          </label>
+          <!-- EXPIRY + CVV -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label class="text-sm font-semibold mb-1 block">Expiry (MM/YY)</label>
+              <input id="expiry"
+                maxlength="5"
+                class="input w-full"
+                placeholder="MM / YY">
+              <p id="expiryError" class="text-xs text-red-600 hidden">
+                Invalid expiry date
+              </p>
+            </div>
+
+            <div>
+              <label class="text-sm font-semibold mb-1 block">CVV</label>
+              <input id="cvv"
+                maxlength="4"
+                class="input w-full"
+                placeholder="CVV">
+              <p id="cvvError" class="text-xs text-red-600 hidden">
+                CVV must be 3–4 digits
+              </p>
+            </div>
+          </div>
 
         </div>
       </div>
 
 
-    <input class="input mb-4" placeholder="Security Code">
-
-    <button class="w-full bg-red-600 hover:bg-red-700 text-white font-semibold
-                   py-3 rounded-lg shadow-md transition">
+    <button class="w-full bg-red-600 text-white py-3 rounded-lg">
       SUBMIT YOUR DONATION →
     </button>
 
-    <button id="closeForm"
-      class="mt-4 text-sm text-gray-500 block mx-auto">
+    <button id="closeForm" class="mt-4 text-sm text-gray-500 block mx-auto">
       Close
     </button>
 
@@ -189,277 +206,249 @@
 
 <!-- ================= STYLES ================= -->
 <style>
-  .amount-box{
-    border:1px solid #cbd5e1;
-    border-radius:8px;
-    padding:16px;
-    text-align:center;
-    cursor:pointer;
-    transition:.25s;
-  }
-  .amount-box:hover{
-    border-color:#0284c7;
-    background:#f0f9ff;
-  }
-  .amount-box.active{
-    background:#0284c7;
-    color:#fff;
-    font-weight:600;
-  }
-  .amount-box span{
-    font-size:12px;
-  }
-  .other-box{
-    background:#f8fafc;
-    font-weight:600;
-  }
-  .input{
-    width:100%;
-    border:1px solid #cbd5e1;
-    padding:12px;
-    border-radius:6px;
-  }
-  .input:focus{
-    border-color:#0284c7;
-    outline:none;
-  }
-</style>
-
-<style>
+.input{
+  width:100%;
+  padding:12px;
+  border:1px solid #cbd5e1;
+  border-radius:6px;
+}
 .country-item{
   padding:8px 12px;
   cursor:pointer;
-  font-size:14px;
   display:flex;
   gap:8px;
 }
-.country-item:hover{
-  background:#f1f5f9;
-}
+.country-item:hover{background:#f1f5f9}
 </style>
-
 
 <!-- ================= SCRIPT ================= -->
 <script>
-  document.addEventListener("DOMContentLoaded", () => {
-
-    const monthlyBtn = document.getElementById("monthlyBtn");
-    const oneTimeBtn = document.getElementById("oneTimeBtn");
-    const impactText = document.getElementById("impactText");
-    const freqTexts = document.querySelectorAll(".freq");
-
-    const boxes = document.querySelectorAll(".amount-box");
-    const otherBtn = document.getElementById("otherBtn");
-    const customAmount = document.getElementById("customAmount");
-    const errorMsg = document.getElementById("errorMsg");
-
-    const payBtn = document.getElementById("payWithCardBtn");
-    const modal = document.getElementById("cardFormWrapper");
-    const closeBtn = document.getElementById("closeForm");
-
-    monthlyBtn.onclick = () => {
-      impactText.classList.remove("hidden");
-      freqTexts.forEach(t => t.classList.remove("hidden"));
-    };
-
-    oneTimeBtn.onclick = () => {
-      impactText.classList.add("hidden");
-      freqTexts.forEach(t => t.classList.add("hidden"));
-    };
-
-    boxes.forEach(box => {
-      box.onclick = () => {
-        boxes.forEach(b => b.classList.remove("active"));
-        box.classList.add("active");
-
-        if(box === otherBtn){
-          customAmount.classList.remove("hidden");
-        } else {
-          customAmount.classList.add("hidden");
-          customAmount.value = box.dataset.amount;
-        }
-      };
-    });
-
-    customAmount.oninput = () => {
-      errorMsg.classList.toggle("hidden", customAmount.value >= 100);
-    };
-
-    payBtn.onclick = () => modal.classList.remove("hidden");
-    closeBtn.onclick = () => modal.classList.add("hidden");
-
-  });
-</script>
-
-<script>
-const countries = [
-  {name:"Afghanistan", code:"+93", flag:"🇦🇫"},
-  {name:"Albania", code:"+355", flag:"🇦🇱"},
-  {name:"Algeria", code:"+213", flag:"🇩🇿"},
-  {name:"Andorra", code:"+376", flag:"🇦🇩"},
-  {name:"Angola", code:"+244", flag:"🇦🇴"},
-  {name:"Argentina", code:"+54", flag:"🇦🇷"},
-  {name:"Armenia", code:"+374", flag:"🇦🇲"},
-  {name:"Australia", code:"+61", flag:"🇦🇺"},
-  {name:"Austria", code:"+43", flag:"🇦🇹"},
-  {name:"Azerbaijan", code:"+994", flag:"🇦🇿"},
-  {name:"Bangladesh", code:"+880", flag:"🇧🇩"},
-  {name:"Belgium", code:"+32", flag:"🇧🇪"},
-  {name:"Brazil", code:"+55", flag:"🇧🇷"},
-  {name:"Canada", code:"+1", flag:"🇨🇦"},
-  {name:"China", code:"+86", flag:"🇨🇳"},
-  {name:"Denmark", code:"+45", flag:"🇩🇰"},
-  {name:"Egypt", code:"+20", flag:"🇪🇬"},
-  {name:"France", code:"+33", flag:"🇫🇷"},
-  {name:"Germany", code:"+49", flag:"🇩🇪"},
-  {name:"India", code:"+91", flag:"🇮🇳"},
-  {name:"Indonesia", code:"+62", flag:"🇮🇩"},
-  {name:"Iran", code:"+98", flag:"🇮🇷"},
-  {name:"Iraq", code:"+964", flag:"🇮🇶"},
-  {name:"Ireland", code:"+353", flag:"🇮🇪"},
-  {name:"Israel", code:"+972", flag:"🇮🇱"},
-  {name:"Italy", code:"+39", flag:"🇮🇹"},
-  {name:"Japan", code:"+81", flag:"🇯🇵"},
-  {name:"Kenya", code:"+254", flag:"🇰🇪"},
-  {name:"Malaysia", code:"+60", flag:"🇲🇾"},
-  {name:"Mexico", code:"+52", flag:"🇲🇽"},
-  {name:"Nepal", code:"+977", flag:"🇳🇵"},
-  {name:"Netherlands", code:"+31", flag:"🇳🇱"},
-  {name:"New Zealand", code:"+64", flag:"🇳🇿"},
-  {name:"Nigeria", code:"+234", flag:"🇳🇬"},
-  {name:"Norway", code:"+47", flag:"🇳🇴"},
-  {name:"Pakistan", code:"+92", flag:"🇵🇰"},
-  {name:"Philippines", code:"+63", flag:"🇵🇭"},
-  {name:"Poland", code:"+48", flag:"🇵🇱"},
-  {name:"Portugal", code:"+351", flag:"🇵🇹"},
-  {name:"Russia", code:"+7", flag:"🇷🇺"},
-  {name:"Saudi Arabia", code:"+966", flag:"🇸🇦"},
-  {name:"South Africa", code:"+27", flag:"🇿🇦"},
-  {name:"South Korea", code:"+82", flag:"🇰🇷"},
-  {name:"Spain", code:"+34", flag:"🇪🇸"},
-  {name:"Sri Lanka", code:"+94", flag:"🇱🇰"},
-  {name:"Sweden", code:"+46", flag:"🇸🇪"},
-  {name:"Switzerland", code:"+41", flag:"🇨🇭"},
-  {name:"Thailand", code:"+66", flag:"🇹🇭"},
-  {name:"Turkey", code:"+90", flag:"🇹🇷"},
-  {name:"Ukraine", code:"+380", flag:"🇺🇦"},
-  {name:"United Arab Emirates", code:"+971", flag:"🇦🇪"},
-  {name:"United Kingdom", code:"+44", flag:"🇬🇧"},
-  {name:"United States", code:"+1", flag:"🇺🇸"},
-  {name:"Vietnam", code:"+84", flag:"🇻🇳"},
-  {name:"Zimbabwe", code:"+263", flag:"🇿🇼"}
-];
-
-// Elements
-const countryBtn = document.getElementById("countryBtn");
-const dropdown = document.getElementById("countryDropdown");
-const flagSpan = document.getElementById("flag");
-const codeSpan = document.getElementById("dialCode");
-
-// Render list
-countries.forEach(c => {
-  const div = document.createElement("div");
-  div.className = "country-item";
-  div.innerHTML = `<span>${c.flag}</span> ${c.name} (${c.code})`;
-  div.onclick = () => {
-    flagSpan.textContent = c.flag;
-    codeSpan.textContent = c.code;
-    dropdown.classList.add("hidden");
-  };
-  dropdown.appendChild(div);
-});
-
-// Toggle
-countryBtn.onclick = () => dropdown.classList.toggle("hidden");
-
-// Close on outside click
-document.addEventListener("click", e => {
-  if (!countryBtn.contains(e.target) && !dropdown.contains(e.target)) {
-    dropdown.classList.add("hidden");
-  }
-});
-</script>
-
-<script>
 document.addEventListener("DOMContentLoaded", () => {
 
-  const giftAmountEl = document.getElementById("giftAmount");
-  const amountBoxes = document.querySelectorAll(".amount-box[data-amount]");
-  const otherBtn = document.getElementById("otherBtn");
-  const customAmountInput = document.getElementById("customAmount");
-
-  const feeCheckbox = document.getElementById("feeCheckbox");
-  const feeNote = document.getElementById("feeNote");
-
-  let selectedAmount = 0;
-
-  // When predefined amount clicked
-  amountBoxes.forEach(box => {
-    box.addEventListener("click", () => {
-      selectedAmount = box.dataset.amount;
-      giftAmountEl.textContent = `₹${selectedAmount}`;
-    });
-  });
-
-  // When typing custom amount
-  customAmountInput.addEventListener("input", () => {
-    if (customAmountInput.value) {
-      selectedAmount = customAmountInput.value;
-      giftAmountEl.textContent = `₹${selectedAmount}`;
-    } else {
-      giftAmountEl.textContent = "₹0";
-    }
-  });
-
-  // Transaction fee checkbox
-  feeCheckbox.addEventListener("change", () => {
-    if (feeCheckbox.checked) {
-      feeNote.classList.remove("hidden");
-    } else {
-      feeNote.classList.add("hidden");
-    }
-  });
-
-});
-</script>
-
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-
+  /* ---------- AMOUNT ---------- */
+  const amountInput = document.getElementById("donationAmount");
   const payBtn = document.getElementById("payWithCardBtn");
-  const amountBoxes = document.querySelectorAll(".amount-box[data-amount]");
-  const customAmountInput = document.getElementById("customAmount");
+  const errorMsg = document.getElementById("errorMsg");
+  const giftAmount = document.getElementById("giftAmount");
+  const modal = document.getElementById("cardFormWrapper");
+  const closeBtn = document.getElementById("closeForm");
 
-  function enablePayButton(amount) {
-    if (amount && amount >= 100) {
+  amountInput.oninput = () => {
+    const amt = parseInt(amountInput.value);
+    giftAmount.textContent = amt ? `₹${amt}` : "₹0";
+
+    if (amt >= 100) {
+      errorMsg.classList.add("hidden");
       payBtn.disabled = false;
-      payBtn.classList.remove("bg-red-300","cursor-not-allowed");
-      payBtn.classList.add("bg-red-600","hover:bg-red-700");
+      payBtn.classList.remove("bg-red-300");
+      payBtn.classList.add("bg-red-600");
     } else {
+      errorMsg.classList.remove("hidden");
       payBtn.disabled = true;
-      payBtn.classList.add("bg-red-300","cursor-not-allowed");
-      payBtn.classList.remove("bg-red-600","hover:bg-red-700");
+      payBtn.classList.add("bg-red-300");
+      payBtn.classList.remove("bg-red-600");
     }
-  }
+  };
 
-  // When clicking preset amounts
-  amountBoxes.forEach(box => {
-    box.addEventListener("click", () => {
-      const amount = parseInt(box.dataset.amount);
-      enablePayButton(amount);
-    });
+  payBtn.onclick = () => modal.classList.remove("hidden");
+  closeBtn.onclick = () => modal.classList.add("hidden");
+
+  /* ---------- COUNTRIES (PURE WORLD LIST) ---------- */
+    const countries = [
+      { name: "Afghanistan", code: "+93", flag: "🇦🇫" },
+      { name: "Albania", code: "+355", flag: "🇦🇱" },
+      { name: "Algeria", code: "+213", flag: "🇩🇿" },
+      { name: "Andorra", code: "+376", flag: "🇦🇩" },
+      { name: "Angola", code: "+244", flag: "🇦🇴" },
+      { name: "Argentina", code: "+54", flag: "🇦🇷" },
+      { name: "Armenia", code: "+374", flag: "🇦🇲" },
+      { name: "Australia", code: "+61", flag: "🇦🇺" },
+      { name: "Austria", code: "+43", flag: "🇦🇹" },
+      { name: "Azerbaijan", code: "+994", flag: "🇦🇿" },
+
+      { name: "Bahamas", code: "+1-242", flag: "🇧🇸" },
+      { name: "Bahrain", code: "+973", flag: "🇧🇭" },
+      { name: "Bangladesh", code: "+880", flag: "🇧🇩" },
+      { name: "Belgium", code: "+32", flag: "🇧🇪" },
+      { name: "Belize", code: "+501", flag: "🇧🇿" },
+      { name: "Benin", code: "+229", flag: "🇧🇯" },
+      { name: "Bhutan", code: "+975", flag: "🇧🇹" },
+      { name: "Bolivia", code: "+591", flag: "🇧🇴" },
+      { name: "Brazil", code: "+55", flag: "🇧🇷" },
+      { name: "Bulgaria", code: "+359", flag: "🇧🇬" },
+
+      { name: "Cambodia", code: "+855", flag: "🇰🇭" },
+      { name: "Cameroon", code: "+237", flag: "🇨🇲" },
+      { name: "Canada", code: "+1", flag: "🇨🇦" },
+      { name: "Chile", code: "+56", flag: "🇨🇱" },
+      { name: "China", code: "+86", flag: "🇨🇳" },
+      { name: "Colombia", code: "+57", flag: "🇨🇴" },
+      { name: "Costa Rica", code: "+506", flag: "🇨🇷" },
+      { name: "Croatia", code: "+385", flag: "🇭🇷" },
+      { name: "Cuba", code: "+53", flag: "🇨🇺" },
+      { name: "Cyprus", code: "+357", flag: "🇨🇾" },
+      { name: "Czech Republic", code: "+420", flag: "🇨🇿" },
+
+      { name: "Denmark", code: "+45", flag: "🇩🇰" },
+      { name: "Dominican Republic", code: "+1-809", flag: "🇩🇴" },
+
+      { name: "Ecuador", code: "+593", flag: "🇪🇨" },
+      { name: "Egypt", code: "+20", flag: "🇪🇬" },
+      { name: "Estonia", code: "+372", flag: "🇪🇪" },
+      { name: "Ethiopia", code: "+251", flag: "🇪🇹" },
+
+      { name: "Finland", code: "+358", flag: "🇫🇮" },
+      { name: "France", code: "+33", flag: "🇫🇷" },
+
+      { name: "Georgia", code: "+995", flag: "🇬🇪" },
+      { name: "Germany", code: "+49", flag: "🇩🇪" },
+      { name: "Ghana", code: "+233", flag: "🇬🇭" },
+      { name: "Greece", code: "+30", flag: "🇬🇷" },
+
+      { name: "Hungary", code: "+36", flag: "🇭🇺" },
+
+      { name: "Iceland", code: "+354", flag: "🇮🇸" },
+      { name: "India", code: "+91", flag: "🇮🇳" },
+      { name: "Indonesia", code: "+62", flag: "🇮🇩" },
+      { name: "Iran", code: "+98", flag: "🇮🇷" },
+      { name: "Iraq", code: "+964", flag: "🇮🇶" },
+      { name: "Ireland", code: "+353", flag: "🇮🇪" },
+      { name: "Israel", code: "+972", flag: "🇮🇱" },
+      { name: "Italy", code: "+39", flag: "🇮🇹" },
+
+      { name: "Japan", code: "+81", flag: "🇯🇵" },
+      { name: "Jordan", code: "+962", flag: "🇯🇴" },
+
+      { name: "Kenya", code: "+254", flag: "🇰🇪" },
+      { name: "Kuwait", code: "+965", flag: "🇰🇼" },
+
+      { name: "Malaysia", code: "+60", flag: "🇲🇾" },
+      { name: "Maldives", code: "+960", flag: "🇲🇻" },
+      { name: "Mexico", code: "+52", flag: "🇲🇽" },
+      { name: "Nepal", code: "+977", flag: "🇳🇵" },
+      { name: "Netherlands", code: "+31", flag: "🇳🇱" },
+      { name: "New Zealand", code: "+64", flag: "🇳🇿" },
+      { name: "Nigeria", code: "+234", flag: "🇳🇬" },
+      { name: "Norway", code: "+47", flag: "🇳🇴" },
+
+      { name: "Oman", code: "+968", flag: "🇴🇲" },
+
+      { name: "Pakistan", code: "+92", flag: "🇵🇰" },
+      { name: "Philippines", code: "+63", flag: "🇵🇭" },
+      { name: "Poland", code: "+48", flag: "🇵🇱" },
+      { name: "Portugal", code: "+351", flag: "🇵🇹" },
+
+      { name: "Qatar", code: "+974", flag: "🇶🇦" },
+
+      { name: "Romania", code: "+40", flag: "🇷🇴" },
+      { name: "Russia", code: "+7", flag: "🇷🇺" },
+
+      { name: "Saudi Arabia", code: "+966", flag: "🇸🇦" },
+      { name: "Singapore", code: "+65", flag: "🇸🇬" },
+      { name: "South Africa", code: "+27", flag: "🇿🇦" },
+      { name: "South Korea", code: "+82", flag: "🇰🇷" },
+      { name: "Spain", code: "+34", flag: "🇪🇸" },
+      { name: "Sri Lanka", code: "+94", flag: "🇱🇰" },
+      { name: "Sweden", code: "+46", flag: "🇸🇪" },
+      { name: "Switzerland", code: "+41", flag: "🇨🇭" },
+
+      { name: "Thailand", code: "+66", flag: "🇹🇭" },
+      { name: "Turkey", code: "+90", flag: "🇹🇷" },
+
+      { name: "UAE", code: "+971", flag: "🇦🇪" },
+      { name: "UK", code: "+44", flag: "🇬🇧" },
+      { name: "USA", code: "+1", flag: "🇺🇸" },
+      { name: "Ukraine", code: "+380", flag: "🇺🇦" },
+
+      { name: "Vietnam", code: "+84", flag: "🇻🇳" },
+
+      { name: "Zimbabwe", code: "+263", flag: "🇿🇼" }
+    ];
+
+
+  const countryBtn = document.getElementById("countryBtn");
+  const dropdown = document.getElementById("countryDropdown");
+  const flag = document.getElementById("flag");
+  const dialCode = document.getElementById("dialCode");
+
+  countries.forEach(c => {
+    const div = document.createElement("div");
+    div.className = "country-item";
+    div.innerHTML = `<span>${c.flag}</span> ${c.name} (${c.code})`;
+    div.onclick = () => {
+      flag.textContent = c.flag;
+      dialCode.textContent = c.code;
+      dropdown.classList.add("hidden");
+    };
+    dropdown.appendChild(div);
   });
 
-  // When typing custom amount
-  customAmountInput.addEventListener("input", () => {
-    const amount = parseInt(customAmountInput.value);
-    enablePayButton(amount);
-  });
+  countryBtn.onclick = (e) => {
+    e.stopPropagation();
+    dropdown.classList.toggle("hidden");
+  };
+
+  document.addEventListener("click", () => dropdown.classList.add("hidden"));
 
 });
+const expiryInput = document.getElementById("expiry");
+
+expiryInput.addEventListener("input", () => {
+  let val = expiryInput.value.replace(/\D/g, "");
+
+  if (val.length >= 3) {
+    val = val.substring(0, 2) + "/" + val.substring(2, 4);
+  }
+  expiryInput.value = val;
+
+  validateExpiry(val);
+});
+
+function validateExpiry(value) {
+  const error = document.getElementById("expiryError");
+
+  if (!value.includes("/")) {
+    showExpiryError();
+    return;
+  }
+
+  let [mm, yy] = value.split("/");
+
+  mm = parseInt(mm);
+  yy = parseInt("20" + yy); // convert 21 → 2021
+
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear();
+
+  // Invalid month
+  if (mm < 1 || mm > 12) {
+    showExpiryError();
+    return;
+  }
+
+  // Expired year
+  if (yy < currentYear) {
+    showExpiryError();
+    return;
+  }
+
+  // Same year but expired month
+  if (yy === currentYear && mm < currentMonth) {
+    showExpiryError();
+    return;
+  }
+
+  // ✅ VALID
+  expiryInput.classList.remove("error");
+  error.classList.add("hidden");
+}
+
+function showExpiryError() {
+  expiryInput.classList.add("error");
+  document.getElementById("expiryError").classList.remove("hidden");
+}
 </script>
-
-
 
 
 {% endblock %}

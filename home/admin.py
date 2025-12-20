@@ -206,7 +206,11 @@ class TeamMemberAdmin(admin.ModelAdmin):
     readonly_fields = ('created_on',)
 
 
-
+@admin.register(Leadership)
+class LeadershipAdmin(admin.ModelAdmin):
+    list_display = ('name', 'designation', 'order', 'is_active')
+    list_editable = ('order', 'is_active')
+    search_fields = ('name', 'designation')
 
 @admin.register(TimelineEvent)
 class TimelineEventAdmin(admin.ModelAdmin):

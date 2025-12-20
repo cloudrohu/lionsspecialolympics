@@ -14,7 +14,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import (
     Project, NewsPost, Campaign, Event, ContactMessage, Donation,
     Volunteer, GalleryImage, FAQ, Testimonial, Partner, ImpactMetric, Location, SocialLink,CarouselSlide ,Profile,
-    SiteSetting,Highlight,TeamMember,Disclaimer,AboutPageContent,Event
+    SiteSetting,Highlight,TeamMember,Disclaimer,AboutPageContent,Event,Leadership
 )
 from .forms import ContactForm, DonationForm, VolunteerForm, EventRegistrationForm
 
@@ -65,6 +65,7 @@ class HomeView(View):
         site_setting = SiteSetting.objects.order_by('-id').first()
         featured_projects = Project.objects.all()   # FIXED
         latest_news = NewsPost.objects.filter(is_published=True).order_by('-published_on')[:3]
+        leadership = Leadership.objects.filter(is_active=True)
         campaigns = Campaign.objects.filter(is_active=True)[:3]
         impact_metrics = ImpactMetric.objects.all().order_by('order')[:4]
         partners = Partner.objects.all()
@@ -81,6 +82,7 @@ class HomeView(View):
 
         context = {
             'event': event,
+            'leadership': leadership ,
             'team_members': team_members,
             'team_members': team_members,
             'highlights': highlights,
