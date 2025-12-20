@@ -265,13 +265,13 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
         {% for member in leadership %}
-        <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
+        <div class="group bg-white/60 backdrop-blur-md p-4 rounded-2xl shadow-xl 
                     hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
 
             <div class="overflow-hidden rounded-xl">
             {% if member.photo %}
             <img src="{{ member.photo.url }}"
-                class="w-full h-56 object-cover rounded-lg 
+                class="w-full h-80 object-cover rounded-lg 
                         group-hover:scale-110 duration-300">
             {% endif %}
             </div>
@@ -310,13 +310,14 @@
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
 
         {% for member in team_members %}
-        <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
+        <div class="group bg-white/60 backdrop-blur-md p-4 rounded-2xl shadow-xl 
                     hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
 
             <div class="overflow-hidden rounded-xl">
             {% if member.photo %}
             <img src="{{ member.photo.url }}"
-                class="w-full h-56 object-cover rounded-lg 
+                class="w-full h-72
+ object-cover rounded-lg 
                         group-hover:scale-110 duration-300">
             {% endif %}
             </div>
