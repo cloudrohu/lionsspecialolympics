@@ -10,7 +10,6 @@ from .views import (
     FAQView, TestimonialView, PartnerView, LocationView,
     DashboardView, ThankYouView,
 
-    # ✅ INITIATIVE VIEWS (FUNCTION BASED)
     sports_setup,
     food_refreshments,
     awards_recognition,
