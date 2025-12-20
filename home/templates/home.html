@@ -142,7 +142,7 @@
 
 
 <!-- ABOUT US START HERE -->
-<section class="py-16 bg-white" id="aboutHome">
+<section class="py-10 bg-white" id="aboutHome">
     <div class="max-w-7xl mx-auto px-6">
         {% for rs in aboutpagecontent %}
         <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
@@ -183,10 +183,10 @@
 
     <!-- Heading -->
     <div class="text-center mb-1">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-red-700">
+      <h2 class="text-3xl md:text-4xl font-extrabold text-red-700 mb-6">
         Gallery
       </h2>
-      <p class="text-gray-600 mt-2 max-w-2xl mx-auto">
+      <p class="text-gray-600 mt-2 max-w-2xl text-xl text-bold mx-auto mt-2 mb-4">
         Special moments from Lions Special Olympics events & programs.
       </p>
     </div>
@@ -261,8 +261,8 @@
 <!-- LEADERSHIP PARTNERS START HERE -->
 <section class="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
   <div class="container mx-auto px-5">
-    <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">
-      Meet Our Leadership
+    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 uppercase">
+     Visionary Leaders
     </h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -303,6 +303,47 @@
 </section>
 <!-- LEADERSHIP PARTNERS END HERE -->
 
+<!-- TEAM PARTNERS START HERE -->
+<section class="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
+  <div class="container mx-auto px-5">
+    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 uppercase">
+     Oraganising Committee
+    </h2>
 
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+
+        {% for member in team_members %}
+        <div class="group bg-white/60 backdrop-blur-md p-2 rounded-2xl shadow-xl 
+                    hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
+
+            <div class="overflow-hidden rounded-xl">
+            {% if member.photo %}
+            <img src="{{ member.photo.url }}"
+                class="w-full h-56 object-cover rounded-lg 
+                        group-hover:scale-110 duration-300">
+            {% endif %}
+            </div>
+
+            <div class="text-center mt-4">
+            <h3 class="text-xl font-semibold text-gray-900 
+                        group-hover:text-indigo-600 duration-300">
+                {{ member.name }}
+            </h3>
+
+            <p class="text-gray-500 text-sm mt-1">
+                {{ member.role }}
+            </p>
+
+        
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+
+
+  </div>
+</section>
+<!-- TEAM PARTNERS END HERE -->
 
 {% endblock %}
