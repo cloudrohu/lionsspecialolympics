@@ -19,6 +19,7 @@ from .views import (
     media_coverage,
     honour_felicitation,
     administration,
+    leadership_detail
 )
 
 app_name = 'home'
@@ -31,6 +32,8 @@ urlpatterns = [
     # Projects
     path('projects/', ProjectListView.as_view(), name='project_list'),
     path('projects/<slug:slug>/', ProjectDetailView.as_view(), name='project_detail'),
+
+    path('leadership/<slug:slug>/',leadership_detail,name='leadership_detail'),
 
     # Campaigns
     path('campaigns/', CampaignListView.as_view(), name='campaign_list'),

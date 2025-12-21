@@ -256,12 +256,15 @@ class Partner(models.Model):
 
 class Leadership(models.Model):
     name = models.CharField(max_length=100)
+    slug = models.SlugField(max_length=255, blank=True, null=True)
     designation = models.CharField(max_length=100)
     description = models.TextField()
-    photo = models.ImageField(upload_to='leadership/',blank=True,null=True)
-    order = models.PositiveIntegerField(default=0,help_text="Display order (lower number comes first)")
+    photo = models.ImageField(upload_to='leadership/', blank=True, null=True)
+    order = models.PositiveIntegerField(
+        default=0,
+        help_text="Display order (lower number comes first)"
+    )
     is_active = models.BooleanField(default=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -269,8 +272,20 @@ class Leadership(models.Model):
         verbose_name = "Leadership Member"
         verbose_name_plural = "Leadership Members"
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            i = 1
+            while Leadership.objects.filter(slug=slug).exclude(pk=self.pk).exists():
+                slug = f"{base_slug}-{i}"
+                i += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
+
 
 # Optional models: FAQ, Testimonial, ImpactMetric, Location
 class FAQ(models.Model):

@@ -277,10 +277,12 @@
             </div>
 
             <div class="text-center mt-4">
-            <h3 class="text-xl font-semibold text-gray-900 
-                        group-hover:text-indigo-600 duration-300">
-                {{ member.name }}
-            </h3>
+            <a href="{% url 'home:leadership_detail' member.slug %}">
+                <h3 class="text-xl font-semibold text-gray-900 
+                            group-hover:text-indigo-600 duration-300">
+                    {{ member.name }}
+                </h3>
+            </a>
 
             <p class="text-gray-500 text-sm mt-1">
                 {{ member.designation }}
@@ -289,7 +291,23 @@
             <p class="text-gray-600 text-sm mt-2">
                 {{ member.description |truncatechars:150}}
             </p>
+            
+            <a href="{% url 'home:leadership_detail' member.slug %}" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold
+                    text-indigo-600 hover:text-red-600 transition group">
+
+                <span class="relative after:content-[''] after:block after:h-[2px]
+                            after:bg-red-600 after:scale-x-0 after:origin-left
+                            after:transition-transform after:duration-300
+                            group-hover:after:scale-x-100">
+                    Read More
+                </span>
+
+                <i class="fa-solid fa-arrow-right text-xs 
+                        group-hover:translate-x-1 transition-transform"></i>
+            </a>
+
             </div>
+            
         </div>
         {% endfor %}
 

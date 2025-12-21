@@ -210,6 +210,7 @@ class TeamMemberAdmin(admin.ModelAdmin):
 class LeadershipAdmin(admin.ModelAdmin):
     list_display = ('name', 'designation', 'order', 'is_active')
     list_editable = ('order', 'is_active')
+    prepopulated_fields = {"slug": ("name",)}
     search_fields = ('name', 'designation')
 
 @admin.register(TimelineEvent)

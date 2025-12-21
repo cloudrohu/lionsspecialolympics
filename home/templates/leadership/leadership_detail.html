@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ site_setting.site_name }} | Donate{% endblock %}
+{% block content %}
+
+<br><br><br><br><br>
+
+<!-- LEADERSHIP DETAIL START -->
+<section class="py-20 bg-white">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <div class="flex flex-col md:flex-row items-center gap-14">
+
+      <!-- IMAGE -->
+      <div class="md:w-5/12 w-full">
+        <div class="h-[520px] flex items-center justify-center
+                overflow-hidden rounded-3xl shadow-[0_8px_35px_rgba(0,0,0,0.1)] 
+                bg-gray-100">
+
+          {% if member.photo %}
+          <img src="{{ member.photo.url }}"
+               alt="{{ member.name }}"
+               class="max-h-full max-w-full object-contain rounded-3xl">
+          {% else %}
+          <img src="{% static 'assets/images/default-user.jpg' %}"
+               class="max-h-full max-w-full object-contain rounded-3xl">
+          {% endif %}
+
+        </div>
+      </div>
+
+      <!-- CONTENT -->
+      <div class="md:w-7/12 w-full">
+
+        <h3 class="text-3xl font-bold text-gray-900 tracking-tight">
+          {{ member.name }}
+        </h3>
+
+        <p class="mt-1 text-lg text-pink-600 font-semibold">
+          {{ member.designation }}
+        </p>
+
+        <div class="h-1 w-20 bg-pink-500 rounded-full mt-3"></div>
+
+        <div class="mt-2 text-gray-600 leading-relaxed text-lg prose max-w-none">
+          {{ member.description}}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</section>
+<!-- LEADERSHIP DETAIL END -->
+
+
+
+
+{% endblock content %}

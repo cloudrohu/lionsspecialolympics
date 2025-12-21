@@ -63,9 +63,9 @@ class HomeView(View):
 
     def get(self, request):
         site_setting = SiteSetting.objects.order_by('-id').first()
-        featured_projects = Project.objects.all()   # FIXED
+        featured_projects = Project.objects.all()
         latest_news = NewsPost.objects.filter(is_published=True).order_by('-published_on')[:3]
-        leadership = Leadership.objects.filter(is_active=True)
+        leadership = Leadership.objects.filter(is_active=True).order_by('order')
         campaigns = Campaign.objects.filter(is_active=True)[:3]
         impact_metrics = ImpactMetric.objects.all().order_by('order')[:4]
         partners = Partner.objects.all()
@@ -76,31 +76,54 @@ class HomeView(View):
         highlights = Highlight.objects.filter(is_active=True).order_by('order')
         social_links = SocialLink.objects.filter(is_visible=True)
         slides = CarouselSlide.objects.filter(is_active=True).order_by('order')[:10]
-        team_members = TeamMember.objects.all()[:4]
         aboutpagecontent = AboutPageContent.objects.all()[:10]
 
-
         context = {
-            'event': event,
-            'leadership': leadership ,
-            'team_members': team_members,
-            'team_members': team_members,
-            'highlights': highlights,
-            'disclaimer': disclaimer,
             'site_setting': site_setting,
             'featured_projects': featured_projects,
-            'aboutpagecontent': aboutpagecontent,
             'latest_news': latest_news,
+            'leadership': leadership,
             'campaigns': campaigns,
             'impact_metrics': impact_metrics,
             'partners': partners,
+            'team_members': team_members,
+            'event': event,
             'gallery': gallery,
+            'disclaimer': disclaimer,
+            'highlights': highlights,
             'social_links': social_links,
             'slides': slides,
+            'aboutpagecontent': aboutpagecontent,
         }
+
         return render(request, self.template_name, context)
+    
 
+def leadership_detail(request, slug):
+    member = get_object_or_404(Leadership,slug=slug,is_active=True)
 
+    context = {
+        "member": member,
+        "about": AboutPageContent.objects.first(),
+        "site_setting": SiteSetting.objects.order_by('-id').first(),
+        "featured_projects": Project.objects.all(),
+        "latest_news": NewsPost.objects.order_by('-published_on')[:3],
+        "campaigns": Campaign.objects.filter(is_active=True)[:3],
+        "impact_metrics": ImpactMetric.objects.all().order_by('order')[:6],
+        "partners": Partner.objects.all(),
+        "team_members": TeamMember.objects.all()[:4],
+        "event": Event.objects.all(),
+        "gallery": GalleryImage.objects.order_by('-uploaded_on')[:6],
+        "disclaimer": Disclaimer.objects.first(),
+        "highlights": Highlight.objects.filter(is_active=True).order_by('order'),
+        "social_links": SocialLink.objects.filter(is_visible=True),
+        "slides": CarouselSlide.objects.filter(is_active=True).order_by('order')[:10],
+        "faq": FAQ.objects.filter(is_active=True).order_by('order')[:4],
+    }
+
+    return render(request, "leadership/leadership_detail.html", context)
+
+    
 class ProjectListView(ListView):
     model = Project
     template_name = 'projects/list.html'
