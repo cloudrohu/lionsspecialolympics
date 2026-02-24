@@ -1,0 +1,170 @@
+{% load static %}
+<style>
+.nav-link {
+    position: relative;
+}
+
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: #d4af37;
+    transition: 0.4s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
+</style>
+
+<!-- ======= Top Contact Bar ======= -->
+<div class="bg-black text-gray-300 text-sm hidden md:block">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-10">
+
+            <div class="flex items-center space-x-6">
+                <span class="flex items-center space-x-2">
+                    <i class="fas fa-phone-alt text-yellow-400"></i>
+                    <span>+91 9898 03 4466</span>
+                </span>
+
+                <span class="h-4 w-px bg-gray-600"></span>
+
+                <span class="flex items-center space-x-2">
+                    <i class="fas fa-envelope text-yellow-400"></i>
+                    <span>info@cloudrohu.com</span>
+                </span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <a href="{{ site_setting.facebook }}" class="hover:text-white flex items-center gap-2">
+                    <i class="fa-brands fa-facebook"></i> Facebook
+                </a>
+
+                <a href="{{ site_setting.instagram }}" class="hover:text-white">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+
+                <a href="{{ site_setting.linkdin }}" class="hover:text-white">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>  
+
+<!-- ================== MAIN HEADER ================== -->
+<header class="bg-[{{site_setting.nav_color}}] text-white shadow-lg sticky top-0 z-50 border-b border-[#222]">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center py-2">
+
+            <!-- Logo Image -->
+            <div>
+                <img src="{{ site_setting.logo.url }}" alt="Logo" class="h-12">
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-10 text-sm uppercase tracking-wider relative">
+                
+                <a href="/" class="nav-link {% if request.path == '/' %}active text-[#d4af37]{% endif %}">Home</a>
+                <a href="{% url 'home:about' %}" class="nav-link {% if request.path == '/about/' %}active text-[#d4af37]{% endif %}">About</a>
+                <a href="#" class="nav-link hover:text-[#d4af37]">Highlights</a>
+                <a href="#" class="nav-link hover:text-[#d4af37]">Enquiry</a>
+
+                <!-- Dropdown -->
+                <div class="relative">
+                    <button id="projectBtn" class="nav-link hover:text-[#d4af37] flex items-center gap-2">
+                        Project
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                    </button>
+
+                    <div id="projectMenu" class="absolute left-0 mt-4 w-56 bg-[#111] border border-[#333] shadow-xl hidden">
+                        <a href="#" class="block px-6 py-3 hover:bg-[#d4af37] hover:text-black transition">
+                            Ongoing Projects
+                        </a>
+                          <hr class="border border-white h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent">
+                        <a href="#" class="block px-6 py-3 hover:bg-[#d4af37] hover:text-black transition">
+                            Completed Projects
+                        </a>
+                    </div>
+                    
+                </div>
+
+                <a href="{% url 'home:contact' %}" class="nav-link hover:text-[#d4af37]">Contact</a>
+            </nav>
+
+            <!-- Mobile Button -->
+            <button id="openDrawer" class="md:hidden text-2xl text-[#d4af37]">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+    </div>
+</header>
+
+<!--  ======= 🚀 Drawer ======= -->
+<div id="drawer" class="fixed top-0 right-0 h-full w-72 bg-[#111] border-l border-[#333] transform translate-x-full transition duration-300 z-50 p-6">
+
+    <div class="flex justify-between items-center mb-8">
+        <img src="{{ site_setting.logo.url }}" alt="Logo" class="h-10">
+        <button id="closeDrawer" class="text-xl text-white">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="flex flex-col space-y-6 text-gray-300 uppercase text-sm">
+        <a href="#" class="hover:text-[#d4af37]">Home</a>
+        <a href="#" class="hover:text-[#d4af37]">About</a>
+        <a href="#" class="hover:text-[#d4af37]">Highlights</a>
+        <a href="#" class="hover:text-[#d4af37]">Enquiry</a>
+
+        <div>
+            <p class="text-[#d4af37] mb-2">Project</p>
+            <a href="#" class="block pl-4 py-1 hover:text-[#d4af37]">Ongoing Projects</a>
+            <a href="#" class="block pl-4 py-1 hover:text-[#d4af37]">Completed Projects</a>
+        </div>
+
+        <a href="#" class="hover:text-[#d4af37]">Contact</a>
+    </div>
+</div>
+
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-70 hidden z-40"></div>
+<!-- ================== MAIN HEADER END ================== -->
+
+<script>
+// Drawer
+const drawer = document.getElementById("drawer");
+const overlay = document.getElementById("overlay");
+
+document.getElementById("openDrawer").onclick = () => {
+    drawer.classList.remove("translate-x-full");
+    overlay.classList.remove("hidden");
+};
+
+document.getElementById("closeDrawer").onclick = closeDrawer;
+overlay.onclick = closeDrawer;
+
+function closeDrawer() {
+    drawer.classList.add("translate-x-full");
+    overlay.classList.add("hidden");
+}
+
+// Dropdown click toggle
+const projectBtn = document.getElementById("projectBtn");
+const projectMenu = document.getElementById("projectMenu");
+
+projectBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+    projectMenu.classList.toggle("hidden");
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function(){
+    projectMenu.classList.add("hidden");
+});
+</script>

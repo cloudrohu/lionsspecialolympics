@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
-ROOT_URLCONF = 'capturetalent.urls'
+ROOT_URLCONF = 'lionsspecialolympics.urls'
 
 TEMPLATES = [
     {
@@ -75,7 +75,7 @@ TEMPLATES = [
 ]
 
 
-WSGI_APPLICATION = 'capturetalent.wsgi.application'
+WSGI_APPLICATION = 'lionsspecialolympics.wsgi.application'
 
 
 # Database
