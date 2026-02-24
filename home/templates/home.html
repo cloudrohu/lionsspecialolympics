@@ -4,362 +4,462 @@
 
 {% block content %}
 
-<br>
-<br>
-<br>
-<br>
+<style>
+    video {
+  animation: zoom 20s infinite alternate ease-in-out;
+}
 
-<!-- SLIDER START HERE -->
-<div id="default-carousel" class="relative w-full" data-carousel="slide">
-    
-    <!-- Carousel wrapper -->
-    <div class="relative h-[550px] overflow-hidden rounded-2xl md:h-[650px]">
-        
-        {% for rs in slides %}
-            <!-- ITEM 1 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="{{rs.image.url}}" 
-                    class="absolute block w-full h-full object-cover" alt="...">
+@keyframes zoom {
+  from { transform: scale(1); }
+  to { transform: scale(1.2); }
+}
+</style>
+
+<!-- ================== MAIN HERO ================== -->
+<section class="relative w-full min-h-[70vh] flex items-center overflow-hidden">
+
+    <!-- Background Video -->
+    <video autoplay muted loop playsinline class="absolute top-0 left-0 w-full h-full object-cover scale-110">
+        <source src="{% static '' %}assets/images/video/banner.mp4" type="video/mp4">
+    </video>
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0"></div>
+
+    <!-- Content -->
+    <div class="relative z-10 flex items-center justify-center w-full py-20 px-6">
+
+        <div class="max-w-7xl w-full grid md:grid-cols-2 gap-10 items-center text-white">
+
+            <!-- Left Content -->
+            <div>
 
             </div>
-        {% endfor %}
 
-
-
-
-    </div>
-
-    <!-- Slider indicators -->
-    <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-        {% for rs in slides %}
-        <button type="button" class="w-3 h-3 rounded-full" data-carousel-slide-to="{{ forloop.counter0 }}"></button>
-        {% endfor %}
-    </div>
-
-    <!-- Slider controls -->
-    <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group" data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/30 group-hover:bg-white/50">
-            <svg class="w-5 h-5 text-white rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 19-7-7 7-7"/>
-            </svg>
-        </span>
-    </button>
-
-    <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group" data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-lg bg-white/30 group-hover:bg-white/50">
-            <svg class="w-5 h-5 text-white rtl:rotate-180" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/>
-            </svg>
-        </span>
-    </button>
-
-</div>
-<!-- SLIDER END HERE -->
-
-<!-- HIGHLIGHT START HERE -->
-<section class="py-16 bg-gray-100">
-    <div class="max-w-7xl mx-auto px-6">
-
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-extrabold text-red-700 tracking-wide">
-                Why {{ site_setting.site_name }} Matters
-            </h2>
-            <p class="mt-2 text-gray-600 text-lg">
-                Empowering athletes with love, support, and opportunities.
-            </p>
-
-            <div class="mt-4 flex justify-center">
-                <div class="w-24 h-[3px] bg-red-600 rounded-full"></div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-
-            {% for h in highlights %}
-            <div class="p-8 bg-gray-50 rounded-2xl shadow-md hover:shadow-xl transition">
-
-                <div class="flex items-center justify-center w-14 h-14 bg-red-100 text-red-700
-                rounded-full mb-6 text-3xl">
-                    <i class="{{ h.icon }}"></i>
+            <!-- Right Glass Card -->
+            <div class="hidden md:block">
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 rounded-3xl p-8 shadow-2xl">
+                    <h3 class="text-2xl font-semibold mb-4">Why Join?</h3>
+                    <ul class="space-y-3 text-gray-300">
+                        <li>✔ Global Exposure</li>
+                        <li>✔ Verified Talent Profiles</li>
+                        <li>✔ Direct Brand Connect</li>
+                        <li>✔ Career Acceleration</li>
+                    </ul>
                 </div>
-
-                <h3 class="text-xl font-bold mb-2">{{ h.title }}</h3>
-                <p class="text-gray-600">{{ h.description }}</p>
             </div>
-            {% endfor %}
 
         </div>
     </div>
 </section>
+<!-- ================== MAIN HERO END================== -->
 
-<!-- HIGHLIGHT END HERE -->
- 
-<!-- OUR IMPACT START HERE -->
-<section class="py-16 bg-gray-50" id="impactSection">
-    <div class="max-w-7xl mx-auto px-6">
+<!-- ================== OTPIONAL TEXT HERE ================== -->
+<section class="bg-gray-50 py-12">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+
+        <h2 class="text-2xl md:text-3xl font-semibold text-gray-800 leading-relaxed">
+            Those who sign up with 
+            <span class="text-yellow-500 font-bold">Capture Talent</span> 
+            will be able to work on large-scale projects from renowned 
+            production houses across India.
+        </h2>
+
+    </div>
+</section>
+<hr>
+<!-- ================== OTPIONAL TEXT END HERE ================== -->
+
+<!-- ================== EXPLORE TALENTS ================== -->
+<section class="bg-gray-50 py-20">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+
+        <!-- Heading -->
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">
+            Explore <span class="text-yellow-500">Talent</span>
+        </h2>
+
+        <p class="text-gray-600 mb-12">
+            Discover verified talent across different categories.
+        </p>
+
+        <!-- Cards -->
+        <div class="grid md:grid-cols-3 gap-8">
+
+           <!-- Actor Card -->
+            <div class="relative h-76 rounded-xl overflow-hidden group shadow-xl">
+
+                <!-- Background Image -->
+                <div class="absolute inset-0 bg-cover bg-center"
+                    style="background-image: url('https://capturetalent.in/uploads/top_skills/photo/1765094856_9637c460776fcb4e7e28.jpg');">
+                </div>
+
+                <!-- Bottom Gradient for Text Visibility -->
+                <div class="absolute inset-0 bg-gradient-to-t 
+                            from-black/80 via-black/30 to-transparent">
+                </div>
+
+                <!-- Text -->
+                <div class="absolute bottom-0 left-0 p-6 z-10">
+                    <h3 class="text-2xl font-bold text-white drop-shadow-lg">
+                        ACTORS
+                    </h3>
+                </div>
+
+            </div>
+
+
+            <!-- Child Artist -->
+            <div class="relative h-72 rounded-2xl overflow-hidden group shadow-lg">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110" style="background-image: url('https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9');">
+                </div>
+                <div class="absolute inset-0 bg-black/60"></div>
+                <div class="relative z-10 p-8 text-white flex flex-col justify-end h-full">
+                    <h3 class="text-xl font-semibold mb-3">Child Artists</h3>
+                    <p class="text-sm mb-4">
+                        Young talents for films, commercials, and TV projects.
+                    </p>
+                    <a href="#" class="text-yellow-400 font-semibold hover:underline">
+                        View Profiles →
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+<!-- ================== EXPLORE TALENTS END ================== -->
+
+<!-- ================== HERO START HERE ================== -->
+<section class="relative h-[100vh] flex items-center justify-center text-center overflow-hidden mb-3">
+
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-cover bg-center h-[100vh]" style="background-image: url('https://capturetalent.in/uploads/banner/before_explore_up.png');">
+    </div>
+
+    <!-- Dark Overlay -->
+    <div class="absolute inset-0 bg-black/60"></div>
+
+
+</section>
+<!-- ================== HERO END HERE ================== -->
+
+<!-- ================== ABOUT START HERE ================== -->
+<section class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+
+         <!-- LEFT IMAGE -->
+        <div class="relative">
+            <img src="https://capturetalent.in/uploads/about_img/1765474577_91b537b83fc20d24ebf8.webp" alt="Capture Talent" class="rounded-2xl shadow-2xl object-cover w-full h-[450px]">
+
+            <!-- Decorative Yellow Border -->
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-yellow-500 rounded-2xl -z-10"></div>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                About <span class="text-yellow-500">Capture Talent</span>
+            </h2>
+
+            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                Capture Talent is a professional platform dedicated to connecting 
+                verified artists with leading filmmakers, brands, and production houses. 
+                We focus on discovering raw talent and helping artists shine on the big screen.
+            </p>
+
+            <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                Our mission is to create opportunities, build strong industry connections, 
+                and support artists at every stage of their journey.
+            </p>
+
+            <a href="#" class="inline-block px-8 py-3 bg-yellow-500 text-white font-semibold shadow-lg hover:bg-yellow-600 transition duration-300">
+                Explore Talent
+            </a>
+        </div>
+       
+    </div>
+</section>
+<!-- ================== ABOUT END HERE ================== -->
+
+<!-- ================== BENEFIT FOR TALENT ================== -->
+<section class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+
+        <!-- LEFT CONTENT -->
+        <div>
+            <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                Benefits for <span class="text-yellow-500">Talent</span>
+            </h2>
+
+            <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                Capture Talent provides a powerful platform where artists can 
+                showcase their skills and connect directly with casting directors, 
+                filmmakers, and top brands.
+            </p>
+
+            <ul class="space-y-4 mb-8">
+                <li class="flex items-start gap-3">
+                    <span class="text-yellow-500 text-xl">✔</span>
+                    <span class="text-gray-700">Verified casting opportunities</span>
+                </li>
+
+                <li class="flex items-start gap-3">
+                    <span class="text-yellow-500 text-xl">✔</span>
+                    <span class="text-gray-700">Direct industry exposure</span>
+                </li>
+
+                <li class="flex items-start gap-3">
+                    <span class="text-yellow-500 text-xl">✔</span>
+                    <span class="text-gray-700">Professional portfolio visibility</span>
+                </li>
+
+                <li class="flex items-start gap-3">
+                    <span class="text-yellow-500 text-xl">✔</span>
+                    <span class="text-gray-700">Networking with production houses</span>
+                </li>
+            </ul>
+
+            <a href="#" class="inline-block px-8 py-3 bg-yellow-500 text-white font-semibold shadow-lg hover:bg-yellow-600 transition duration-300">
+                Join as Talent
+            </a>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="relative">
+            <img src="https://capturetalent.in/uploads/banner_photo/Benefit_img.jpg" alt="Talent Benefits" class="rounded-2xl shadow-2xl object-cover w-full h-[450px]">
+
+            <!-- Decorative Yellow Block -->
+            <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-yellow-500 rounded-2xl -z-10"></div>
+        </div>
+
+    </div>
+</section>
+<!-- ================= BENEFIT FOR TALENT END ================= -->
+
+<!-- ================= CINEMATIC KEY HIGHLIGHTS ================= -->
+<section class="relative py-16 bg-gradient-to-b from-gray-900 to-black text-white overflow-hidden">
+
+    <!-- Background Gradient -->
+    <div class="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black"></div>
+
+    <!-- Light Effects (Slightly Smaller) -->
+    <div class="absolute w-[400px] h-[400px] bg-yellow-500/10 blur-[120px] rounded-full -top-32 -left-32"></div>
+    <div class="absolute w-[350px] h-[350px] bg-yellow-400/10 blur-[100px] rounded-full bottom-0 right-0"></div>
+
+    <div class="relative max-w-7xl mx-auto px-6">
 
         <!-- Heading -->
         <div class="text-center mb-12">
-            <h2 class="text-4xl font-extrabold text-red-700">Our Impact</h2>
-            <p class="text-gray-600 mt-2 text-lg">
-                Creating real change in the lives of specially-abled athletes.
-            </p>
-
-            <div class="mt-4 flex justify-center">
-                <div class="w-24 h-[3px] bg-red-600 rounded-full"></div>
-            </div>
-        </div>
-
-        <!-- Impact Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
-
-            {% for rs in impact_metrics %}
-            <!-- Box 1 -->
-            <div class="bg-white p-8 rounded-2xl shadow hover:shadow-xl transition text-center">
-                <div class="text-red-600 text-5xl mb-4">
-                    <i class="{{rs.icon}} text-red-600"></i>
-                </div>
-                <span class="text-4xl font-bold text-gray-900 count" data-target="{{rs.value}}">0 </span><span class="ml-1 text-4xl font-bold text-gray-900">+</span>
-                <p class="mt-2 text-gray-600">{{rs.title}}</p>
-            </div>
-            {% endfor %}
-
-       
-
-
-
-        </div>
-
-    </div>
-</section>
-<!-- OUR IMPACT END HERE -->
-
-
-
-
-
-<!-- ABOUT US START HERE -->
-<section class="py-10 bg-white" id="aboutHome">
-    <div class="max-w-7xl mx-auto px-6">
-        {% for rs in aboutpagecontent %}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
-            
-            <!-- IMAGE SIDE -->
-            <div>
-                <img src="{{rs.hero_image.url}}" 
-                     alt="Lions Special Olympics"
-                     class="w-full h-[320px] md:h-[380px] object-cover rounded-2xl shadow-lg">
-            </div>
-
-            <!-- TEXT SIDE -->
-            <div>
-                <h2 class="text-3xl md:text-4xl font-extrabold text-red-700 mb-4">
-                    About {{rs.hero_subtitle}}
-                </h2>
-                <p class="text-gray-700 leading-relaxed mb-4">
-                    {{rs.content}}
-                </p>
-            
-
-                <!-- READ MORE BUTTON -->
-                <a href="{% url 'home:about' %}"
-                   class="inline-block bg-red-600 text-white px-6 py-3 rounded-lg shadow hover:bg-red-700 transition text-sm font-semibold">
-                    Read More
-                </a>
-            </div>
-
-        </div>
-        {% endfor %}
-    </div>
-</section>
-<!-- ABOUT US END HERE -->
-
-<!-- GALLERY START HERE -->
-<section class="py-10 bg-gradient-to-b from-gray-50 to-white" id="galleryHome">
-  <div class="max-w-7xl mx-auto px-3">
-
-    <!-- Heading -->
-    <div class="text-center mb-1">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-red-700 mb-6">
-        Gallery
-      </h2>
-      <p class="text-gray-600 mt-2 max-w-2xl text-xl text-bold mx-auto mt-2 mb-4">
-        Special moments from Lions Special Olympics events & programs.
-      </p>
-    </div>
-
-        <!-- Masonry Grid -->
-        <div class="columns-1 sm:columns-2 lg:columns-3 gap-5 space-y-5">
-
-        {% for rs in gallery %}
-        <div class="break-inside-avoid">
-
-            <!-- Image Wrapper (FIXED HEIGHT) -->
-            <div class="relative group h-56 sm:h-64 lg:h-72  
-                        overflow-hidden rounded-2xl bg-gray-100 shadow-md"  id="imagePopup">
-
-                    <img src="{{ rs.image.url }}"
-            class="gallery-img w-full h-full object-cover object-center
-                    transition-transform duration-500
-                    group-hover:scale-105 cursor-pointer"
-            loading="lazy"
-            onclick="openPopup(this.src)"
-            alt="Gallery Image">
-
-
-            </div>
-
-        </div>
-        {% endfor %}
-
-        </div>
-
-
-    <!-- Button -->
-    <div class="text-center mt-2">
-      <a href="{% url 'home:gallery' %}"
-         class="inline-block bg-red-600 text-white px-8 py-3
-                rounded-xl shadow-lg hover:bg-red-700
-                transition text-lg">
-        View Full Gallery
-      </a>
-    </div>
-
-  </div>
-</section>
-<!-- GALLERY END HERE -->
-
-
-
-<!-- HIGHLIGHTS START HERE -->
-<section class="py-14 bg-[#EFEBEB] p-4">
-  <h2 class="text-center text-2xl font-semibold mb-8 text-[#A68D2B] font-serif">Lions Olypics - Highlights</h2>
-    <div class="flex item-center justify-center">
-        <div class="h-[1px] w-16 bg-gray-400"></div>
-        <div class="h-[4px] w-14 bg-[#A68D2B] rounded-sm"></div>
-        <div class="h-[1px] w-16 bg-gray-400"></div>
-
-    </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-6 max-w-6xl mx-auto px-4 p-4">
-
-            {% for rs in highlights %}
-             <div class="flex items-start gap-2 mt-2">
-                <span class="text-[#212529]"><i class="fa-solid fa-check-double"></i></span>
-                <p class="text-lg text-[#212529]">{{rs.title}}</p>
-            </div>        
-            {% endfor %}
-
-
-        </div>
-</section>
-<!-- HIGHLIGHTS END HERE -->
-
-
-<!-- LEADERSHIP PARTNERS START HERE -->
-<section class="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
-  <div class="container mx-auto px-5">
-    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 uppercase">
-     Visionary Leaders
-    </h2>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
-        {% for member in leadership %}
-        <div class="group bg-white/60 backdrop-blur-md p-4 rounded-2xl shadow-xl 
-                    hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
-
-            <div class="overflow-hidden rounded-xl">
-            {% if member.photo %}
-            <img src="{{ member.photo.url }}"
-                class="w-full h-80 object-cover rounded-lg 
-                        group-hover:scale-110 duration-300">
-            {% endif %}
-            </div>
-
-            <div class="text-center mt-4">
-            <a href="{% url 'home:leadership_detail' member.slug %}">
-                <h3 class="text-xl font-semibold text-gray-900 
-                            group-hover:text-indigo-600 duration-300">
-                    {{ member.name }}
-                </h3>
-            </a>
-
-            <p class="text-gray-500 text-sm mt-1">
-                {{ member.designation }}
-            </p>
-
-            <p class="text-gray-600 text-sm mt-2">
-                {{ member.description |truncatechars:150}}
-            </p>
-            
-            <a href="{% url 'home:leadership_detail' member.slug %}" class="inline-flex items-center gap-2 mt-4 text-sm font-semibold
-                    text-indigo-600 hover:text-red-600 transition group">
-
-                <span class="relative after:content-[''] after:block after:h-[2px]
-                            after:bg-red-600 after:scale-x-0 after:origin-left
-                            after:transition-transform after:duration-300
-                            group-hover:after:scale-x-100">
-                    Read More
+            <h2 class="text-3xl md:text-4xl font-bold tracking-wide">
+                Why <span class="text-yellow-500 drop-shadow-[0_0_15px_rgba(234,179,8,0.6)]">
+                    Capture Talent
                 </span>
+            </h2>
 
-                <i class="fa-solid fa-arrow-right text-xs 
-                        group-hover:translate-x-1 transition-transform"></i>
-            </a>
+            <div class="w-24 h-[2px] bg-gradient-to-r from-transparent via-yellow-500 to-transparent mx-auto my-3"></div>
 
-            </div>
-            
-        </div>
-        {% endfor %}
-
-    </div>
-
-
-  </div>
-</section>
-<!-- LEADERSHIP PARTNERS END HERE -->
-
-<!-- TEAM PARTNERS START HERE -->
-<section class="py-16 bg-gradient-to-br from-gray-100 to-gray-200">
-  <div class="container mx-auto px-5">
-    <h2 class="text-4xl font-bold text-center mb-12 text-gray-800 uppercase">
-     Oraganising Committee
-    </h2>
-
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-
-        {% for member in team_members %}
-        <div class="group bg-white/60 backdrop-blur-md p-4 rounded-2xl shadow-xl 
-                    hover:shadow-2xl hover:-translate-y-2 duration-300 border border-gray-200">
-
-            <div class="overflow-hidden rounded-xl">
-            {% if member.photo %}
-            <img src="{{ member.photo.url }}"
-                class="w-full h-72
- object-cover rounded-lg 
-                        group-hover:scale-110 duration-300">
-            {% endif %}
-            </div>
-
-            <div class="text-center mt-4">
-            <h3 class="text-xl font-semibold text-gray-900 
-                        group-hover:text-indigo-600 duration-300">
-                {{ member.name }}
-            </h3>
-
-            <p class="text-gray-500 text-sm mt-1">
-                {{ member.role }}
+            <p class="text-gray-400 max-w-xl mx-auto text-sm md:text-base">
+                Where ambition meets opportunity in the world of cinema.
             </p>
-
-        
-            </div>
         </div>
-        {% endfor %}
+
+        <!-- Cards -->
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Card -->
+            <div class="group relative bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl transition duration-300 hover:scale-105 hover:border-yellow-500/40">
+
+                <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-yellow-500/0 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition duration-300"></div>
+
+                <div class="relative z-10">
+                    <div class="text-yellow-500 text-3xl mb-4">🎭</div>
+                    <h3 class="text-lg font-semibold mb-2">Verified Profiles</h3>
+                    <p class="text-gray-400 text-sm">
+                        Professionally screened artist profiles ready for casting.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card -->
+            <div class="group relative bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl transition duration-300 hover:scale-105 hover:border-yellow-500/40">
+                <div class="relative z-10">
+                    <div class="text-yellow-500 text-3xl mb-4">🎬</div>
+                    <h3 class="text-lg font-semibold mb-2">Industry Access</h3>
+                    <p class="text-gray-400 text-sm">
+                        Direct connect with casting directors & brands.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card -->
+            <div class="group relative bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl transition duration-300 hover:scale-105 hover:border-yellow-500/40">
+                <div class="relative z-10">
+                    <div class="text-yellow-500 text-3xl mb-4">🌍</div>
+                    <h3 class="text-lg font-semibold mb-2">Pan India Reach</h3>
+                    <p class="text-gray-400 text-sm">
+                        Work with renowned production houses.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Card -->
+            <div class="group relative bg-white/5 backdrop-blur-xl border border-white/10 p-6 rounded-2xl transition duration-300 hover:scale-105 hover:border-yellow-500/40">
+                <div class="relative z-10">
+                    <div class="text-yellow-500 text-3xl mb-4">🚀</div>
+                    <h3 class="text-lg font-semibold mb-2">Career Growth</h3>
+                    <p class="text-gray-400 text-sm">
+                        Build visibility and accelerate your journey.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<!-- ================= CINEMATIC KEY HIGHLIGHTS END ================= -->
+
+<!-- ================= WORKING PROFILE ================= -->
+<section class="relative py-20 bg-gradient-to-b from-black via-[#0f0f0f] to-black text-white overflow-hidden">
+
+    <div class="absolute -top-40 -left-40 w-[500px] h-[500px] bg-yellow-500/10 blur-[150px] rounded-full"></div>
+    <div class="absolute -bottom-40 -right-40 w-[500px] h-[500px] bg-yellow-500/10 blur-[150px] rounded-full"></div>
+
+    <div class="relative max-w-[1600px] mx-auto px-8">
+
+        <!-- Heading -->
+        <div class="text-center mb-12">
+            <h2 class="inline-block px-8 py-3 bg-orange-500 text-white text-2xl md:text-3xl font-bold tracking-widest uppercase">
+                Working Profile
+            </h2>
+            <div class="w-16 h-1 bg-orange-500 mx-auto mt-4 rounded-full"></div>
+        </div>
+
+        <!-- Grid -->
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+            <!-- Card -->
+            <div class="group relative rounded-3xl overflow-hidden transition duration-500 hover:-translate-y-3">
+
+                <!-- Border Glow -->
+                <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-yellow-500/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-xl"></div>
+
+                    <div class="relative overflow-hidden border border-white/10 backdrop-blur-xl">
+
+                        <img src="https://capturetalent.in/uploads/working_profile/photo/1764869816_8973bc297184c7a45300.jpg" class="h-[420px] w-auto object-cover object-center transition duration-700 group-hover:scale-110">
+               
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-5">
+
+                            <div class="translate-y-6 group-hover:translate-y-0 transition duration-500">
+                                <h4 class="text-base font-semibold">Lakme Fashion Week</h4>
+                                <p class="text-sm text-gray-300">Fashion Campaign</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+            </div>
+
+            <!-- Card -->
+            <div class="group relative rounded-3xl overflow-hidden transition duration-500 hover:-translate-y-3">
+
+                <!-- Border Glow -->
+                <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-yellow-500/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-xl"></div>
+
+                <div class="relative rounded-3xl overflow-hidden border border-white/10 backdrop-blur-xl">
+
+                    <img src="https://capturetalent.in/uploads/working_profile/photo/1764869796_9b9d7b8d363a8920b5b9.jpg" class="h-[420px] w-full object-cover object-center transition duration-700 group-hover:scale-110">
+
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-5">
+
+                        <div class="translate-y-6 group-hover:translate-y-0 transition duration-500">
+                            <h4 class="text-base font-semibold">Lakme Fashion Week</h4>
+                            <p class="text-sm text-gray-300">Fashion Campaign</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Card -->
+            <div class="group relative rounded-3xl overflow-hidden transition duration-500 hover:-translate-y-3">
+
+                <!-- Border Glow -->
+                <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-yellow-500/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-xl"></div>
+
+                <div class="relative rounded-3xl overflow-hidden border border-white/10 backdrop-blur-xl">
+
+                    <img src="https://capturetalent.in/uploads/working_profile/photo/1764869673_0d06a49d679b3e963bdb.jpg" class="h-[420px] w-full object-cover object-center transition duration-700 group-hover:scale-110">
+
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-5">
+
+                        <div class="translate-y-6 group-hover:translate-y-0 transition duration-500">
+                            <h4 class="text-base font-semibold">Lakme Fashion Week</h4>
+                            <p class="text-sm text-gray-300">Fashion Campaign</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Card -->
+            <div class="group relative rounded-3xl overflow-hidden transition duration-500 hover:-translate-y-3">
+
+                <!-- Border Glow -->
+                <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-yellow-500/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-xl"></div>
+
+                <div class="relative rounded-3xl overflow-hidden border border-white/10 backdrop-blur-xl">
+
+                    <img src="https://capturetalent.in/uploads/working_profile/photo/1764869742_f17782b638500f39d144.jpg" class="h-[420px] w-full object-cover object-center transition duration-700 group-hover:scale-110">
+
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-5">
+
+                        <div class="translate-y-6 group-hover:translate-y-0 transition duration-500">
+                            <h4 class="text-base font-semibold">Lakme Fashion Week</h4>
+                            <p class="text-sm text-gray-300">Fashion Campaign</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Card -->
+            <div class="group relative rounded-xl overflow-hidden transition duration-500 hover:-translate-y-3">
+
+                <!-- Border Glow -->
+                <div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-yellow-500/40 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 blur-xl"></div>
+
+                <div class="relative rounded-3xl overflow-hidden border border-white/10 backdrop-blur-xl">
+
+                    <img src="https://capturetalent.in/uploads/working_profile/photo/1764869827_f1faf9378813125d1313.jpg" class="h-[420px] w-full object-cover object-center transition duration-700 group-hover:scale-110">
+
+                    <!-- Overlay -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-black via-black/60 to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex items-end p-5">
+
+                        <div class="translate-y-6 group-hover:translate-y-0 transition duration-500">
+                            <h4 class="text-base font-semibold">Lakme Fashion Week</h4>
+                            <p class="text-sm text-gray-300">Fashion Campaign</p>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
 
     </div>
 
-
-  </div>
 </section>
-<!-- TEAM PARTNERS END HERE -->
+ <!-- ================= WORKING PROFILE END ================= -->
+
+
 
 {% endblock %}

@@ -1,385 +1,170 @@
 {% load static %}
-<!-- HEADER START HERE -->
-
-<head-desk-mob>
-    <div id="overlay"></div>
-    <header id="navbar" class="fixed top-0 w-full bg-[{{site_setting.nav_color}}] backdrop-blur-sm shadow-md border-b border-red-500/30 z-50">
-
-        <div class="max-w-7xl mx-auto px-5 py-3 flex items-center justify-between">
-
-            <!-- LOGO (Bigger) -->
-            <div class="flex items-center gap-3">
-        
-                <a href="/">
-                    <img src="{{ site_setting.logo.url }}"
-                        class="w-16 h-16 rounded-full border-2 border-red-600 shadow-sm">
-                </a>    
-            </div>
-
-        <!-- Desktop Menu -->
-            <nav class="hidden lg:flex items-center gap-10 font-medium">
-
-                <a class="nav-desktop" href="/">Home</a>
-                <a class="nav-desktop" href="{% url 'home:about' %}">About</a>
-                <a class="nav-desktop" href="{% url 'home:partners' %}">Partners</a>
-                <a class="nav-desktop" href="{% url 'home:event_list' %}">Events</a>
-                
-                <div class="dropdown">
-                    <button class="dropbtn">
-                        Initiative Overview
-                    </button>
-
-                    <div class="dropdown-content">
-
-                        <a href="#">Executive Summary</a>
-                        <hr>
-
-                        <a href="#">Origin and Foundation</a>
-                        <hr>
-
-                        <a href="#">About the Organizer</a>
-                        <hr>
-
-                        <a href="#">Programme Overview</a>
-                        <hr>
-
-                        <a href="#">Objectives</a>
-                        <hr>
-
-                        <a href="#">Detailed Activities & Provisions</a>
-                        <hr>
-
-                        <a href="#">Implementation Plan & Timeline</a>
-                        <hr>
-
-                        <a href="#">Legacy, Beneficiaries & Impact Metrics</a>
-                        <hr>
-
-                        <a href="#">CSR Alignment & SDG Mapping</a>
-                        <hr>
-
-                        <a href="#">Detailed Budget</a>
-                        <hr>
-
-                    </div>
-                </div>
-
-
-
-
-
-                <a class="nav-desktop" href="{% url 'home:gallery' %}">Gallery</a>
-                <a class="nav-desktop" href="{% url 'home:contact' %}">Contact</a>
-
-                <a href="{% url 'home:donate' %}" class="donate-btn">
-                    Donate
-                </a>
-            </nav>
-            
-
-            <!-- Mobile Button -->
-            <button id="menuBtn" class="lg:hidden text-3xl text-red-600">
-                <i class="fa-solid fa-bars"></i>
-            </button>
-        </div>
-
-        <!-- RIGHT-SLIDE MOBILE MENU -->
-            <div id="mobileMenu" class="fixed top-0 right-0 bg-white !bg-opacity-100 w-80 h-screen overflow-y-auto shadow-xl border-l border-gray-300 z-50 p-6">
-
-
-            <!-- LOGO + Close Button -->
-            <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-300">
-                <div class="flex items-center gap-3">
-               
-                        <img src="{{ site_setting.logo.url }}"
-                            class="w-12 h-12 rounded-full border-2 border-red-600 shadow">
-                  
-                    <h1 class="text-xl font-bold text-red-700">Lions Special Olympics</h1>
-                </div>
-
-                <button id="closeBtn" class="text-3xl text-red-600 hover:rotate-90 transition">
-                    <i class="fa-solid fa-xmark"></i>
-                </button>
-            </div>
-
-            <!-- MENU TITLE -->
-            <h2 class="text-2xl font-bold text-red-700 mb-4">Menu</h2>
-
-            <!-- MENU LINKS -->
-            <div class="flex flex-col mt-2">
-
-                <a href="{% url 'home:index' %}"
-                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-house text-red-600"></i> Home
-                </a>
-
-                <a href="{% url 'home:about' %}"
-                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-circle-info text-red-600"></i> About
-                </a>
-
-                <a href="{% url 'home:partners' %}"
-                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-heart text-red-600"></i> Partners
-                </a>
-
-                <a href="{% url 'home:event_list' %}"
-                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-calendar-days text-red-600"></i> Events
-                </a>
-
-                <div class="dropdown">
-                    <button class="dropbtn" onclick="toggleDropdown(event)">
-                        <i class="fa-solid fa-lightbulb text-red-600 mr-1"></i>
-                        Initiative Overview
-                    </button>
-
-                    <div class="dropdown-content mb-2">
-
-                        <a href="#">Executive Summary</a>
-                        <a href="#">Origin and Foundation</a>
-                        <a href="#">About the Organizer</a>
-                        <a href="#">Programme Overview</a>
-                        <a href="#">Objectives</a>
-                        <a href="#">Detailed Activities & Provisions</a>
-                        <a href="#">Implementation Plan & Timeline</a>
-                        <a href="#">Legacy, Beneficiaries & Impact Metrics</a>
-                        <a href="#">CSR Alignment & SDG Mapping</a>
-                        <a href="#">Detailed Budget</a>
-
-                    </div>
-                </div>
-
-
-
-
-                <a href="{% url 'home:gallery' %}"
-                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-image text-red-600"></i> Gallery
-                </a>
-
-                <a href="{% url 'home:contact' %}"
-                class="flex items-center gap-3 text-lg font-medium text-gray-800 py-3 border-b border-gray-300 hover:text-red-600">
-                    <i class="fa-solid fa-phone text-red-600"></i> Contact
-                </a>
-
-                <a href="{% url 'home:donate' %}"
-                class="mt-6 text-center bg-red-600 text-white text-lg font-semibold px-5 py-3 rounded-full shadow hover:bg-red-700">
-                    Donate
-                </a>
-
-            </div>
-
-        </div>
-
-    </header>
-</head-desk-mob>
-<!-- HEADER END HERE -->
-
 <style>
-    /* ===== DROPDOWN FIX (NO HOVER BREAK) ===== */
+.nav-link {
+    position: relative;
+}
 
-    .dropdown {
-        position: relative;
-    }
+.nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 0%;
+    height: 2px;
+    background: #d4af37;
+    transition: 0.4s ease;
+}
 
-    /* Button */
-    .dropbtn {
-        background: transparent;
-        
-        font-weight: 600;
-        padding: 10px 6px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-    }
-
-    /* Dropdown container */
-    .dropdown-content {
-        position: absolute;
-        top: 100%;              /* 👈 NO GAP */
-        left: 0;
-        min-width: 240px;
-        background: #fff;
-        border-radius: 14px;
-        border: 1px solid #fee2e2;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        overflow: hidden;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px);
-        transition: all 0.25s ease;
-        z-index: 9999;
-    }
-
-    /* Invisible hover bridge (MOST IMPORTANT) */
-    .dropdown-content::before {
-        content: "";
-        position: absolute;
-        top: -12px;
-        left: 0;
-        width: 100%;
-        height: 12px;
-    }
-
-    /* Links */
-    .dropdown-content a {
-        display: block;
-        padding: 14px 18px;
-        color: #374151;
-        font-weight: 500;
-        text-decoration: none;
-        transition: all 0.25s ease;
-    }
-
-    /* Hover effect */
-    .dropdown-content a:hover {
-        background: #fef2f2;
-        color: #b91c1c;
-    }
-
-    /* SHOW dropdown */
-    .dropdown:hover .dropdown-content,
-    .dropdown-content:hover {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-    }
-
-    /* Arrow */
-    .dropbtn::after {
-        content: "▾";
-        font-size: 12px;
-        margin-left: 4px;
-    }
-    /* ===== DROPDOWN BASE ===== */
-    .dropdown {
-        position: relative;
-    }
-
-    /* Button */
-    .dropbtn {
-        background: transparent;
-        font-weight: 600;
-        padding: 10px 6px;
-        font-size: 16px;
-        border: none;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 6px;
-    }
-
-    /* Dropdown box */
-    .dropdown-content {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        min-width: 260px;
-        background: #fff;
-        border-radius: 14px;
-        border: 1px solid #fee2e2;
-        box-shadow: 0 20px 40px rgba(0,0,0,0.15);
-        overflow: hidden;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(10px);
-        transition: all 0.25s ease;
-        z-index: 9999;
-    }
-
-    /* Desktop hover bridge */
-    .dropdown-content::before {
-        content: "";
-        position: absolute;
-        top: -12px;
-        left: 0;
-        width: 100%;
-        height: 12px;
-    }
-
-    /* Links */
-    .dropdown-content a {
-        display: block;
-        padding: 14px 18px;
-        color: #374151;
-        font-weight: 500;
-        text-decoration: none;
-    }
-
-    .dropdown-content a:hover {
-        background: #fef2f2;
-        color: #b91c1c;
-    }
-
-    /* Desktop hover */
-    @media (min-width: 768px) {
-        .dropdown:hover .dropdown-content {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-    }
-
-    /* Arrow */
-    .dropbtn::after {
-        content: "▾";
-        font-size: 12px;
-    }
-    /* ===== MOBILE MENU DROPDOWN FIX ===== */
-    @media (max-width: 767px) {
-
-        #mobileMenu .dropdown {
-            width: 100%;
-            margin-top: 6px;
-        }
-
-        #mobileMenu .dropbtn {
-            width: 100%;
-            text-align: left;
-            padding: 14px 0;
-            font-size: 18px;
-            border-bottom: 1px solid #d1d5db;
-        }
-
-        #mobileMenu .dropdown-content {
-            position: static !important;   /* 🔥 MOST IMPORTANT */
-            width: 100%;
-            margin: 8px 0 12px;
-            box-shadow: none;
-            border-radius: 12px;
-            opacity: 1;
-            visibility: visible;
-            transform: none;
-            display: none;                 /* hidden by default */
-        }
-
-        #mobileMenu .dropdown-content.show {
-            display: block;
-        }
-
-        #mobileMenu .dropdown-content a {
-            padding: 14px 18px;
-            border-bottom: 1px solid #f3f4f6;
-            font-size: 16px;
-        }
-    }
-
+.nav-link:hover::after,
+.nav-link.active::after {
+    width: 100%;
+}
 </style>
 
+<!-- ======= Top Contact Bar ======= -->
+<div class="bg-black text-gray-300 text-sm hidden md:block">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center h-10">
+
+            <div class="flex items-center space-x-6">
+                <span class="flex items-center space-x-2">
+                    <i class="fas fa-phone-alt text-yellow-400"></i>
+                    <span>+91 9898 03 4466</span>
+                </span>
+
+                <span class="h-4 w-px bg-gray-600"></span>
+
+                <span class="flex items-center space-x-2">
+                    <i class="fas fa-envelope text-yellow-400"></i>
+                    <span>info@cloudrohu.com</span>
+                </span>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <a href="{{ site_setting.facebook }}" class="hover:text-white flex items-center gap-2">
+                    <i class="fa-brands fa-facebook"></i> Facebook
+                </a>
+
+                <a href="{{ site_setting.instagram }}" class="hover:text-white">
+                    <i class="fa-brands fa-instagram"></i> Instagram
+                </a>
+
+                <a href="{{ site_setting.linkdin }}" class="hover:text-white">
+                    <i class="fa-brands fa-linkedin"></i> LinkedIn
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>  
+
+<!-- ================== MAIN HEADER ================== -->
+<header class="bg-[{{site_setting.nav_color}}] text-white shadow-lg sticky top-0 z-50 border-b border-[#222]">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-center py-2">
+
+            <!-- Logo Image -->
+            <div>
+                <img src="{{ site_setting.logo.url }}" alt="Logo" class="h-12">
+            </div>
+
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center space-x-10 text-sm uppercase tracking-wider relative">
+                
+                <a href="/" class="nav-link {% if request.path == '/' %}active text-[#d4af37]{% endif %}">Home</a>
+                <a href="{% url 'home:about' %}" class="nav-link {% if request.path == '/about/' %}active text-[#d4af37]{% endif %}">About</a>
+                <a href="#" class="nav-link hover:text-[#d4af37]">Highlights</a>
+                <a href="#" class="nav-link hover:text-[#d4af37]">Enquiry</a>
+
+                <!-- Dropdown -->
+                <div class="relative">
+                    <button id="projectBtn" class="nav-link hover:text-[#d4af37] flex items-center gap-2">
+                        Project
+                        <i class="fa-solid fa-chevron-down text-xs"></i>
+                    </button>
+
+                    <div id="projectMenu" class="absolute left-0 mt-4 w-56 bg-[#111] border border-[#333] shadow-xl hidden">
+                        <a href="#" class="block px-6 py-3 hover:bg-[#d4af37] hover:text-black transition">
+                            Ongoing Projects
+                        </a>
+                          <hr class="border border-white h-px bg-gradient-to-r from-transparent via-gray-500 to-transparent">
+                        <a href="#" class="block px-6 py-3 hover:bg-[#d4af37] hover:text-black transition">
+                            Completed Projects
+                        </a>
+                    </div>
+                    
+                </div>
+
+                <a href="{% url 'home:contact' %}" class="nav-link hover:text-[#d4af37]">Contact</a>
+            </nav>
+
+            <!-- Mobile Button -->
+            <button id="openDrawer" class="md:hidden text-2xl text-[#d4af37]">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+
+        </div>
+    </div>
+</header>
+
+<!--  ======= 🚀 Drawer ======= -->
+<div id="drawer" class="fixed top-0 right-0 h-full w-72 bg-[#111] border-l border-[#333] transform translate-x-full transition duration-300 z-50 p-6">
+
+    <div class="flex justify-between items-center mb-8">
+        <img src="{{ site_setting.logo.url }}" alt="Logo" class="h-10">
+        <button id="closeDrawer" class="text-xl text-white">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <div class="flex flex-col space-y-6 text-gray-300 uppercase text-sm">
+        <a href="#" class="hover:text-[#d4af37]">Home</a>
+        <a href="#" class="hover:text-[#d4af37]">About</a>
+        <a href="#" class="hover:text-[#d4af37]">Highlights</a>
+        <a href="#" class="hover:text-[#d4af37]">Enquiry</a>
+
+        <div>
+            <p class="text-[#d4af37] mb-2">Project</p>
+            <a href="#" class="block pl-4 py-1 hover:text-[#d4af37]">Ongoing Projects</a>
+            <a href="#" class="block pl-4 py-1 hover:text-[#d4af37]">Completed Projects</a>
+        </div>
+
+        <a href="#" class="hover:text-[#d4af37]">Contact</a>
+    </div>
+</div>
+
+<div id="overlay" class="fixed inset-0 bg-black bg-opacity-70 hidden z-40"></div>
+<!-- ================== MAIN HEADER END ================== -->
+
 <script>
-    function toggleDropdown(e) {
-        if (window.innerWidth < 768) {
-            e.preventDefault();
-            const dropdown = e.currentTarget.closest(".dropdown");
-            const menu = dropdown.querySelector(".dropdown-content");
+// Drawer
+const drawer = document.getElementById("drawer");
+const overlay = document.getElementById("overlay");
 
-            // close other dropdowns
-            document.querySelectorAll("#mobileMenu .dropdown-content").forEach(d => {
-                if (d !== menu) d.classList.remove("show");
-            });
+document.getElementById("openDrawer").onclick = () => {
+    drawer.classList.remove("translate-x-full");
+    overlay.classList.remove("hidden");
+};
 
-            menu.classList.toggle("show");
-        }
-    }
+document.getElementById("closeDrawer").onclick = closeDrawer;
+overlay.onclick = closeDrawer;
+
+function closeDrawer() {
+    drawer.classList.add("translate-x-full");
+    overlay.classList.add("hidden");
+}
+
+// Dropdown click toggle
+const projectBtn = document.getElementById("projectBtn");
+const projectMenu = document.getElementById("projectMenu");
+
+projectBtn.addEventListener("click", function(e){
+    e.stopPropagation();
+    projectMenu.classList.toggle("hidden");
+});
+
+// Close dropdown when clicking outside
+document.addEventListener("click", function(){
+    projectMenu.classList.add("hidden");
+});
 </script>

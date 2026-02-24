@@ -2,7 +2,6 @@
 {% load static %}
 {% block title %}About | {{ site_setting.site_name }}{% endblock %}
 {% block content %}
-<script src="https://cdn.tailwindcss.com"></script>
 {% if about %}
 <br>
 <br>
@@ -28,55 +27,59 @@
 </style>
 
 
-
-<!-- HERO -->
-<section class="relative mt-12 h-[75vh] flex items-center justify-center overflow-hidden mt-15">
-
-  <!-- Background Image -->
-  <img 
-    src="{{site_setting.about_banner.url}}" 
-    alt="Hero Image"
-    class="absolute inset-0 w-full h-full object-cover"
-  >
-
-
-  <!-- CONTENT -->
-  <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
-
-    <!-- Heading -->
-    <h1 class="text-4xl sm:text-5xl text-[#ec3237] lg:text-6xl font-gray-400 mb-20 font-bold leading-tight">
-      {{ about.hero_heading }}
+<!-- HERO SECTION -->
+<section class="w-full">
+  <div class="w-full py-20 flex items-center justify-center bg-gradient-to-b from-[#f4a261] via-[#f79d3c] to-[#f28c28]">
+    <h1 class="text-white text-3xl sm:text-4xl md:text-5xl font-semibold tracking-[8px] uppercase">
+      Capture Talent
     </h1>
-
-    <!-- Subtitle -->
-    <p class="mt-5 text-lg sm:text-xl text-gray-500 max-w-3xl mx-auto">
-      {{ about.hero_subtitle }}
-    </p>
-
   </div>
+  <div class="w-full h-8 bg-[#e5e5e5]"></div>
 </section>
 
 
 
+ <!-- ABOUT -->
+<section class="w-full bg-[#efefef] py-20">
 
-<!-- ABOUT -->
-<section class="py-20 bg-white">
-  <div class="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+  <div class="max-w-6xl mx-auto px-6">
 
-    <img
-      src="{% if about.hero_image %}{{ about.hero_image.url }}{% else %}{% static 'assets/images/about/1.JPG' %}{% endif %}"
-      class="rounded-xl shadow-lg w-full object-cover"
-      alt="About Image">
+    <!-- Title Box -->
+    <div class="flex justify-center mb-14">
+      <div class="bg-[#f28c28] px-8 py-3">
+        <h2 class="text-white text-2xl md:text-3xl tracking-[6px] uppercase font-semibold">
+          About Capture Talent
+        </h2>
+      </div>
+    </div>
 
-    <div>
-      <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-black">{{about.hero_heading}}</h2>
-      <p class="text-gray-600 leading-relaxed">
-        {{ about.content }}
-      </p>
+    <!-- Content Grid -->
+    <div class="grid md:grid-cols-2 gap-14 items-center">
+
+      <!-- Left Image -->
+      <div>
+        <img src="https://capturetalent.in/uploads/about_img/1765474007_f18b2f4bd01ea2bacc10.webp" alt="About {{ site_setting.site_name }}" class="rounded-xl shadow-lg w-full">
+      </div>
+
+      <!-- Right Text -->
+      <div>
+        <p class="text-gray-800 text-xl active leading-loose tracking-[2.5px] font-semibold">
+          Capture Talent is a one-stop platform that brings together actors,
+          actresses, models, creatives, and crew members—all in one place.
+          It streamlines the process of discovering and collaborating with
+          skilled professionals. Whether you're casting for a project or
+          seeking new opportunities, Capture Talent connects you directly
+          to the right people.
+        </p>  
+      </div>
+
     </div>
 
   </div>
+
 </section>
+<!-- ABOUT END-->
+
 
 <!-- MISSION & VISION -->
 <section class="py-16 bg-gray-100">
@@ -96,6 +99,8 @@
     </div>
   </div>
 </section>
+<!-- MISSION & VISION END-->   
+
 
 <!-- FAQ SECTION -->
 <section class="py-20 bg-gray-50" id="faqs">
@@ -141,6 +146,7 @@
 
   </div>
 </section>
+<!-- FAQ SECTION END-->
 
 
 

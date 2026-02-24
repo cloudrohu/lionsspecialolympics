@@ -23,7 +23,6 @@ class Profile(models.Model):
     def __str__(self):
         return self.full_name or str(self.user)
 
-
 class Volunteer(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='volunteer_profiles')
     skills = models.TextField(blank=True, help_text='Comma separated or free text of skills')
@@ -40,7 +39,6 @@ class Volunteer(models.Model):
     def __str__(self):
         return f"Volunteer: {self.profile.full_name or self.profile.user}" 
 
-
 class Donor(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.SET_NULL, null=True, blank=True, related_name='donor_profiles')
     donor_type = models.CharField(max_length=50, choices=[('individual', 'Individual'), ('organization', 'Organization')], default='individual')
@@ -51,7 +49,6 @@ class Donor(models.Model):
         if self.profile and self.profile.full_name:
             return f"Donor: {self.profile.full_name}"
         return f"Donor #{self.pk}"
-
 
 class Campaign(models.Model):
     title = models.CharField(max_length=255)
@@ -73,7 +70,6 @@ class Campaign(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class Project(models.Model):
     STATUS_CHOICES = [
@@ -106,7 +102,6 @@ class Project(models.Model):
     def __str__(self):
         return self.title
 
-
 class Donation(models.Model):
     PAYMENT_METHODS = [
         ('razorpay', 'Razorpay'),
@@ -137,7 +132,6 @@ class Donation(models.Model):
     def __str__(self):
         return f"Donation {self.pk} - {self.amount}"
 
-
 class Event(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True)
@@ -158,7 +152,6 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
-
 
 class EventRegistration(models.Model):
     STATUS = [
@@ -181,7 +174,6 @@ class EventRegistration(models.Model):
     def __str__(self):
         who = self.user or self.name
         return f"{who} -> {self.event.title}"
-
 
 class NewsPost(models.Model):
     title = models.CharField(max_length=255)
@@ -209,7 +201,6 @@ class NewsPost(models.Model):
     def __str__(self):
         return self.title
 
-
 class ContactMessage(models.Model):
     name = models.CharField(max_length=255)
     phone = models.CharField(max_length=12, blank=True)
@@ -225,7 +216,6 @@ class ContactMessage(models.Model):
     def __str__(self):
         return f"{self.name} - {self.subject}"
 
-
 class GalleryImage(models.Model):
     title = models.CharField(max_length=255, blank=True)
     image = models.ImageField(upload_to='gallery/%Y/%m/')
@@ -239,7 +229,6 @@ class GalleryImage(models.Model):
 
     def __str__(self):
         return self.title or f"Image {self.pk}"
-
 
 class Partner(models.Model):
     photo = models.ImageField(upload_to='partners/', blank=True, null=True)
@@ -286,8 +275,6 @@ class Leadership(models.Model):
     def __str__(self):
         return self.name
 
-
-# Optional models: FAQ, Testimonial, ImpactMetric, Location
 class FAQ(models.Model):
     question = models.CharField(max_length=500)
     answer = models.TextField()
@@ -300,7 +287,6 @@ class FAQ(models.Model):
 
     def __str__(self):
         return self.question
-
 
 class Testimonial(models.Model):
     author_name = models.CharField(max_length=255)
@@ -316,7 +302,6 @@ class Testimonial(models.Model):
     def __str__(self):
         return f"{self.author_name} - {'Featured' if self.is_featured else 'Testimonial'}"
 
-
 class ImpactMetric(models.Model):
     title = models.CharField(max_length=255)
     value = models.CharField(max_length=100, help_text='E.g. "10,000+" or "95%"')
@@ -330,7 +315,6 @@ class ImpactMetric(models.Model):
 
     def __str__(self):
         return f"{self.title}: {self.value}"
-
 
 class Location(models.Model):
     name = models.CharField(max_length=255)
@@ -351,7 +335,6 @@ class Location(models.Model):
     def __str__(self):
         return self.name
     
-
 class SocialLink(models.Model):
     """Represent social media profiles or external links for Profiles, Partners, or the organisation."""
     PLATFORM_CHOICES = [
@@ -388,7 +371,6 @@ class SocialLink(models.Model):
         owner = self.profile or self.partner or 'Organisation'
         return f"{self.platform} ({owner})"
 
-# add near other models in home/models.py
 class CarouselSlide(models.Model):
     title = models.CharField(max_length=200, blank=True)
     subtitle = models.CharField(max_length=300, blank=True)
@@ -416,8 +398,6 @@ class Highlight(models.Model):
     def __str__(self):
         return self.title
 
-# --- About & Page related models (add these at the end of home/models.py) ---
-
 class TeamMember(models.Model):
     name = models.CharField(max_length=255)
     role = models.CharField(max_length=255, blank=True)
@@ -440,9 +420,6 @@ class TeamMember(models.Model):
     def __str__(self):
         return self.name
     
-    
-
-
 class TimelineEvent(models.Model):
     year = models.CharField(max_length=20)
     title = models.CharField(max_length=255)
@@ -490,7 +467,6 @@ class SiteSetting(models.Model):
     site_name = models.CharField(max_length=200, default="NGO")
     logo = models.ImageField(upload_to="settings/", blank=True, null=True)
     favicon = models.ImageField(upload_to="settings/", blank=True, null=True)
-
     tagline = models.CharField(max_length=300, blank=True)
     about_short = models.TextField(blank=True)
     copyright = models.CharField(max_length=300, blank=True)
@@ -499,15 +475,10 @@ class SiteSetting(models.Model):
     partners_banner = models.ImageField(upload_to="partners_banner/", blank=True, null=True)
     about_banner = models.ImageField(upload_to="about_banner/", blank=True, null=True)
     contect_banner = models.ImageField(upload_to="contect_banner/", blank=True, null=True)
-
-
-    
-
     phone = models.CharField(max_length=50, blank=True)
     email = models.EmailField(blank=True)
     address = models.TextField(blank=True)
     googlemap = models.TextField(blank=True, null=True)
-
 
     payment_qr = models.ImageField(upload_to="payment/", blank=True, null=True)
     default_hero = models.ImageField(upload_to="settings/", blank=True, null=True)
